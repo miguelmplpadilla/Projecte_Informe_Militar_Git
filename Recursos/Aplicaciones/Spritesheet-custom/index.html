@@ -36,13 +36,13 @@
 
 			<ul id="pruebaInsercion">
 				<li>
-					<span class="condensed">Sexo</span>
-					<ul>
-						<li>
-							<input type="radio" id="sex-male" name="sex" checked>
-							<label for="sex-male">Hombre</label>
-						</li>
-						<li>
+					<!--<li>
+						<span class="condensed">Sexo</span>
+						<ul>
+							<li>
+								<input type="radio" id="sex-male" name="sex" checked>
+								<label for="sex-male">Hombre</label>
+							</li>
 							<li>
 								<input type="radio" id="sex-female" name="sex">
 								<label for="sex-female">Mujer</label>
@@ -50,7 +50,7 @@
 						</ul>
 					</li>
 
-					<!--<li>
+					<li>
 						<span class="condensed">Color Piel</span>
 						<ul>
 							<ul>
@@ -90,25 +90,59 @@
 					</li>
 			</ul>
 		</section>
-
-		<script type="text/javascript">
-			var stringToHTML = function (str) {
-				var dom = document.createElement('li');
-				dom.innerHTML = str;
-				return dom;
-			};
-
-			var ul = document.getElementById("pruebaInsercion");
-			var append = "<%= name %>";
-
-			var html = stringToHTML(append);
-
-			ul.innerHTML =  html.textContent + ul.innerHTML;
-		</script>
 	</form>
 	<section id="preview">
 		<p class="instr">The complete resulting sprite sheet for your character:</p>
 		<canvas id="spritesheet" width="832" height="1344">HTML5 Browser required.</canvas>
 	</section>
 </body>
+
+<script type="text/javascript">
+	var stringToHTML = function (str) {
+		var dom = document.createElement('li');
+		dom.innerHTML = str;
+		return dom;
+	};
+
+	var ul = document.getElementById("pruebaInsercion");
+	var append = "<%= name %>";
+
+	var html = stringToHTML(append);
+
+	ul.innerHTML =  html.textContent + ul.innerHTML;
+
+	function changeSex() {
+		var elementosMale = document.getElementsByClassName("male");
+		var elementosFemale = document.getElementsByClassName("female");
+
+		var male = [];
+		var female = [];
+
+		male = document.getElementById("sex-male");
+		female = document.getElementById("sex-female");
+
+		if (male.checked) {
+			console.log("Male checked");
+
+			for (var i = 0; i < elementosMale.length; i++) {
+				elementosMale[i].style.display = "block";
+			}
+
+			for (var i = 0; i < elementosFemale.length; i++) {
+				elementosFemale[i].style.display = "none";
+			}
+		} else if (female.checked) {
+			console.log("Female checked");
+
+			for (var i = 0; i < elementosFemale.length; i++) {
+				elementosFemale[i].style.display = "block";
+			}
+
+			for (var i = 0; i < elementosMale.length; i++) {
+				elementosMale[i].style.display = "none";
+			}
+		}
+	}
+</script>
+
 </html>
