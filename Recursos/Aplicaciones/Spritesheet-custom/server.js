@@ -38,8 +38,10 @@ function crearCategoria(path, tipo) {
 
     insercionHtml = insercionHtml + '<li> <span class="condensed"> '+tipo+' </span> <ul>';
 
-    //insercionHtml = insercionHtml + '<li><input type="radio" id="'+tipo+'-no_'+tipo+'" name="'+tipo+'" data-file="/1-body/none.png"><label for="'+tipo+'-no_'+tipo+'">None</label></li>';
-
+    if (tipo != "1-body") {
+        insercionHtml = insercionHtml + '<li><input type="radio" id="'+tipo+'-no_'+tipo+'" name="'+tipo+'" data-file="/1-body/none.png"><label for="'+tipo+'-no_'+tipo+'">None</label></li>';
+    }
+    
     for (var i = 0; i < files.length; i++) {
         
         if (fs.statSync(pathBody+'/'+files[i]).isDirectory()) {
@@ -54,10 +56,8 @@ function crearCategoria(path, tipo) {
                 var pathArchivo = pathBody+"/"+files[i]+"/"+archivos[j];
 
                 if (!fs.statSync(pathArchivo).isDirectory()) {
-                    console.log("Creando lista");
                     insercionHtml = addDomToList(archivos[j], pathArchivo, insercionHtml, tipo, files[i]);
                 } else {
-                    console.log("Creando carpeta");
                     crearCategoria(pathBody+'/'+files[i]+'/', archivos[j]);
                 }
             }
