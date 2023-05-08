@@ -1,0 +1,69 @@
+{
+  "passages": [
+    {
+      "text": "Hola como estas?\n\n[[Bien]]\n[[Tu puta madre]]",
+      "links": [
+        {
+          "name": "Bien",
+          "link": "Bien",
+          "pid": "2"
+        },
+        {
+          "name": "Tu puta madre",
+          "link": "Tu puta madre",
+          "pid": "3"
+        }
+      ],
+      "name": "Prueba",
+      "pid": "1",
+      "position": {
+        "x": "696",
+        "y": "363"
+      }
+    },
+    {
+      "text": "De locos\n\n[[De locos]]\n[[Tu puta madre]]",
+      "links": [
+        {
+          "name": "De locos",
+          "link": "De locos",
+          "pid": "4"
+        },
+        {
+          "name": "Tu puta madre",
+          "link": "Tu puta madre",
+          "pid": "3"
+        }
+      ],
+      "name": "Bien",
+      "pid": "2",
+      "position": {
+        "x": "621",
+        "y": "513"
+      }
+    },
+    {
+      "text": "La tuya",
+      "name": "Tu puta madre",
+      "pid": "3",
+      "position": {
+        "x": "853",
+        "y": "526"
+      }
+    },
+    {
+      "text": "De locos",
+      "name": "De locos",
+      "pid": "4",
+      "position": {
+        "x": "621",
+        "y": "663"
+      }
+    }
+  ],
+  "name": "HistoriaPrueba",
+  "startnode": "1",
+  "creator": "Twine",
+  "creator-version": "2.2.0",
+  "ifid": "0D2D4977-EAFC-439B-9CCB-2DB81AA120BA"
+}
