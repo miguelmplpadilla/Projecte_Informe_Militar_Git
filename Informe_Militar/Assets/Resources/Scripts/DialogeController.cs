@@ -71,9 +71,11 @@ public class DialogeController : MonoBehaviour
                 float angle = i * Mathf.PI*2f / passage.links.Count;
 
                 Vector3 newPos = new Vector3(botones.transform.position.x + Mathf.Cos(angle)*distanciaOpciones, botones.transform.position.y + Mathf.Sin(angle)*distanciaOpciones);
-                GameObject boton = Instantiate(botonPrefab, newPos, Quaternion.identity);
+                GameObject boton = Instantiate(botonPrefab);
+                
+                boton.transform.SetParent(botones.transform);
 
-                boton.transform.parent = botones.transform;
+                boton.GetComponent<RectTransform>().position = newPos;
 
                 boton.GetComponentInChildren<TextMeshProUGUI>().text = jsonConverter.dialogos[passage.links[i].name].name;
 
