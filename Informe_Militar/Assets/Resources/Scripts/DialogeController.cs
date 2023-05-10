@@ -23,7 +23,7 @@ public class DialogeController : MonoBehaviour
 
         string textoMostrar = montarString(jsonConverter.textos.passages[0].text);
         
-        botones = GameObject.Find("Botones");
+        botones = GameObject.Find("ContentBotones");
         
         createOptionsArroundPoint(jsonConverter.textos.passages[0]);
         
@@ -71,20 +71,13 @@ public class DialogeController : MonoBehaviour
                 float angle = i * Mathf.PI*2f / passage.links.Count;
 
                 Vector3 newPos = new Vector3(botones.transform.position.x + Mathf.Cos(angle)*distanciaOpciones, botones.transform.position.y + Mathf.Sin(angle)*distanciaOpciones);
-                GameObject boton = Instantiate(botonPrefab);
-                
-                boton.transform.SetParent(botones.transform);
-
-                boton.GetComponent<RectTransform>().position = newPos;
+                GameObject boton = Instantiate(botonPrefab, botones.transform);
 
                 boton.GetComponentInChildren<TextMeshProUGUI>().text = jsonConverter.dialogos[passage.links[i].name].name;
 
                 boton.GetComponent<BotonOpcionController>().id = passage.links[i].name;
             
-                if (Math.Abs(boton.transform.localPosition.y) > 10)
-                {
-                    boton.transform.localPosition = new Vector3(boton.transform.localPosition.x, boton.transform.localPosition.y / 2);
-                }
+                
             }
         }
     }  
