@@ -16,10 +16,6 @@ public class BotonOpcionController : MonoBehaviour
 
     public void responder()
     {
-        string texto = dialogeController.montarString(dialogeController.jsonConverter.dialogos[id].text);
-        
-        dialogeController.iniciarMostrarTexto(texto);
-        
-        dialogeController.createOptionsArroundPoint(dialogeController.jsonConverter.dialogos[id]);
+        dialogeController.iniciarMostrarTexto(dialogeController.jsonConverter.dialogos[id]);
     }
 }

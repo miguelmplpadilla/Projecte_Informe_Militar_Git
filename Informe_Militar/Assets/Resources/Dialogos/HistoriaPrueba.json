@@ -1,7 +1,7 @@
 {
   "passages": [
     {
-      "text": "<m>Hola como estas?\n\n[[Bien]]\n[[Tu puta madre]]",
+      "text": "Hola como estas?\n\n[[Bien]]\n[[Tu puta madre]]\n[[Tercera opcion]]",
       "links": [
         {
           "name": "Bien",
@@ -12,6 +12,11 @@
           "name": "Tu puta madre",
           "link": "Tu puta madre",
           "pid": "3"
+        },
+        {
+          "name": "Tercera opcion",
+          "link": "Tercera opcion",
+          "pid": "7"
         }
       ],
       "name": "Prueba",
@@ -38,8 +43,8 @@
       "name": "Bien",
       "pid": "2",
       "position": {
-        "x": "621",
-        "y": "513"
+        "x": "548",
+        "y": "493"
       }
     },
     {
@@ -47,17 +52,68 @@
       "name": "Tu puta madre",
       "pid": "3",
       "position": {
-        "x": "853",
-        "y": "526"
+        "x": "749",
+        "y": "588"
       }
     },
     {
-      "text": "De locos",
+      "text": "De locos\n\n[[Matado]]",
+      "links": [
+        {
+          "name": "Matado",
+          "link": "Matado",
+          "pid": "5"
+        }
+      ],
       "name": "De locos",
       "pid": "4",
       "position": {
-        "x": "621",
-        "y": "663"
+        "x": "566",
+        "y": "757"
+      }
+    },
+    {
+      "text": "Esto es una prueba sin decisiones\n\n[[Prueba ejecucion]]",
+      "links": [
+        {
+          "name": "Prueba ejecucion",
+          "link": "Prueba ejecucion",
+          "pid": "6"
+        }
+      ],
+      "name": "Matado",
+      "pid": "5",
+      "position": {
+        "x": "540",
+        "y": "930"
+      }
+    },
+    {
+      "text": "Se acaba de ejecutar algo",
+      "name": "Prueba ejecucion",
+      "pid": "6",
+      "position": {
+        "x": "766",
+        "y": "977"
+      },
+      "tags": [
+        "Funcion>mostrarTexto"
+      ]
+    },
+    {
+      "text": "Este es el texto para la tercera opcion\n\n[[De locos]]",
+      "links": [
+        {
+          "name": "De locos",
+          "link": "De locos",
+          "pid": "4"
+        }
+      ],
+      "name": "Tercera opcion",
+      "pid": "7",
+      "position": {
+        "x": "983",
+        "y": "761"
       }
     }
   ],

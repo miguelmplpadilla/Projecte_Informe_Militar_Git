@@ -150,7 +150,7 @@ public class TextAnimationController : MonoBehaviour
             
             for (int i = 0; i < values.Length; i++)
             {
-                if (values.Length >= 3)
+                if (values[i].Length >= 3)
                 {
                     string tresCaracteres = values[i].Substring(0, 3);
 
@@ -335,6 +335,8 @@ public class TextAnimationController : MonoBehaviour
 
     public void iniciarMostrarTexto(string textoMostrar)
     {
+        StopCoroutine("mostrarTextoV1");
+        
         textoEscribir = textoMostrar;
         
         initialiceWordIndexer();

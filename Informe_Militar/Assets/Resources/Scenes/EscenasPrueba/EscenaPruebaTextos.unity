@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 369543030}
   - component: {fileID: 369543029}
   m_Layer: 5
-  m_Name: Scroll View
+  m_Name: ScrollViewDialogos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 691970513}
   - component: {fileID: 691970512}
   m_Layer: 5
-  m_Name: Scrollbar Vertical
+  m_Name: ScrollbarVertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -496,7 +496,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2091068903}
   m_HandleRect: {fileID: 2091068902}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -768,6 +768,7 @@ GameObject:
   - component: {fileID: 1256862893}
   - component: {fileID: 1256862895}
   - component: {fileID: 1256862894}
+  - component: {fileID: 1256862896}
   m_Layer: 5
   m_Name: PanelDialogos
   m_TagString: Untagged
@@ -835,6 +836,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1256862892}
   m_CullTransparentMesh: 1
+--- !u!114 &1256862896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256862892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d580338d0af45042b7f7c7940f76718, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollBar: {fileID: 691970510}
+  content: {fileID: 1245160410}
+  scrollRect: {fileID: 369543029}
 --- !u!1 &1561318494
 GameObject:
   m_ObjectHideFlags: 0

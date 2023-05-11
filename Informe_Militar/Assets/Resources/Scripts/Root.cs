@@ -17,6 +17,7 @@ namespace Resources.Scripts
         public string name { get; set; }
         public string pid { get; set; }
         public Position position { get; set; }
+        public List<string> tags { get; set; }
     }
 
     public class Position
