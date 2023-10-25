@@ -1,7 +1,7 @@
 {
   "passages": [
     {
-      "text": "Hola como estas?\n\n[[Bien]]\n[[Tu puta madre]]\n[[Tercera opcion]]",
+      "text": "Hola como estas?\n\n[[Bien]]\n[[Perfecto]]\n[[Tercera opcion]]",
       "links": [
         {
           "name": "Bien",
@@ -9,14 +9,14 @@
           "pid": "2"
         },
         {
-          "name": "Tu puta madre",
-          "link": "Tu puta madre",
-          "pid": "3"
+          "name": "Perfecto",
+          "link": "Perfecto",
+          "pid": "6"
         },
         {
           "name": "Tercera opcion",
           "link": "Tercera opcion",
-          "pid": "7"
+          "pid": "5"
         }
       ],
       "name": "Prueba",
@@ -27,17 +27,17 @@
       }
     },
     {
-      "text": "De locos\n\n[[De locos]]\n[[Tu puta madre]]",
+      "text": "De locos\n\n[[De locos]]\n[[Perfecto]]",
       "links": [
         {
           "name": "De locos",
           "link": "De locos",
-          "pid": "4"
+          "pid": "3"
         },
         {
-          "name": "Tu puta madre",
-          "link": "Tu puta madre",
-          "pid": "3"
+          "name": "Perfecto",
+          "link": "Perfecto",
+          "pid": "6"
         }
       ],
       "name": "Bien",
@@ -48,53 +48,28 @@
       }
     },
     {
-      "text": "La tuya",
-      "name": "Tu puta madre",
-      "pid": "3",
-      "position": {
-        "x": "749",
-        "y": "588"
-      }
-    },
-    {
-      "text": "De locos\n\n[[Matado]]",
+      "text": "De locos\n\n[[Proxima opcion]]",
       "links": [
         {
-          "name": "Matado",
-          "link": "Matado",
-          "pid": "5"
+          "name": "Proxima opcion",
+          "link": "Proxima opcion",
+          "pid": "7"
         }
       ],
       "name": "De locos",
-      "pid": "4",
+      "pid": "3",
       "position": {
-        "x": "566",
-        "y": "757"
-      }
-    },
-    {
-      "text": "Esto es una prueba sin decisiones\n\n[[Prueba ejecucion]]",
-      "links": [
-        {
-          "name": "Prueba ejecucion",
-          "link": "Prueba ejecucion",
-          "pid": "6"
-        }
-      ],
-      "name": "Matado",
-      "pid": "5",
-      "position": {
-        "x": "540",
-        "y": "930"
+        "x": "526",
+        "y": "779"
       }
     },
     {
       "text": "Se acaba de ejecutar algo",
       "name": "Prueba ejecucion",
-      "pid": "6",
+      "pid": "4",
       "position": {
-        "x": "766",
-        "y": "977"
+        "x": "740",
+        "y": "958"
       },
       "tags": [
         "Funcion>mostrarTexto"
@@ -106,14 +81,39 @@
         {
           "name": "De locos",
           "link": "De locos",
-          "pid": "4"
+          "pid": "3"
         }
       ],
       "name": "Tercera opcion",
+      "pid": "5",
+      "position": {
+        "x": "960",
+        "y": "802"
+      }
+    },
+    {
+      "text": "Haz doble clic sobre este pasaje para editarlo.",
+      "name": "Perfecto",
+      "pid": "6",
+      "position": {
+        "x": "765",
+        "y": "613"
+      }
+    },
+    {
+      "text": "La proxima opción es de ejecución\n\n[[Prueba ejecucion]]",
+      "links": [
+        {
+          "name": "Prueba ejecucion",
+          "link": "Prueba ejecucion",
+          "pid": "4"
+        }
+      ],
+      "name": "Proxima opcion",
       "pid": "7",
       "position": {
-        "x": "983",
-        "y": "761"
+        "x": "543",
+        "y": "948"
       }
     }
   ],

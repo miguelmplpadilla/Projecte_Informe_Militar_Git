@@ -1,52 +1,61 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
 using Resources.Scripts;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DialogeController : MonoBehaviour
 {
-    public JSONConverter jsonConverter;
     public TextAnimationController textAnimationController;
+    private PlayerModel _playerModel;
 
     public GameObject botonPrefab;
     private GameObject botones;
-
-    public float distanciaOpciones = 10;
 
     private Passage siguietenPassage;
 
     private bool multiOpcion = false;
 
+    public Dictionary<string, Passage> dialogos = new Dictionary<string, Passage>();
+    public Story story;
+
+    private GameObject npc;
+
     void Start()
     {
-        jsonConverter = GameObject.Find("TextoPrueba").GetComponent<JSONConverter>();
-        textAnimationController = GameObject.Find("TextoPrueba").GetComponent<TextAnimationController>();
-
+        textAnimationController = GameObject.Find("TextoNpc").GetComponent<TextAnimationController>();
         botones = GameObject.Find("ContentBotones");
-
-        iniciarMostrarTexto(jsonConverter.textos.passages[0]);
+        
+        if(!SceneManager.GetActiveScene().name.Equals("TextosPruebaEscena")) 
+            _playerModel = GameObject.Find("Player").GetComponent<PlayerModel>();
     }
 
     private void Update()
     {
-        if (!multiOpcion)
-        {
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
-                iniciarMostrarTexto(siguietenPassage);
-            }
-        }
+        if (multiOpcion) return;
+        
+        if (Input.GetKeyDown(KeyCode.Return))
+            iniciarMostrarTexto(siguietenPassage);
+    }
+
+    public void startDialoge(Passage p, Dictionary<string, Passage> d, GameObject n, Story s)
+    {
+        dialogos = new Dictionary<string, Passage>(d);
+        npc = n;
+        story = s;
+
+        //botones.GetComponent<RectTransform>().anchoredPosition = new Vector2(18.04163f, -86.18922f);
+        transform.parent.localScale = Vector3.one;
+        
+        iniciarMostrarTexto(p);
     }
 
     public void iniciarMostrarTexto(Passage text)
     {
         if (text != null)
         {
+            setPassageUnique(text);
             string textoMostrar = montarString(text.text);
 
             textAnimationController.iniciarMostrarTexto(textoMostrar);
@@ -54,10 +63,36 @@ public class DialogeController : MonoBehaviour
             createOptionsArroundPoint(text);
 
             ejecutarTags(text);
+            return;
         }
-        else
+
+       if(!SceneManager.GetActiveScene().name.Equals("TextosPruebaEscena")) 
+           JSONConverter.rewriteJson(story);
+
+        transform.parent.localScale = Vector3.zero;
+
+        if (_playerModel == null) return;
+        _playerModel.canInter = true;
+        _playerModel.mov = true;
+    }
+
+    private void setPassageUnique(Passage passage)
+    {
+        for (int i = 0; i < story.passages.Count; i++)
         {
-            // Esconder dialogos
+            if (passage.name.Equals(story.passages[i].name))
+            {
+                foreach (var tg in story.passages[i].tags)
+                {
+                    Debug.Log(tg);
+                    string[] splitTags = Regex.Split(tg, ">");
+                    if (splitTags[1].Equals("unique"))
+                    {
+                        story.passages[i].ussed = true;
+                        return;
+                    }
+                }
+            }
         }
     }
 
@@ -67,14 +102,9 @@ public class DialogeController : MonoBehaviour
 
         for (int i = 0; i < stringMontar.Length; i++)
         {
-            if (!stringMontar[i].Equals('['))
-            {
-                stringReturn += stringMontar[i];
-            }
-            else
-            {
-                break;
-            }
+            if (stringMontar[i].Equals('[')) break;
+            
+            stringReturn += stringMontar[i];
         }
 
         return stringReturn;
@@ -89,51 +119,67 @@ public class DialogeController : MonoBehaviour
             Destroy(botonesEnEscena[i]);
         }
 
-        if (passage.links != null)
+        multiOpcion = false;
+        siguietenPassage = null;
+
+        List<GameObject> listBotones = new List<GameObject>();
+
+        if (passage.links == null) return;
+
+        if (passage.links.Count > 1 || getShowButton(passage))
         {
-            if (passage.links.Count > 1)
+            multiOpcion = true;
+            foreach (var link in passage.links)
             {
-                multiOpcion = true;
-                for (int i = 0; i < passage.links.Count; i++)
-                {
-                    GameObject boton = Instantiate(botonPrefab, botones.transform);
+                if (dialogos[link.name].ussed) continue;
+                
+                GameObject boton = Instantiate(botonPrefab, botones.transform);
+                listBotones.Add(boton);
 
-                    boton.GetComponentInChildren<TextMeshProUGUI>().text =
-                        jsonConverter.dialogos[passage.links[i].name].name;
+                boton.GetComponentInChildren<TextMeshProUGUI>().text =
+                    dialogos[link.name].name;
 
-                    boton.GetComponent<BotonOpcionController>().id = passage.links[i].name;
-                }
+                boton.GetComponent<BotonOpcionController>().passage = dialogos[link.name];
             }
-            else
+
+            if (listBotones.Count == 0)
             {
+                siguietenPassage = null;
                 multiOpcion = false;
-                siguietenPassage = jsonConverter.dialogos[passage.links[0].name];
             }
+
+            return;
         }
-        else
+        
+        siguietenPassage = passage.links.Count > 0 ? dialogos[passage.links[0].name] : null;
+    }
+
+    private bool getShowButton(Passage passage)
+    {
+        if (passage.tags == null) return false;
+        
+        for (int i = 0; i < passage.tags.Count; i++)
         {
-            multiOpcion = false;
-            siguietenPassage = null;
+            string[] splitTags = Regex.Split(passage.tags[i], ">");
+            if (splitTags[1].Equals("showButton"))
+                return true;
         }
+
+        return false;
     }
 
     public void ejecutarTags(Passage pasage)
     {
-        if (pasage.tags != null)
+        if (pasage.tags == null) return;
+        
+        for (int i = 0; i < pasage.tags.Count; i++)
         {
-            for (int i = 0; i < pasage.tags.Count; i++)
+            string[] splitTags = Regex.Split(pasage.tags[i], ">");
+            if (splitTags[0].Equals("Funcion"))
             {
-                string[] splitTags = Regex.Split(pasage.tags[i], ">");
-                if (splitTags[0].Equals("Funcion"))
-                {
-                    gameObject.BroadcastMessage(splitTags[1]);
-                }
+                Debug.Log("Se ha ejecutado funcion con nombre: "+splitTags[1]);
+                npc.BroadcastMessage(splitTags[1]);
             }
         }
-    }
-
-    public void mostrarTexto()
-    {
-        Debug.Log("Texto mostrado");
     }
 }

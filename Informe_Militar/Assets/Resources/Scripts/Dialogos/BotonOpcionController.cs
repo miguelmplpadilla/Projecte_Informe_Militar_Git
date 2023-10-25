@@ -1,21 +1,21 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Resources.Scripts;
 using UnityEngine;
 
 public class BotonOpcionController : MonoBehaviour
 {
-    public string id;
-
-    private DialogeController dialogeController;
+    public Passage passage;
+    private DialogeController _dialogeController;
 
     private void Start()
     {
-        dialogeController = GameObject.Find("TextoPrueba").GetComponent<DialogeController>();
+        _dialogeController = GameObject.Find("TextoNpc").GetComponent<DialogeController>();
     }
 
     public void responder()
     {
-        dialogeController.iniciarMostrarTexto(dialogeController.jsonConverter.dialogos[id]);
+        _dialogeController.iniciarMostrarTexto(passage);
     }
 }

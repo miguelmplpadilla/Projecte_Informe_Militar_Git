@@ -1,26 +1,38 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.IO;
 using Resources.Scripts;
 using UnityEngine;
 
 public class JSONConverter : MonoBehaviour
 {
-    [SerializeField] private TextAsset jsonDialogos;
-
-    public Root textos;
-    public Dictionary<string, Passage> dialogos = new Dictionary<string, Passage>();
-
-    private void Awake()
+    public static Story parseJson(string idDialogo)
     {
-        string countryJsonStr = jsonDialogos.text;
+        string idioma = "ES";
 
-        textos = JsonConvert.DeserializeObject<Root>(countryJsonStr);
+        Story story = new Story();
+        
+        TextAsset jsonDialogo = UnityEngine.Resources.Load<TextAsset>("JSON/"+idioma+"/JSONDialogos/"+idDialogo);
+        JsonUtility.FromJsonOverwrite(jsonDialogo.text, story);
 
-        for (int i = 0; i < textos.passages.Count; i++)
-        {
-            dialogos.Add(textos.passages[i].name, textos.passages[i]);
-        }
+        return story;
+    }
+
+    public static Story parseFromJson(string json)
+    {
+        Story story = new Story();
+
+        JsonUtility.FromJsonOverwrite(json, story);
+
+        return story;
+    }
+
+    public static string rewriteJson(Story story)
+    {
+        string idioma = "ES";
+        
+        string json = JsonUtility.ToJson(story);
+        
+        File.WriteAllText(Application.dataPath+"/Resources/JSON/"+idioma+"/JSONDialogos/"+story.name+".json", json);
+
+        return json;
     }
 }
