@@ -135,7 +135,7 @@ public class DialogeController : MonoBehaviour
             {
                 if (dialogos[link.name].ussed) continue;
                 int cantButtonCompare = passage.links.Count > 2 ? 2 : 1;
-                GameObject boton = Instantiate(botonPrefab, index <= cantButtonCompare ? continerBotones1.transform : continerBotones2.transform);
+                GameObject boton = Instantiate(botonPrefab, index <= cantButtonCompare ? continerBotones2.transform : continerBotones1.transform);
                 listBotones.Add(boton);
 
                 boton.GetComponentInChildren<TextMeshProUGUI>().text =
