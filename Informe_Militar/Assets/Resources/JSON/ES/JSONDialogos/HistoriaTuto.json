@@ -1,0 +1,68 @@
+﻿{
+  "passages": [
+    {
+      "text": "Hola Mundo\n\n[[Siguiente pasaje]]",
+      "links": [
+        {
+          "name": "Siguiente pasaje",
+          "link": "Siguiente pasaje",
+          "pid": "2"
+        }
+      ],
+      "name": "Mi primer hola mundo",
+      "pid": "1",
+      "position": {
+        "x": "859",
+        "y": "396"
+      }
+    },
+    {
+      "text": "Que pesados estan los putos programadores con el hola mundo. Frikis.\n\n[[Tu puta madre]]\n[[Que te follen]]",
+      "links": [
+        {
+          "name": "Tu puta madre",
+          "link": "Tu puta madre",
+          "pid": "3"
+        },
+        {
+          "name": "Que te follen",
+          "link": "Que te follen",
+          "pid": "4"
+        }
+      ],
+      "name": "Siguiente pasaje",
+      "pid": "2",
+      "position": {
+        "x": "860",
+        "y": "546"
+      },
+      "tags": [
+        "Function>readLetter",
+        "Var>unique"
+      ]
+    },
+    {
+      "text": "La tuya",
+      "name": "Tu puta madre",
+      "pid": "3",
+      "position": {
+        "x": "785",
+        "y": "696"
+      }
+    },
+    {
+      "text": "Cuando quieras",
+      "name": "Que te follen",
+      "pid": "4",
+      "position": {
+        "x": "935",
+        "y": "696"
+      }
+    }
+  ],
+  "name": "HistoriaTuto",
+  "startnode": "1",
+  "creator": "Twine",
+  "creator-version": "2.2.0",
+  "ifid": "551D2B19-292A-47B5-A5A1-5739055DA7D3"
+}

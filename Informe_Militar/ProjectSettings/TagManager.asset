@@ -6,11 +6,13 @@ TagManager:
   tags:
   - BotonOpcion
   - Road
+  - Inter
+  - Ground
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Inter
   - Water
   - UI
   - 

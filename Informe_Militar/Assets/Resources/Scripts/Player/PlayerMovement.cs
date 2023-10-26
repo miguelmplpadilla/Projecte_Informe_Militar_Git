@@ -19,7 +19,6 @@ public class PlayerMovement : MonoBehaviour
 
     public float maxSpeed = 0;
     public float maxSpeedWalk = 2;
-    public float maxSpeedSpring = 3;
     public float currentSpeed = 2f;
 
     private void Awake()
@@ -37,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
         if (_model.mov)
         {
             // Movement
-            maxSpeed = Input.GetButton("Sprint") ? maxSpeedSpring : maxSpeedWalk;
+            maxSpeed = Input.GetButton("Sprint") ? maxSpeedWalk*2 : maxSpeedWalk;
             
             horizontalInput = Input.GetAxisRaw("Horizontal");
             movement = new Vector2(horizontalInput, 0f);
@@ -45,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
             flip();
             movePlayer();
             
-            _animator.SetFloat("velocity",  Math.Abs(horizontalVelocity/maxSpeedSpring));
+            _animator.SetFloat("velocity",  Math.Abs(horizontalVelocity/(maxSpeedWalk*2)));
 
             if (_model.isGrounded && _model.canJump && 
                 Input.GetButtonDown("Jump")) saltar();
@@ -62,6 +61,8 @@ public class PlayerMovement : MonoBehaviour
 
         horizontalVelocity = movement.normalized.x * Math.Abs(currentSpeed);
         _rigidbody.velocity = new Vector2(horizontalVelocity, _rigidbody.velocity.y);
+        
+        _animator.SetBool("run", Input.GetButton("Horizontal"));
     }
 
     private void flip()

@@ -11,7 +11,8 @@ public class DialogeController : MonoBehaviour
     private PlayerModel _playerModel;
 
     public GameObject botonPrefab;
-    private GameObject botones;
+    private GameObject continerBotones1;
+    private GameObject continerBotones2;
 
     private Passage siguietenPassage;
 
@@ -25,7 +26,8 @@ public class DialogeController : MonoBehaviour
     void Start()
     {
         textAnimationController = GameObject.Find("TextoNpc").GetComponent<TextAnimationController>();
-        botones = GameObject.Find("ContentBotones");
+        continerBotones1 = GameObject.Find("ContentBotones1");
+        continerBotones2 = GameObject.Find("ContentBotones2");
         
         if(!SceneManager.GetActiveScene().name.Equals("TextosPruebaEscena")) 
             _playerModel = GameObject.Find("Player").GetComponent<PlayerModel>();
@@ -84,7 +86,6 @@ public class DialogeController : MonoBehaviour
             {
                 foreach (var tg in story.passages[i].tags)
                 {
-                    Debug.Log(tg);
                     string[] splitTags = Regex.Split(tg, ">");
                     if (splitTags[1].Equals("unique"))
                     {
@@ -129,17 +130,20 @@ public class DialogeController : MonoBehaviour
         if (passage.links.Count > 1 || getShowButton(passage))
         {
             multiOpcion = true;
+            int index = 1;
             foreach (var link in passage.links)
             {
                 if (dialogos[link.name].ussed) continue;
-                
-                GameObject boton = Instantiate(botonPrefab, botones.transform);
+                int cantButtonCompare = passage.links.Count > 2 ? 2 : 1;
+                GameObject boton = Instantiate(botonPrefab, index <= cantButtonCompare ? continerBotones1.transform : continerBotones2.transform);
                 listBotones.Add(boton);
 
                 boton.GetComponentInChildren<TextMeshProUGUI>().text =
                     dialogos[link.name].name;
 
                 boton.GetComponent<BotonOpcionController>().passage = dialogos[link.name];
+
+                index++;
             }
 
             if (listBotones.Count == 0)
@@ -175,7 +179,7 @@ public class DialogeController : MonoBehaviour
         for (int i = 0; i < pasage.tags.Count; i++)
         {
             string[] splitTags = Regex.Split(pasage.tags[i], ">");
-            if (splitTags[0].Equals("Funcion"))
+            if (splitTags[0].Equals("Function"))
             {
                 Debug.Log("Se ha ejecutado funcion con nombre: "+splitTags[1]);
                 npc.BroadcastMessage(splitTags[1]);

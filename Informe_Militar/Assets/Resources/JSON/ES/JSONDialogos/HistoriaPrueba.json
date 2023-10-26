@@ -1,0 +1,125 @@
+{
+  "passages": [
+    {
+      "text": "Hola como estas?\n\n[[Bien]]\n[[Perfecto]]\n[[Tercera opcion]]",
+      "links": [
+        {
+          "name": "Bien",
+          "link": "Bien",
+          "pid": "2"
+        },
+        {
+          "name": "Perfecto",
+          "link": "Perfecto",
+          "pid": "6"
+        },
+        {
+          "name": "Tercera opcion",
+          "link": "Tercera opcion",
+          "pid": "5"
+        }
+      ],
+      "name": "Prueba",
+      "pid": "1",
+      "position": {
+        "x": "696",
+        "y": "363"
+      }
+    },
+    {
+      "text": "De locos\n\n[[De locos]]\n[[Perfecto]]",
+      "links": [
+        {
+          "name": "De locos",
+          "link": "De locos",
+          "pid": "3"
+        },
+        {
+          "name": "Perfecto",
+          "link": "Perfecto",
+          "pid": "6"
+        }
+      ],
+      "name": "Bien",
+      "pid": "2",
+      "position": {
+        "x": "548",
+        "y": "493"
+      }
+    },
+    {
+      "text": "De locos\n\n[[Proxima opcion]]",
+      "links": [
+        {
+          "name": "Proxima opcion",
+          "link": "Proxima opcion",
+          "pid": "7"
+        }
+      ],
+      "name": "De locos",
+      "pid": "3",
+      "position": {
+        "x": "526",
+        "y": "779"
+      }
+    },
+    {
+      "text": "Se acaba de ejecutar algo",
+      "name": "Prueba ejecucion",
+      "pid": "4",
+      "position": {
+        "x": "740",
+        "y": "958"
+      },
+      "tags": [
+        "Funcion>mostrarTexto"
+      ]
+    },
+    {
+      "text": "Este es el texto para la tercera opcion\n\n[[De locos]]",
+      "links": [
+        {
+          "name": "De locos",
+          "link": "De locos",
+          "pid": "3"
+        }
+      ],
+      "name": "Tercera opcion",
+      "pid": "5",
+      "position": {
+        "x": "960",
+        "y": "802"
+      }
+    },
+    {
+      "text": "Haz doble clic sobre este pasaje para editarlo.",
+      "name": "Perfecto",
+      "pid": "6",
+      "position": {
+        "x": "765",
+        "y": "613"
+      }
+    },
+    {
+      "text": "La proxima opción es de ejecución\n\n[[Prueba ejecucion]]",
+      "links": [
+        {
+          "name": "Prueba ejecucion",
+          "link": "Prueba ejecucion",
+          "pid": "4"
+        }
+      ],
+      "name": "Proxima opcion",
+      "pid": "7",
+      "position": {
+        "x": "543",
+        "y": "948"
+      }
+    }
+  ],
+  "name": "HistoriaPrueba",
+  "startnode": "1",
+  "creator": "Twine",
+  "creator-version": "2.2.0",
+  "ifid": "0D2D4977-EAFC-439B-9CCB-2DB81AA120BA"
+}

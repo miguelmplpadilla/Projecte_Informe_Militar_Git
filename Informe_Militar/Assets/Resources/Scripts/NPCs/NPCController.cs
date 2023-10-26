@@ -12,12 +12,15 @@ public class NPCController : MonoBehaviour
 
     public string idJson = "HistoriaPrueba";
     private DialogeController _dialogeController;
+
+    private Animator _animator;
     
-    [Header("Deliver Letter Method")]
-    public List<string> cardsId = new List<string>();
+    //[Header("Deliver Letter Method")]
     
     void Start()
     {
+        _animator = GetComponent<Animator>();
+        
         _player = GameObject.Find("Player");
         _dialogeController = GameObject.Find("TextoNpc").GetComponent<DialogeController>();
         
@@ -36,15 +39,36 @@ public class NPCController : MonoBehaviour
     public void inter(PlayerModel model)
     {
         _dialogeController.startDialoge(_textos.passages[0], dialogos, gameObject, _textos);
+        setIdleAnimation();
     }
 
     public void interExit(PlayerModel model)
     {
     }
 
-    public void deliverLetter()
+    public void changeAnimation1()
     {
-        foreach (var idCard in cardsId)
-            _player.BroadcastMessage("deleteCardById", idCard);
+        CancelInvoke("setIdleAnimation");
+        _animator.SetTrigger("dance1");
+        Invoke("setIdleAnimation", 10);
+    }
+    
+    public void changeAnimation2()
+    {
+        CancelInvoke("setIdleAnimation");
+        _animator.SetTrigger("dance2");
+        Invoke("setIdleAnimation", 10);
+    }
+    
+    public void changeAnimation3()
+    {
+        CancelInvoke("setIdleAnimation");
+        _animator.SetTrigger("dance3");
+        Invoke("setIdleAnimation", 10);
+    }
+
+    private void setIdleAnimation()
+    {
+        _animator.SetTrigger("idle");
     }
 }
