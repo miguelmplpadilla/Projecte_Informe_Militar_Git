@@ -1,0 +1,28 @@
+﻿{
+  "texts": [
+    {
+      "id": "languageTitle",
+      "text": "Language:"
+    },
+    {
+      "id": null,
+      "text": null
+    }, 
+    {
+      "id": "volver",
+      "text": "Restart"
+    },
+    {
+      "id": "opciones",
+      "text": "Options"
+    },
+    {
+      "id": "salir",
+      "text": "Exit"
+    },
+    {
+      "id": "cerrar",
+      "text": "Cerrar"
+    }
+  ]
+}

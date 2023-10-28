@@ -9,5 +9,5 @@ public class PlayerModel : MonoBehaviour
     public bool isGrounded = true;
     public bool canJump = false;
 
-    public bool gamePaused = false;
+    public bool isPaused = false;
 }

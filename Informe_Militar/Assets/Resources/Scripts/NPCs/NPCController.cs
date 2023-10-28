@@ -23,13 +23,6 @@ public class NPCController : MonoBehaviour
         
         _player = GameObject.Find("Player");
         _dialogeController = GameObject.Find("TextoNpc").GetComponent<DialogeController>();
-        
-        _textos = JSONConverter.parseJson(idJson);
-        
-        foreach (Passage passage in _textos.passages)
-        {
-            dialogos.Add(passage.name, passage);
-        }
     }
     
     public void interEnter(PlayerModel model)
@@ -38,6 +31,15 @@ public class NPCController : MonoBehaviour
 
     public void inter(PlayerModel model)
     {
+        _textos = JSONConverter.parseJson(idJson);
+        
+        dialogos.Clear();
+        
+        foreach (Passage passage in _textos.passages)
+        {
+            dialogos.Add(passage.name, passage);
+        }
+        
         transform.GetChild(0).localScale = new Vector3(model.transform.position.x > transform.position.x ? -1 : 1, 1, 1);
         _dialogeController.startDialoge(_textos.passages[0], dialogos, gameObject, _textos);
         setIdleAnimation();

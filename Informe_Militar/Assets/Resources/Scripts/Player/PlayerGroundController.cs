@@ -28,7 +28,6 @@ public class PlayerGroundController : MonoBehaviour
         if (other.CompareTag("Ground"))
         {
             _model.isGrounded = false;
-            _animator.SetTrigger("onAir");
         }
     }
 }

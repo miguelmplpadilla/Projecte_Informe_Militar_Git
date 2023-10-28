@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (_model.gamePaused) return;
+        if (_model.isPaused) return;
         
         if (_model.mov)
         {
