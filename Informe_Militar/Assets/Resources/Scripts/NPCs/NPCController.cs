@@ -19,7 +19,7 @@ public class NPCController : MonoBehaviour
     
     void Start()
     {
-        _animator = GetComponent<Animator>();
+        _animator = GetComponentInChildren<Animator>();
         
         _player = GameObject.Find("Player");
         _dialogeController = GameObject.Find("TextoNpc").GetComponent<DialogeController>();
@@ -38,6 +38,7 @@ public class NPCController : MonoBehaviour
 
     public void inter(PlayerModel model)
     {
+        transform.GetChild(0).localScale = new Vector3(model.transform.position.x > transform.position.x ? -1 : 1, 1, 1);
         _dialogeController.startDialoge(_textos.passages[0], dialogos, gameObject, _textos);
         setIdleAnimation();
     }

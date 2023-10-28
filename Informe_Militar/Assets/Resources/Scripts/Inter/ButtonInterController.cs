@@ -13,13 +13,11 @@ public class ButtonInterController : MonoBehaviour
 
     public void mostrar(string textInter)
     {
-        Debug.Log("Mostrar");
         transform.DOScale(originalScale, 0.1f);
     }
 
     public void esconder()
     {
-        Debug.Log("Esconder");
         transform.DOScale(Vector3.zero, 0.1f);
     }
 }
