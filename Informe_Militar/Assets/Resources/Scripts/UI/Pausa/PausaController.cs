@@ -34,8 +34,8 @@ public class PausaController : MonoBehaviour
         }
         else
         {
-            hidePanel("PanelPausa", false);
-            hidePanel("PanelOpciones", true);
+            hidePanel("PanelPausa");
+            closePanel("PanelOpciones");
         }
     }
 
@@ -52,15 +52,18 @@ public class PausaController : MonoBehaviour
         showingPanel = false;
     }
 
-    public async void hidePanel(string name, bool fast)
+    public void closePanel(string name)
+    {
+        GameObject panel = GameObject.Find(name);
+        panel.transform.localScale = Vector3.zero;
+    }
+
+    public async void hidePanel(string name)
     {
         showingPanel = true;
         GameObject panel = GameObject.Find(name);
-        if (!fast)
-            await panel.transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack).SetUpdate(true)
-                .AsyncWaitForCompletion();
-        else
-            panel.transform.localScale = Vector3.zero;
+        await panel.transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack).SetUpdate(true)
+            .AsyncWaitForCompletion();
         showingPanel = false;
     }
 }
