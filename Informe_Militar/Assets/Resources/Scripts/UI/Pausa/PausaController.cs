@@ -25,8 +25,7 @@ public class PausaController : MonoBehaviour
     {
         if (!_model.isPaused && !_model.mov) return;
         
-        _model.isPaused = !_model.isPaused;
-        Time.timeScale = _model.isPaused ? 0 : 1;
+        pause();
 
         if (_model.isPaused)
         {
@@ -37,6 +36,12 @@ public class PausaController : MonoBehaviour
             hidePanel("PanelPausa");
             closePanel("PanelOpciones");
         }
+    }
+
+    public void pause()
+    {
+        _model.isPaused = !_model.isPaused;
+        Time.timeScale = _model.isPaused ? 0 : 1;
     }
 
     public void closeGame()

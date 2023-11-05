@@ -8,6 +8,8 @@ public class PlayerModel : MonoBehaviour
     public bool mov = true;
     public bool isGrounded = true;
     public bool canJump = false;
+    public bool canRun = true;
 
     public bool isPaused = false;
+    public bool canPause = true;
 }

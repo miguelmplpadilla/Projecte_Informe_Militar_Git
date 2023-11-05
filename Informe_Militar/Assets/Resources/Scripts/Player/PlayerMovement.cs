@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
         if (_model.mov)
         {
             // Movement
-            maxSpeed = Input.GetButton("Sprint") ? maxSpeedWalk*2 : maxSpeedWalk;
+            maxSpeed = Input.GetButton("Sprint") && _model.canRun ? maxSpeedWalk*2 : maxSpeedWalk;
             
             horizontalInput = Input.GetAxisRaw("Horizontal");
             movement = new Vector2(horizontalInput, 0f);

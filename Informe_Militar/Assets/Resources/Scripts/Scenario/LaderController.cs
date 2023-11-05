@@ -2,32 +2,64 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Resources.Scripts;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 public class LaderController : MonoBehaviour, InterBaseInterface
 {
-    private GameObject _button;
-    private GameObject _headPlayer;
-    private GameObject _player;
-    private Animator _playerAnimator;
+    private GameObject button;
+    private GameObject headPlayer;
+    private GameObject player;
+    private Animator playerAnimator;
+    private Rigidbody2D playerRb;
+    private PlayerModel playerModel;
+
+    public float currentSpeed = 0;
+    public float maxSpeed = 1;
 
     public bool playerClimbing = false;
+    public bool canClimb = false;
 
     private void Start()
     {
-        _button = transform.GetChild(0).GetChild(0).gameObject;
-        _player = GameObject.Find("Player");
-        _headPlayer = _player.transform.Find("Head").gameObject;
+        button = transform.GetChild(0).GetChild(0).gameObject;
+        player = GameObject.Find("Player");
+        playerAnimator = player.GetComponent<Animator>();
+        playerRb = playerAnimator.GetComponent<Rigidbody2D>();
+        headPlayer = player.transform.Find("Head").gameObject;
     }
 
     private void Update()
     {
-        _button.transform.position = new Vector3(_button.transform.position.x, _headPlayer.transform.position.y,
-            _button.transform.position.z);
+        button.transform.position = new Vector3(button.transform.position.x, headPlayer.transform.position.y,
+            button.transform.position.z);
+        
+        if (!canClimb) return;
+        
+        if (Input.GetKeyDown(KeyCode.F) && playerClimbing)
+        {
+            playerAnimator.SetBool("climbing", false);
+            playerRb.bodyType = RigidbodyType2D.Dynamic;
+            playerModel.mov = true;
+            playerModel.canInter = true;
+            playerAnimator.speed = 1;
+            canClimb = false;
+            playerClimbing = false;
+            return;
+        }
 
-        if (!playerClimbing) return;
+        float verticalInput = Input.GetAxisRaw("Vertical");
         
+        playerAnimator.speed = verticalInput != 0 ? 1 : 0;
         
+        Vector2 movement = new Vector2(0, verticalInput);
+        
+        currentSpeed = verticalInput != 0 ? maxSpeed : 0;
+
+        float verticlaVelocity = movement.normalized.y * Math.Abs(currentSpeed);
+        playerRb.velocity = new Vector2(0, verticlaVelocity);
+
+        playerClimbing = true;
     }
 
     public void interEnter(PlayerModel model)
@@ -36,11 +68,12 @@ public class LaderController : MonoBehaviour, InterBaseInterface
 
     public void inter(PlayerModel model)
     {
-        _player.transform.position = new Vector3(transform.position.x, _player.transform.position.y);
-        _playerAnimator.SetTrigger("climb");
-        _playerAnimator.SetBool("climbing", true);
-        _playerAnimator.StopPlayback();
-        playerClimbing = true;
+        playerModel = model;
+        player.transform.position = new Vector3(transform.position.x, player.transform.position.y);
+        playerAnimator.SetBool("climbing", true);
+        playerAnimator.SetTrigger("climb");
+        playerRb.bodyType = RigidbodyType2D.Kinematic;
+        canClimb = true;
     }
 
     public void interExit(PlayerModel model)
