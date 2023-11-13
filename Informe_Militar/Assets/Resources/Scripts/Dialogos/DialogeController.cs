@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using DG.Tweening;
 using Resources.Scripts;
 using TMPro;
 using UnityEngine;
@@ -175,15 +176,34 @@ public class DialogeController : MonoBehaviour
     public void ejecutarTags(Passage pasage)
     {
         if (pasage.tags == null) return;
-        
+
         for (int i = 0; i < pasage.tags.Count; i++)
         {
             string[] splitTags = Regex.Split(pasage.tags[i], ">");
             if (splitTags[0].Equals("Function"))
             {
-                Debug.Log("Se ha ejecutado funcion con nombre: "+splitTags[1]);
+                writeTextFunction(splitTags[1]);
                 npc.BroadcastMessage(splitTags[1]);
             }
         }
+    }
+
+    private void writeTextFunction(string function)
+    {
+        string scene = SceneManager.GetActiveScene().name;
+
+        if (!scene.Equals("TextosPruebaEscena")) return;
+        
+        TextMeshProUGUI textFunction = GameObject.Find("TextoEjecucionFuncion").GetComponent<TextMeshProUGUI>();
+        
+        Color colorText = textFunction.color;
+        colorText.a = 1;
+        textFunction.color = colorText;
+
+        textFunction.text = "Se ha ejecutado funcion con nombre: " + function;
+        
+        colorText.a = 0;
+
+        textFunction.DOColor(colorText, 5);
     }
 }
