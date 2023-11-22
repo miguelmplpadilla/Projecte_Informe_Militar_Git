@@ -1953,10 +1953,10 @@ MonoBehaviour:
   spriteRenderer: {fileID: 623523117}
   character:
     idHead: 
-    idTorso: Sueter
+    idTorso: 
     idLegs: Pants
     idFeets: Boots
-    idFace: 
+    idFace: Mostache
     idSkin: Black
   head: {fileID: 1005731710}
   face: {fileID: 758597753}
@@ -1964,6 +1964,7 @@ MonoBehaviour:
   legs: {fileID: 653631579}
   feets: {fileID: 1339760915}
   skin: {fileID: 660279866}
+  setCharacterSpritesFunction: 0
 --- !u!95 &623523116
 Animator:
   serializedVersion: 5
@@ -2095,7 +2096,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -13294.561}
+  m_AnchoredPosition: {x: 0, y: -14471.786}
   m_SizeDelta: {x: 1304.9, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &642260083
@@ -2760,7 +2761,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 338256975, guid: 322854a49f6c6304398db3b0b22c8eba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2768,7 +2769,7 @@ SpriteRenderer:
   m_Size: {x: 3.2, y: 2.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &758597754
@@ -5062,7 +5063,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 2131589396, guid: 3f71ff9db8d4ea0469f981d3bf308ef5, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5070,7 +5071,7 @@ SpriteRenderer:
   m_Size: {x: 3.2, y: 2.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1384268493

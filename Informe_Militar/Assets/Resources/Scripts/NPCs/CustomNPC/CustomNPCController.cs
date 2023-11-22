@@ -20,6 +20,13 @@ public class CustomNPCController : MonoBehaviour
     public SpriteRenderer skin;
 
     private int i = 0;
+    
+    [Space(10)]
+    
+    [SerializeField,
+     ButtonInvoke(nameof(SetCharacterSprites), null, ButtonInvoke.DisplayIn.PlayAndEditModes,
+         "Set Character Sprites")]
+    private bool setCharacterSpritesFunction;
 
     private void Awake()
     {
@@ -69,7 +76,6 @@ public class CustomNPCController : MonoBehaviour
         imageSprite.sprite = UnityEngine.Resources.LoadAll<Sprite>(path)[i];
     }
 
-    [ContextMenu("SetCharacterSprites")]
     public void SetCharacterSprites()
     {
         character = JSONManager.GetCharacterFromJSON();
