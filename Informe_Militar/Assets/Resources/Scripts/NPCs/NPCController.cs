@@ -14,6 +14,8 @@ public class NPCController : MonoBehaviour
     private DialogeController _dialogeController;
 
     private Animator _animator;
+
+    public bool scaleRevert = false;
     
     //[Header("Deliver Letter Method")]
     
@@ -39,8 +41,11 @@ public class NPCController : MonoBehaviour
         {
             dialogos.Add(passage.name, passage);
         }
+
+        int xScale = model.transform.position.x > transform.position.x ? 1 : -1;
+        if (scaleRevert) xScale = model.transform.position.x > transform.position.x ? -1 : 1;
         
-        transform.GetChild(0).localScale = new Vector3(model.transform.position.x > transform.position.x ? -1 : 1, 1, 1);
+        transform.GetChild(0).localScale = new Vector3(xScale, 1, 1);
         _dialogeController.startDialoge(_textos.passages[0], dialogos, gameObject, _textos);
         setIdleAnimation();
     }

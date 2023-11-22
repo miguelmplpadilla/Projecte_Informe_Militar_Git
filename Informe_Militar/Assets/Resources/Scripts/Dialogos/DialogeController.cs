@@ -127,7 +127,7 @@ public class DialogeController : MonoBehaviour
         List<GameObject> listBotones = new List<GameObject>();
 
         if (passage.links == null) return;
-
+        
         if (passage.links.Count > 1 || getShowButton(passage))
         {
             multiOpcion = true;
@@ -135,8 +135,15 @@ public class DialogeController : MonoBehaviour
             foreach (var link in passage.links)
             {
                 if (dialogos[link.name].ussed) continue;
+                
                 int cantButtonCompare = passage.links.Count > 2 ? 2 : 1;
-                GameObject boton = Instantiate(botonPrefab, index <= cantButtonCompare ? continerBotones2.transform : continerBotones1.transform);
+                Transform continer = index <= cantButtonCompare
+                    ? continerBotones2.transform
+                    : continerBotones1.transform;
+                if (getAllButtonsToShow(passage) == 1) 
+                    continer = continerBotones1.transform;
+                
+                GameObject boton = Instantiate(botonPrefab, continer);
                 listBotones.Add(boton);
 
                 boton.GetComponentInChildren<TextMeshProUGUI>().text =
@@ -159,10 +166,28 @@ public class DialogeController : MonoBehaviour
         siguietenPassage = passage.links.Count > 0 ? dialogos[passage.links[0].name] : null;
     }
 
+    private Passage getPassageFromLink(string namePassage)
+    {
+        foreach (var passage in story.passages)
+        {
+            if (passage.name.Equals(namePassage)) return passage;
+        }
+
+        return null;
+    }
+
     private bool getShowButton(Passage passage)
     {
+        foreach (var link in passage.links)
+            return getShowLinkButton(getPassageFromLink(link.name));
+
+        return false;
+    }
+
+    private bool getShowLinkButton(Passage passage)
+    {
         if (passage.tags == null) return false;
-        
+
         for (int i = 0; i < passage.tags.Count; i++)
         {
             string[] splitTags = Regex.Split(passage.tags[i], ">");
@@ -171,6 +196,18 @@ public class DialogeController : MonoBehaviour
         }
 
         return false;
+    }
+
+    private int getAllButtonsToShow(Passage passage)
+    {
+        int num = 0;
+        foreach (var link in passage.links)
+        {
+            Passage passageLink = getPassageFromLink(link.name);
+            if ((getShowLinkButton(passageLink) && !passageLink.ussed) || !passageLink.ussed) num++;
+        }
+
+        return num;
     }
 
     public void ejecutarTags(Passage pasage)
