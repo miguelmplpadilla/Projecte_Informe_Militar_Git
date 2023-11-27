@@ -21,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
     public float maxSpeedWalk = 2;
     public float currentSpeed = 2f;
 
+    public float maxSpeedAgachado = 0.5f;
+
+
     private void Awake()
     {
         maxSpeed = maxSpeedWalk;
@@ -35,24 +38,50 @@ public class PlayerMovement : MonoBehaviour
         
         if (_model.mov)
         {
-            // Movement
-            maxSpeed = Input.GetButton("Sprint") && _model.canRun ? maxSpeedWalk*2 : maxSpeedWalk;
+            if (_model.sliding) return;
             
+            maxSpeed = Input.GetButton("Sprint") && _model.canRun ? maxSpeedWalk*2 : maxSpeedWalk;
+
             horizontalInput = Input.GetAxisRaw("Horizontal");
             movement = new Vector2(horizontalInput, 0f);
-            
+
+            float velocity = horizontalInput != 0 ? Input.GetButton("Sprint") ? 1 : 0.5f : 0;
+
+            if (_model.agachado)
+            {
+                maxSpeed = maxSpeedAgachado;
+                velocity = horizontalInput != 0 ? 1 : 0;
+            }
+
+            _animator.SetFloat("velocity", velocity);
+
             flip();
             movePlayer();
-            
-            _animator.SetFloat("velocity",  Math.Abs(horizontalVelocity/(maxSpeedWalk*2)));
 
             if (_model.isGrounded && _model.canJump && 
                 Input.GetButtonDown("Jump")) saltar();
+
+            _model.agachado = Input.GetKey(KeyCode.LeftControl);
+            if (Input.GetKeyDown(KeyCode.LeftControl) && Input.GetButton("Sprint")) 
+                tirarSuelo();
+
+            _animator.SetBool("crouch", _model.agachado);
 
             return;
         }
         
         _rigidbody.velocity = Vector3.zero;
+    }
+
+    private void tirarSuelo()
+    {
+        _animator.SetTrigger("slide");
+        
+        _model.sliding = true;
+
+        Vector2 force = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
+
+        _rigidbody.AddForce(force, ForceMode2D.Force);
     }
     
     private void movePlayer()

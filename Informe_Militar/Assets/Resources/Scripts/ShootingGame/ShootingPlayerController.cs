@@ -27,6 +27,7 @@ public class ShootingPlayerController : MonoBehaviour
         transform.GetChild(2).gameObject.SetActive(pointing);
         
         playerCamera.transform.DOLocalMoveZ(!pointing ? -1.5f : 0, 0.2f);
+        playerCamera.transform.DOLocalMoveY(!pointing ? -1.5f : 0, 0.2f);
 
         if (pointing && Input.GetKeyDown(KeyCode.Mouse0)) Shoot();
     }

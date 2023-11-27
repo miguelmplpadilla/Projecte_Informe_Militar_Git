@@ -8,21 +8,23 @@ public class ShootingCameraController : MonoBehaviour
     public float mouseSensitivity = 2;
     public float cameraVerticalRotation = 0;
 
+    public float maxCameraX = 65;
+    public float maxCameraY = 20;
+
     private void Start()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    // Update is called once per frame
     void Update()
     {
         float inputX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float inputY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
         cameraVerticalRotation -= inputY;
-        if (cameraVerticalRotation > 20 || cameraVerticalRotation < -20)
-            cameraVerticalRotation = cameraVerticalRotation < 0 ? -20 : 20;
+        if (cameraVerticalRotation > maxCameraY || cameraVerticalRotation < -maxCameraY)
+            cameraVerticalRotation = cameraVerticalRotation < 0 ? -maxCameraY : maxCameraY;
 
         cameraVerticalRotation = Mathf.Clamp(cameraVerticalRotation, -90, 90);
         transform.localEulerAngles = Vector3.right * cameraVerticalRotation;
@@ -32,8 +34,8 @@ public class ShootingCameraController : MonoBehaviour
         float yRotation = transform.parent.eulerAngles.y <= 180 ?
             transform.parent.eulerAngles.y : transform.parent.eulerAngles.y - 360;
 
-        if (yRotation < -65 || yRotation > 65)
+        if (yRotation < -maxCameraX || yRotation > maxCameraX)
             transform.parent.localRotation = 
-                Quaternion.Euler(0, transform.parent.localRotation.y < 0 ? -65 : 65, 0);
+                Quaternion.Euler(0, transform.parent.localRotation.y < 0 ? -maxCameraX : maxCameraX, 0);
     }
 }

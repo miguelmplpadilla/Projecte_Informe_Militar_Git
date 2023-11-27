@@ -12,4 +12,7 @@ public class PlayerModel : MonoBehaviour
 
     public bool isPaused = false;
     public bool canPause = true;
+
+    public bool agachado = false;
+    public bool sliding = false;
 }
