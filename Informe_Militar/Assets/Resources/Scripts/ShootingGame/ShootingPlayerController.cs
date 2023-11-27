@@ -22,17 +22,19 @@ public class ShootingPlayerController : MonoBehaviour
         pointing = false;
         if (Input.GetKey(KeyCode.Mouse1))
             pointing = true;
-
+        
         transform.GetChild(0).gameObject.SetActive(!pointing);
         transform.GetChild(2).gameObject.SetActive(pointing);
-
-        playerCamera.transform.DOLocalMoveZ(pointing ? 1.5f : 0, 0.2f);
+        
+        playerCamera.transform.DOLocalMoveZ(!pointing ? -1.5f : 0, 0.2f);
 
         if (pointing && Input.GetKeyDown(KeyCode.Mouse0)) Shoot();
     }
 
     private async void Shoot()
     {
+        playerCamera.transform.DOShakePosition(0.1f, 1);
+
         ShowFlash();
 
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out RaycastHit hit,
