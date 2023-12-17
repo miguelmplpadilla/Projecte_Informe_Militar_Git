@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Resources.Scripts;
 using UnityEngine;
 
-public class NPCController : MonoBehaviour
+public class NPCController : MonoBehaviour, InterBaseInterface
 {
     private Story _textos;
     private Dictionary<string, Passage> dialogos = new Dictionary<string, Passage>();

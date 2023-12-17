@@ -61,9 +61,11 @@ public class PlayerMovement : MonoBehaviour
             if (_model.isGrounded && _model.canJump && 
                 Input.GetButtonDown("Jump")) saltar();
 
-            _model.agachado = Input.GetKey(KeyCode.LeftControl);
-            if (Input.GetKeyDown(KeyCode.LeftControl) && Input.GetButton("Sprint")) 
-                tirarSuelo();
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                _model.agachado = !_model.agachado;
+                if (Input.GetButton("Sprint") && _model.agachado) tirarSuelo();
+            }
 
             _animator.SetBool("crouch", _model.agachado);
 

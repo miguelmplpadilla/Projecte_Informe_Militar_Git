@@ -7,6 +7,7 @@ public class InterController : MonoBehaviour, InterBaseInterface
     private GameObject buttonInter;
 
     public bool initialInter = false;
+    public bool canInter = true;
 
     private void Start()
     {
@@ -15,7 +16,7 @@ public class InterController : MonoBehaviour, InterBaseInterface
 
     public void interEnter(PlayerModel model)
     {
-        if (initialInter) return;
+        if (initialInter || !canInter) return;
         
         transform.parent.gameObject.SendMessage("interEnter", model);
         buttonInter.SendMessage("mostrar", "");
@@ -24,14 +25,20 @@ public class InterController : MonoBehaviour, InterBaseInterface
 
     public void inter(PlayerModel model)
     {
+        if (!canInter)
+        {
+            model.canInter = true;
+            model.mov = true;
+            return;
+        }
+
         transform.parent.gameObject.SendMessage("inter", model);
-        Debug.Log("Inter: " + transform.parent.gameObject.name);
     }
 
     public void interExit(PlayerModel model)
     {
-        if (!initialInter) return;
-        
+        if (!initialInter || !canInter) return;
+
         transform.parent.gameObject.SendMessage("interExit", model);
         buttonInter.SendMessage("esconder");
         initialInter = false;

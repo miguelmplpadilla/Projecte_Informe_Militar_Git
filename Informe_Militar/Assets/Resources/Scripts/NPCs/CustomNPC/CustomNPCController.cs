@@ -36,13 +36,15 @@ public class CustomNPCController : MonoBehaviour
 
     void Update()
     {
-        setAllAnimations();
+        SetAllAnimations();
     }
     
-    private void setAllAnimations(string nameAnimation = "")
+    public void SetAllAnimations(string nameAnimation = "")
     {
-        if (!nameAnimation.Equals(""))
+        if (!nameAnimation.Equals("") && 
+            !animator.GetCurrentAnimatorClipInfo(0)[0].clip.name.Equals(nameAnimation))
         {
+            animator.SetTrigger(nameAnimation);
             currentAnimation = nameAnimation;
             i = 0;
         }
@@ -79,8 +81,8 @@ public class CustomNPCController : MonoBehaviour
     public void SetCharacterSprites()
     {
         character = JSONManager.GetCharacterFromJSON();
-        
-        setAllAnimations("Idle");
+
+        SetAllAnimations("Idle");
         
         EditorUtility.SetDirty(gameObject);
     }

@@ -218,12 +218,13 @@ GameObject:
   - component: {fileID: 9201776010818520783}
   - component: {fileID: 3243552456020923309}
   - component: {fileID: 7311093194087153362}
+  - component: {fileID: 7489531762268985147}
   - component: {fileID: 2500189041337900569}
   - component: {fileID: 4097317407723317181}
   - component: {fileID: 6015340651835478560}
   m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -235,7 +236,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7839187471023144368}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.45, y: -3.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -244,7 +245,7 @@ Transform:
   - {fileID: 845795618053212688}
   - {fileID: 1194867008659275367}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &9201776010818520783
 SpriteRenderer:
@@ -317,6 +318,8 @@ MonoBehaviour:
   canRun: 1
   isPaused: 0
   canPause: 1
+  agachado: 0
+  sliding: 0
 --- !u!114 &7311093194087153362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,6 +337,19 @@ MonoBehaviour:
   maxSpeed: 2
   maxSpeedWalk: 2.5
   currentSpeed: 2
+  maxSpeedAgachado: 0.5
+--- !u!114 &7489531762268985147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7839187471023144368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6499066f4c8ee24f8f96065e6526114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!61 &2500189041337900569
 BoxCollider2D:
   m_ObjectHideFlags: 0
