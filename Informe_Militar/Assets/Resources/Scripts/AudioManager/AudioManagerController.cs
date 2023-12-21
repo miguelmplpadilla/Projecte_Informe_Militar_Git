@@ -1,50 +1,59 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
 public class AudioManagerController : MonoBehaviour
 {
-    public AudioClip[] clips;
-
-    [Range(0,1)]
-    public float range3DAudio;
-
-    public GameObject prefabAudioSource;
-
-    public void PlayAudio(string audioName, GameObject parent, bool loop = false)
+    public static void PlaySfx(string audioName, GameObject parent, bool loop = false, float pitch = 1, float volume = 1)
     {
+        PlayAudio(GetSfxByName(audioName), parent, loop, pitch, volume);
+    }
+
+    private static void PlayAudio(AudioClip audioClip, GameObject parent, bool loop, float pitch, float volume)
+    {
+        if (audioClip == null)
+        {
+            Debug.Log("Audio "+ audioClip.name+ " no encontrado");
+            return;
+        }
+
+        GameObject prefabAudioSource = UnityEngine.Resources.Load<GameObject>("Prefabs/Audio/AudioSource");
+
+        Debug.Log(prefabAudioSource);
+
         AudioSource audioSource = Instantiate(prefabAudioSource, parent.transform).GetComponent<AudioSource>();
 
-        audioSource.clip = GetAudioClipByName(audioName);
+        audioSource.clip = audioClip;
         audioSource.loop = loop;
 
         audioSource.Play();
 
-        StartCoroutine("DestroyAudioSource", audioSource);
+        audioSource.pitch = pitch;
+        audioSource.volume = volume;
+
+        DestroyAudioSource(audioSource);
     }
 
-    private AudioClip GetAudioClipByName(string name)
+    private static AudioClip GetSfxByName(string name)
     {
-        foreach (var clip in clips)
-        {
-            if (clip.name.Equals(name)) return clip;
-        }
+        AudioClip[] audios = UnityEngine.Resources.LoadAll<AudioClip>("Audios/SFX");
+
+        foreach (var audio in audios)
+            if (audio.name.Equals(name)) return audio;
 
         return null;
     }
 
-    private IEnumerator DestroyAudioSource(AudioSource audioSource)
+    private static async void DestroyAudioSource(AudioSource audioSource)
     {
         while (true)
         {
             if (!audioSource.isPlaying)
             {
                 Destroy(audioSource.gameObject);
-                yield break;
+                return;
             }
 
-            yield return null;
+            await Task.Delay(100);
         }
     }
 }
