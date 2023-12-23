@@ -1,19 +1,20 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class PickUpController : MonoBehaviour
 {
-    public string functionExecute = "";
-    public string id = "";
-
     private InventarioController inventarioController;
 
     private PausaController pausaController;
+
+    public UnityEvent function;
+
+    private PlayerModel playerModel;
 
     private void Start()
     {
@@ -23,19 +24,38 @@ public class PickUpController : MonoBehaviour
 
     public void interEnter(PlayerModel model)
     {
+        playerModel = model;
     }
 
     public void inter(PlayerModel model)
     {
-        if (!functionExecute.Equals("")) 
-            gameObject.SendMessage(functionExecute, id);
+        playerModel = model;
+
+        if (function.GetPersistentEventCount() > 0) {
+            function.Invoke();
+            return;
+        }
+
+        Debug.Log("No functions in list");
+        playerModel.canInter = true;
+        playerModel.mov = true;
     }
 
     public void interExit(PlayerModel model)
     {
     }
 
-    public async void pickUpDocument(string documentId)
+    public void PickUpObj(string objId)
+    {
+        Debug.Log("Add to inventory " + objId);
+
+        playerModel.canInter = true;
+        playerModel.mov = true;
+
+        Destroy(gameObject);
+    }
+
+    public async void PickUpDocument(string documentId)
     {
         inventarioController.unlockDocument(documentId);
         
