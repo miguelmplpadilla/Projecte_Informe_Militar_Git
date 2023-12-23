@@ -16,6 +16,8 @@ public class NPCController : MonoBehaviour, InterBaseInterface
     private Animator _animator;
 
     public bool scaleRevert = false;
+
+    public AudioManagerController.VoiceTone voiceTone;
     
     //[Header("Deliver Letter Method")]
     
@@ -46,7 +48,7 @@ public class NPCController : MonoBehaviour, InterBaseInterface
         if (scaleRevert) xScale = model.transform.position.x > transform.position.x ? -1 : 1;
         
         transform.GetChild(0).localScale = new Vector3(xScale, 1, 1);
-        _dialogeController.startDialoge(_textos.passages[0], dialogos, gameObject, _textos);
+        _dialogeController.startDialoge(_textos.passages[0], dialogos, gameObject, _textos, voiceTone.ToString());
         setIdleAnimation();
     }
 

@@ -3,6 +3,11 @@ using UnityEngine;
 
 public class AudioManagerController : MonoBehaviour
 {
+    public enum VoiceTone
+    {
+        None, Male1, Female1
+    }
+
     public static void PlaySfx(string audioName, GameObject parent, bool loop = false, float pitch = 1, float volume = 1)
     {
         PlayAudio(GetSfxByName(audioName), parent, loop, pitch, volume);
@@ -17,8 +22,6 @@ public class AudioManagerController : MonoBehaviour
         }
 
         GameObject prefabAudioSource = UnityEngine.Resources.Load<GameObject>("Prefabs/Audio/AudioSource");
-
-        Debug.Log(prefabAudioSource);
 
         AudioSource audioSource = Instantiate(prefabAudioSource, parent.transform).GetComponent<AudioSource>();
 

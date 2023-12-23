@@ -1599,6 +1599,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idJson: NPCCustomDialogo
   scaleRevert: 0
+  voiceTone: 0
 --- !u!50 &512329634
 Rigidbody2D:
   serializedVersion: 4
@@ -2007,7 +2008,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -45547.83}
+  m_AnchoredPosition: {x: 0, y: -49219.75}
   m_SizeDelta: {x: 1304.9, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &642260083
@@ -4523,10 +4524,15 @@ MonoBehaviour:
   customNPCController2: {fileID: 980727720}
   text1: {fileID: 881798301}
   text2: {fileID: 695761789}
+  voice1: 1
+  voice2: 1
   jsonName: TalkingNPCPrueba
   talk:
     dialoge: []
-  volume: 0.1
+  volume: 0.2
+  talkStarted: 0
+  isTalking: 0
+  dialogueIndex: 0
 --- !u!4 &1135849407
 Transform:
   m_ObjectHideFlags: 0
@@ -13193,6 +13199,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6588330053491045743, guid: bdac8fedd5551f54d831627060be037d, type: 3}
+      propertyPath: voiceTone
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588330053491045743, guid: bdac8fedd5551f54d831627060be037d, type: 3}
       propertyPath: scaleRevert
       value: 1
       objectReference: {fileID: 0}
@@ -14248,6 +14258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idJson: NPCCustomDialogo
   scaleRevert: 0
+  voiceTone: 0
 --- !u!1001 &8565132185468337610
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -10,6 +10,9 @@ public class TalkingNPCController : MonoBehaviour
     public TextMeshProUGUI text1;
     public TextMeshProUGUI text2;
 
+    public AudioManagerController.VoiceTone voice1;
+    public AudioManagerController.VoiceTone voice2;
+
     public string jsonName;
 
     public Talk talk = new Talk();
@@ -71,7 +74,7 @@ public class TalkingNPCController : MonoBehaviour
             SetAnimation(talk.dialoge[i].npc == 1 ? customNPCController1 : customNPCController2, 
                 talk.dialoge[i].animation);
 
-            await ShowText(talk.dialoge[i].npc == 1 ? text1 : text2, talk.dialoge[i].text);
+            await ShowText(talk.dialoge[i].npc == 1 ? text1 : text2, talk.dialoge[i].text, talk.dialoge[i].npc);
             await Task.Delay(1000);
 
             text1.text = "";
@@ -85,9 +88,9 @@ public class TalkingNPCController : MonoBehaviour
         Invoke("StartTalking", 10);
     }
 
-    private async Task ShowText(TextMeshProUGUI textDialoge, string textShow)
+    private async Task ShowText(TextMeshProUGUI textDialoge, string textShow, int npc)
     {
-        PlayAudioTalk();
+        PlayAudioTalk(npc == 1 ? voice1.ToString() : voice2.ToString());
 
         int cantLetter = 0;
 
@@ -101,7 +104,7 @@ public class TalkingNPCController : MonoBehaviour
 
             if (character == ' ' || cantLetter >= 4)
             {
-                PlayAudioTalk();
+                PlayAudioTalk(npc == 1 ? voice1.ToString() : voice2.ToString());
                 cantLetter = 0;
             }
 
@@ -109,9 +112,11 @@ public class TalkingNPCController : MonoBehaviour
         }
     }
 
-    private void PlayAudioTalk()
+    private void PlayAudioTalk(string npc)
     {
-        AudioManagerController.PlaySfx("NPCTalk-0" + Random.Range(1, 8 + 1), gameObject, 
+        if (npc.Equals("") || npc.Equals("None")) return;
+        
+        AudioManagerController.PlaySfx("NPCTalk-"+npc+"-0" + Random.Range(1, 8 + 1), gameObject, 
             pitch: Random.Range(1.0f, 1.15f), volume: volume);
     }
 

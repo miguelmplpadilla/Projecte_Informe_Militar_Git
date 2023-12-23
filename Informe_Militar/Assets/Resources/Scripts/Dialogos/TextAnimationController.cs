@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using static AudioManagerController;
 using Random = UnityEngine.Random;
 
 public class TextAnimationController : MonoBehaviour
@@ -322,38 +324,64 @@ public class TextAnimationController : MonoBehaviour
         yield return null;
     }
 
-    public void iniciarMostrarTexto(string textoMostrar)
+    public GameObject npcParent;
+
+    public void iniciarMostrarTexto(string textoMostrar, string voiceTone, GameObject parent = null)
     {
+        if (parent != null) npcParent = parent;
+
         StopCoroutine("mostrarTextoV1");
         
         textoEscribir = textoMostrar;
         
         initialiceWordIndexer();
 
-        StartCoroutine("mostrarTextoV1");
+        StartCoroutine("mostrarTextoV1", voiceTone);
     }
 
-    IEnumerator mostrarTextoV1()
+    IEnumerator mostrarTextoV1(string voiceTone)
     {
         int totalVisibleCharacters = textoEscribir.Length;
 
         int cont = 0;
 
+        int contChar = 0;
+
+        PlayAudioNPC(voiceTone);
+
         while (true)
         {
             int visibleCount = cont % (totalVisibleCharacters + 1);
 
+            contChar++;
+
+            if (cont < textComponent.text.Length && (textComponent.text[cont].Equals(' ') || contChar == 4))
+            {
+                PlayAudioNPC(voiceTone);
+                contChar = 0;
+            }
+
             textComponent.maxVisibleCharacters = visibleCount;
 
-            if (visibleCount >= totalVisibleCharacters)
-            {
-                break;
-            }
+            if (visibleCount >= totalVisibleCharacters) break;
 
             cont++;
 
             yield return new WaitForSeconds(0.05f);
         }
+    }
+
+    private void PlayAudioNPC(string name)
+    {
+        Debug.Log("PlayAudioNPC");
+
+        if (name.Equals("None") || name.Equals("")) return;
+
+        try
+        {
+            AudioManagerController.PlaySfx("NPCTalk-" + name + "-0" + Random.Range(1, 8 + 1), npcParent,
+            pitch: Random.Range(1.0f, 1.15f));
+        } catch (Exception e) { }
     }
     
     private void temblarVertices()

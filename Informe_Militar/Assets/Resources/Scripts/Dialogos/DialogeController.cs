@@ -22,6 +22,8 @@ public class DialogeController : MonoBehaviour
     public Dictionary<string, Passage> dialogos = new Dictionary<string, Passage>();
     public Story story;
 
+    public string voiceTone;
+
     private GameObject npc;
 
     void Start()
@@ -42,11 +44,12 @@ public class DialogeController : MonoBehaviour
             iniciarMostrarTexto(siguietenPassage);
     }
 
-    public void startDialoge(Passage p, Dictionary<string, Passage> d, GameObject n, Story s)
+    public void startDialoge(Passage p, Dictionary<string, Passage> d, GameObject n, Story s, string voice)
     {
         dialogos = new Dictionary<string, Passage>(d);
         npc = n;
         story = s;
+        voiceTone = voice;
 
         //botones.GetComponent<RectTransform>().anchoredPosition = new Vector2(18.04163f, -86.18922f);
         transform.parent.localScale = Vector3.one;
@@ -61,7 +64,7 @@ public class DialogeController : MonoBehaviour
             setPassageUnique(text);
             string textoMostrar = montarString(text.text);
 
-            textAnimationController.iniciarMostrarTexto(textoMostrar);
+            textAnimationController.iniciarMostrarTexto(textoMostrar, voiceTone, npc);
 
             createOptionsArroundPoint(text);
 

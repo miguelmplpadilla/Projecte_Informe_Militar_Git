@@ -25,7 +25,7 @@ public class OpenTextAsset : MonoBehaviour
             d.Add(passage.name, passage);
         }
 
-        _dialogeController.startDialoge(story.passages[0], d, gameObject, story);
+        _dialogeController.startDialoge(story.passages[0], d, gameObject, story, "");
     }
 
     private string getJsonFromFileBrowser()
