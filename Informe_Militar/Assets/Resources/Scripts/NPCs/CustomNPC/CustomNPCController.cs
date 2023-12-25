@@ -50,8 +50,11 @@ public class CustomNPCController : MonoBehaviour
         }
         else
         {
-            char[] characters = spriteRenderer.sprite.name.ToCharArray();
-            i = int.Parse(characters.Last().ToString());
+            if (spriteRenderer.sprite != null)
+            {
+                char[] characters = spriteRenderer.sprite.name.ToCharArray();
+                i = int.Parse(characters.Last().ToString());
+            }
         }
 
         setSpriteAnimation(character.idHead, "Head", head, "NPCs");

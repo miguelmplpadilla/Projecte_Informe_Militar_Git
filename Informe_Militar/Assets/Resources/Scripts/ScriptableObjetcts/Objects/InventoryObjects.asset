@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d1b86f74709bf14eb8e7d5e7326f401, type: 3}
+  m_Name: InventoryObjects
+  m_EditorClassIdentifier: Assembly-CSharp::Invetory
+  InventoryObjects:
+  - key: petate
+    spriteInventory: {fileID: 1725536783, guid: a8b5cbcc92ba70a43b47edfa09339d5a, type: 3}
+    unlock: 1

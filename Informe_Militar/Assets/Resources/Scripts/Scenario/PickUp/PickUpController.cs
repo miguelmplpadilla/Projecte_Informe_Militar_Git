@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DG.Tweening;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -47,10 +48,23 @@ public class PickUpController : MonoBehaviour
 
     public void PickUpObj(string objId)
     {
-        Debug.Log("Add to inventory " + objId);
-
+        Debug.Log("PickUpObj");
         playerModel.canInter = true;
         playerModel.mov = true;
+
+        Inventory inventory =
+            AssetDatabase.LoadAssetAtPath<Inventory>("Assets/Resources/Scripts/ScriptableObjetcts/Objects/InventoryObjects.asset");
+
+        for (int i = 0; i < inventory.InventoryObjects.Count; i++)
+        {
+            if (inventory.InventoryObjects[i].key.Equals(objId))
+            {
+                inventory.InventoryObjects[i].unlock = true;
+                break;
+            }
+        }
+
+        AssetDatabase.Refresh();
 
         Destroy(gameObject);
     }

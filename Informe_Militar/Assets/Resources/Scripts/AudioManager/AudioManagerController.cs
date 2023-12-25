@@ -5,7 +5,7 @@ public class AudioManagerController : MonoBehaviour
 {
     public enum VoiceTone
     {
-        None, Male1, Female1
+        None, Male1, Male2, Female1
     }
 
     public static void PlaySfx(string audioName, GameObject parent, bool loop = false, float pitch = 1, float volume = 1)

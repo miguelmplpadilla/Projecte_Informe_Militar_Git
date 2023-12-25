@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9802b92bc91aad438c431f39fb01d8e, type: 3}
+  m_Name: ButtonUI
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSpriteManagerWindow/ButtonUI
+  Buttons:
+  - keycode: 119
+    keyboardButton: {fileID: 732117045, guid: 7420bb1ce9ded0a4abd3c169a0d3e4b7, type: 3}
+    controllerPcButtonSprite: {fileID: 189223824, guid: 766e4938c1680d241b07774af599a11f, type: 3}
+    nintendoButtonSprite: {fileID: 189223824, guid: 766e4938c1680d241b07774af599a11f, type: 3}
+  - keycode: 115
+    keyboardButton: {fileID: -1867543831, guid: 7420bb1ce9ded0a4abd3c169a0d3e4b7, type: 3}
+    controllerPcButtonSprite: {fileID: -2142183901, guid: 766e4938c1680d241b07774af599a11f, type: 3}
+    nintendoButtonSprite: {fileID: -2142183901, guid: 766e4938c1680d241b07774af599a11f, type: 3}
+  - keycode: 102
+    keyboardButton: {fileID: -1931585499, guid: 7420bb1ce9ded0a4abd3c169a0d3e4b7, type: 3}
+    controllerPcButtonSprite: {fileID: -1856059503, guid: 766e4938c1680d241b07774af599a11f, type: 3}
+    nintendoButtonSprite: {fileID: 554973566, guid: 766e4938c1680d241b07774af599a11f, type: 3}

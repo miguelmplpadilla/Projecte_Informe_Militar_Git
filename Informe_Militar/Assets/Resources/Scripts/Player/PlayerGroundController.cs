@@ -15,7 +15,7 @@ public class PlayerGroundController : MonoBehaviour
 
     private void Update()
     {
-        //_animator.SetBool("isGrounded", _model.isGrounded);
+        _animator.SetBool("IsGrounded", _model.isGrounded);
     }
 
     private void OnTriggerStay2D(Collider2D other)
