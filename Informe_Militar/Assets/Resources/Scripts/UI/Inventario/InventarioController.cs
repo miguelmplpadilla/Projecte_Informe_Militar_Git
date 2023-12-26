@@ -3,19 +3,21 @@ using System.IO;
 using DG.Tweening;
 using Resources.Scripts.UI.Inventario;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventarioController : MonoBehaviour
 {
-    public Documentos documentos = new Documentos();
-
     private List<GameObject> createdButtons = new List<GameObject>();
 
     public GameObject prefabButtonDocumento;
     public GameObject prefabButtonFoto;
+    public GameObject prefabButtonObject;
 
     public GameObject contentDocumentos;
     public GameObject contentFotos;
+    public GameObject contentObjetos;
 
     private GameObject actualPanelShowed;
     private bool showingPanel = false;
@@ -52,9 +54,9 @@ public class InventarioController : MonoBehaviour
 
     public async void showInventario()
     {
-        initializeObjs();
         createDocumentButtons();
         createFotoButtons();
+        CreateObjectsButtons();
         
         await transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).SetUpdate(true).AsyncWaitForCompletion();
 
@@ -103,25 +105,18 @@ public class InventarioController : MonoBehaviour
         showingPanel = false;
     }
 
-    private void initializeObjs()
-    {
-        string idioma = IdiomaController.getLanguage();
-
-        string jsonDocumentos = File.ReadAllText(Application.dataPath + "/Resources/JSON/"+idioma+"/JSONInventario/Documentos.json");
-
-        //TextAsset jsonDocumentos = UnityEngine.Resources.Load<TextAsset>("JSON/"+idioma+"/JSONInventario/Documentos");
-        JsonUtility.FromJsonOverwrite(jsonDocumentos, documentos);
-    }
-
     private void createDocumentButtons()
     {
-        foreach (var documento in documentos.documentsList)
+        Inventory documentos =
+            AssetDatabase.LoadAssetAtPath<Inventory>("Assets/Resources/Scripts/ScriptableObjetcts/Objects/Documents.asset");
+
+        foreach (var documento in documentos.InventoryObjects)
         {
-            if (documento.unlocked)
+            if (documento.unlock)
             {
                 GameObject button = Instantiate(prefabButtonDocumento, contentDocumentos.transform);
-                button.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = documento.documentName;
-                button.GetComponent<ButtonViewController>().id = documento.documentId;
+                button.transform.GetChild(1).GetComponent<ChangeTextController>().changeText(documento.key);
+                button.GetComponent<ButtonViewController>().id = documento.key;
                 createdButtons.Add(button);
             }
         }
@@ -138,6 +133,26 @@ public class InventarioController : MonoBehaviour
         }
     }
 
+    private void CreateObjectsButtons()
+    {
+        Inventory inventory =
+            AssetDatabase.LoadAssetAtPath<Inventory>("Assets/Resources/Scripts/ScriptableObjetcts/Objects/InventoryObjects.asset");
+
+        foreach (var obj in inventory.InventoryObjects)
+        {
+            GameObject button = Instantiate(prefabButtonObject, contentObjetos.transform);
+            Image imageObj = button.transform.GetChild(0).GetComponent<Image>();
+            imageObj.sprite = obj.spriteInventory;
+            createdButtons.Add(button);
+            if (!obj.unlock)
+            {
+                imageObj.color = Color.black;
+                return;
+            }
+            button.GetComponent<ButtonViewController>().id = obj.key;
+        }
+    }
+
     private void rewriteJSON(string jsonName, Documentos objType)
     {
         string idioma = IdiomaController.getLanguage();
@@ -145,19 +160,5 @@ public class InventarioController : MonoBehaviour
         string json = JsonUtility.ToJson(objType);
         
         File.WriteAllText(Application.dataPath+"/Resources/JSON/"+idioma+"/JSONInventario/"+jsonName+".json", json);
-    }
-
-    public void unlockDocument(string docID)
-    {
-        for (int i = 0; i < documentos.documentsList.Count; i++)
-        {
-            if (documentos.documentsList[i].documentId.Equals(docID))
-            {
-                documentos.documentsList[i].unlocked = true;
-                break;
-            }
-        }
-        
-        rewriteJSON("Documentos", documentos);
     }
 }

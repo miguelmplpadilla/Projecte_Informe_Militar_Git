@@ -29,7 +29,7 @@ public class ButtonInterController : MonoBehaviour
 
     public void ChangeSprite()
     {
-        spriteRenderer.sprite = ButtonUIManager.GetSprite(key);
+        spriteRenderer.sprite = ButtonUIManager.GetSprite(key != KeyCode.None ? key : KeyCode.F);
     }
 
     public void SetKey(KeyCode keyCode)

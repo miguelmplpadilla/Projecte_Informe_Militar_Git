@@ -24,4 +24,8 @@ MonoBehaviour:
   - keycode: 102
     keyboardButton: {fileID: -1931585499, guid: 7420bb1ce9ded0a4abd3c169a0d3e4b7, type: 3}
     controllerPcButtonSprite: {fileID: -1856059503, guid: 766e4938c1680d241b07774af599a11f, type: 3}
+    nintendoButtonSprite: {fileID: 219874520, guid: 766e4938c1680d241b07774af599a11f, type: 3}
+  - keycode: 101
+    keyboardButton: {fileID: -1556745619, guid: 7420bb1ce9ded0a4abd3c169a0d3e4b7, type: 3}
+    controllerPcButtonSprite: {fileID: -1244167335, guid: 766e4938c1680d241b07774af599a11f, type: 3}
     nintendoButtonSprite: {fileID: 554973566, guid: 766e4938c1680d241b07774af599a11f, type: 3}

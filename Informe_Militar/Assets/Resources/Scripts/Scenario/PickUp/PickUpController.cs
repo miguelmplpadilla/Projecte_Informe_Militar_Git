@@ -1,7 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using DG.Tweening;
+using Resources.Scripts.UI.Inventario;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,7 +12,12 @@ public class PickUpController : MonoBehaviour
 
     private PausaController pausaController;
 
-    public UnityEvent function;
+    public string id = "";
+
+    [Space(10)]
+
+    public UnityEvent onStartFunctions;
+    public UnityEvent onInterFunctions;
 
     private PlayerModel playerModel;
 
@@ -21,6 +25,12 @@ public class PickUpController : MonoBehaviour
     {
         pausaController = GameObject.Find("PanelPausa").GetComponent<PausaController>();
         inventarioController = GameObject.Find("PanelInventario").GetComponent<InventarioController>();
+
+        if (onStartFunctions.GetPersistentEventCount() > 0)
+        {
+            onStartFunctions.Invoke();
+            return;
+        }
     }
 
     public void interEnter(PlayerModel model)
@@ -32,8 +42,8 @@ public class PickUpController : MonoBehaviour
     {
         playerModel = model;
 
-        if (function.GetPersistentEventCount() > 0) {
-            function.Invoke();
+        if (onInterFunctions.GetPersistentEventCount() > 0) {
+            onInterFunctions.Invoke();
             return;
         }
 
@@ -46,18 +56,14 @@ public class PickUpController : MonoBehaviour
     {
     }
 
-    public void PickUpObj(string objId)
+    public async void PickUpObj()
     {
-        Debug.Log("PickUpObj");
-        playerModel.canInter = true;
-        playerModel.mov = true;
-
         Inventory inventory =
             AssetDatabase.LoadAssetAtPath<Inventory>("Assets/Resources/Scripts/ScriptableObjetcts/Objects/InventoryObjects.asset");
 
         for (int i = 0; i < inventory.InventoryObjects.Count; i++)
         {
-            if (inventory.InventoryObjects[i].key.Equals(objId))
+            if (inventory.InventoryObjects[i].key.Equals(id))
             {
                 inventory.InventoryObjects[i].unlock = true;
                 break;
@@ -66,16 +72,39 @@ public class PickUpController : MonoBehaviour
 
         AssetDatabase.Refresh();
 
+        Animator animatorPlayer = GameObject.Find("Player").GetComponent<Animator>();
+        animatorPlayer.SetTrigger("agachar");
+
+        Debug.Log(animatorPlayer.GetCurrentAnimatorStateInfo(0).length);
+
+        await Task.Delay((int)(animatorPlayer.GetCurrentAnimatorStateInfo(0).length * 1000));
+
+        playerModel.canInter = true;
+        playerModel.mov = true;
+
         Destroy(gameObject);
     }
 
-    public async void PickUpDocument(string documentId)
+    public async void PickUpDocument()
     {
-        inventarioController.unlockDocument(documentId);
-        
         GameObject imageDocument = GameObject.Find("ImageDocument");
-        
-        Sprite spriteDocument = UnityEngine.Resources.Load<Sprite>("Sprites/Documents/" + documentId);
+
+        Inventory documents =
+            AssetDatabase.LoadAssetAtPath<Inventory>("Assets/Resources/Scripts/ScriptableObjetcts/Objects/Documents.asset");
+
+        Sprite spriteDocument = null;
+
+        for (int i = 0; i < documents.InventoryObjects.Count; i++)
+        {
+            if (documents.InventoryObjects[i].key.Equals(id))
+            {
+                spriteDocument = documents.InventoryObjects[i].spriteInventory;
+                documents.InventoryObjects[i].unlock = true;
+                break;
+            }
+        }
+
+        AssetDatabase.Refresh();
 
         imageDocument.GetComponent<Image>().sprite = spriteDocument;
 
@@ -90,5 +119,18 @@ public class PickUpController : MonoBehaviour
         imageDocument.transform.parent.DOKill();
 
         Destroy(gameObject);
+    }
+
+    public void DestroyIfUnlockedInventory(string so)
+    {
+        Inventory inventory =
+            AssetDatabase.LoadAssetAtPath<Inventory>("Assets/Resources/Scripts/ScriptableObjetcts/Objects/" + so + ".asset");
+
+        for (int i = 0; i < inventory.InventoryObjects.Count; i++)
+        {
+            if (inventory.InventoryObjects[i].key.Equals(id) && 
+                inventory.InventoryObjects[i].unlock)
+                Destroy(gameObject);
+        }
     }
 }

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Resources.Scripts.UI.Inventario
 {
-    [Serializable]
-    public class Documentos
+    [CreateAssetMenu(fileName = "Documents", menuName = "ScriptableObjects/DocumentosSO")]
+    public class Documentos : ScriptableObject
     {
         public List<Documento> documentsList;
     }
@@ -13,7 +14,9 @@ namespace Resources.Scripts.UI.Inventario
     public class Documento
     {
         public string documentId;
-        public string documentName;
+
+        public Sprite spriteDocument;
+
         public bool unlocked;
     }
 }
