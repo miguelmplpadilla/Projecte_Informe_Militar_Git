@@ -13,6 +13,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "OpenInventory",
+                    "type": "Button",
+                    "id": "7be101db-95c6-4eaf-880a-8eccfe7145cb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -35,6 +44,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4a75a691-2f58-47ce-98d2-3c0f623c3997",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenInventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "088dfe4d-1529-4d57-8546-4cfd1f6ed0c6",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenInventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "346a269b-3b5d-4bb6-83bf-18ca506e5e1b",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenInventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -66,6 +108,15 @@
                     "name": "Press",
                     "type": "Button",
                     "id": "0c38cc0a-3be9-46fe-b0ca-5522a9e72c71",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NavigateInventory",
+                    "type": "Button",
+                    "id": "a54674f7-3980-4e2d-b42c-3c7ca973b3d0",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -314,6 +365,39 @@
                     "action": "Press",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "ChangeOptions",
+                    "id": "13ccbcb4-2572-45ef-b0f0-a411537796ba",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NavigateInventory",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "2c2216dc-bad6-4c05-a4d8-14a1fd68e59e",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NavigateInventory",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "bef5b5c7-7c13-4141-93d4-65c077ef34a3",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NavigateInventory",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

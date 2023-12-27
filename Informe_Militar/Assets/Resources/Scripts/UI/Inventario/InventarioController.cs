@@ -5,6 +5,7 @@ using Resources.Scripts.UI.Inventario;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class InventarioController : MonoBehaviour
@@ -28,16 +29,40 @@ public class InventarioController : MonoBehaviour
     private PlayerModel model;
     private PausaController pausaController;
 
+    private NavigationController navigationController;
+    public NavigationButtons optionsNavigationButtons;
+    public int indexOptions = 0;
+
+    private UIInput uiInput;
+
+    private void Awake()
+    {
+        uiInput = new UIInput();
+
+        uiInput.Navigation.NavigateInventory.performed += MoveOptions;
+    }
+
     private void Start()
     {
+        navigationController = GameObject.Find("NavigationManager").GetComponent<NavigationController>();
         pausaController = GameObject.Find("PanelPausa").GetComponent<PausaController>();
         model = GameObject.Find("Player").GetComponent<PlayerModel>();
         actualPanelShowed = GameObject.Find("PanelDocumentos");
     }
 
+    private void OnEnable()
+    {
+        uiInput.Enable();
+    }
+
+    private void OnDisable()
+    {
+        uiInput.Disable();
+    }
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && !showingInventario)
+        if (uiInput.UISelf.OpenInventory.WasPressedThisFrame() && !showingInventario)
         {
             pausaController.pause();
             
@@ -49,7 +74,24 @@ public class InventarioController : MonoBehaviour
             inventarioShowed = !inventarioShowed;
             showingInventario = true;
         }
-            
+    }
+
+    private void MoveOptions(InputAction.CallbackContext context)
+    {
+        if (!inventarioShowed || Input.GetJoystickNames().Length == 0 || showingInventario || showingPanel) return;
+
+        int lastIndexOptions = indexOptions;
+
+        indexOptions += context.ReadValue<float>() > 0 ? 1 : -1;
+
+        if (indexOptions >= optionsNavigationButtons.verticalButtons.Count)
+            indexOptions = 0;
+        else if (indexOptions < 0)
+            indexOptions = optionsNavigationButtons.verticalButtons.Count - 1;
+
+        optionsNavigationButtons.verticalButtons[0].horizontalButtons[indexOptions].GetComponent<Button>().onClick.Invoke();
+        optionsNavigationButtons.verticalButtons[0].horizontalButtons[indexOptions].GetComponent<Image>().color = Color.red;
+        optionsNavigationButtons.verticalButtons[0].horizontalButtons[lastIndexOptions].GetComponent<Image>().color = Color.white;
     }
 
     public async void showInventario()
@@ -57,7 +99,11 @@ public class InventarioController : MonoBehaviour
         createDocumentButtons();
         createFotoButtons();
         CreateObjectsButtons();
-        
+
+        optionsNavigationButtons.verticalButtons[0].horizontalButtons[0].GetComponent<Button>().onClick.Invoke();
+        optionsNavigationButtons.verticalButtons[0].horizontalButtons[0].GetComponent<Image>().color = Color.red;
+        indexOptions = 0;
+
         await transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).SetUpdate(true).AsyncWaitForCompletion();
 
         showingInventario = false;
@@ -103,6 +149,13 @@ public class InventarioController : MonoBehaviour
         actualPanelShowed = panel;
 
         showingPanel = false;
+    }
+
+    public void StartNavigationButtons(GameObject continer)
+    {
+        NavigationButtons navigationButtons = new NavigationButtons();
+
+
     }
 
     private void createDocumentButtons()

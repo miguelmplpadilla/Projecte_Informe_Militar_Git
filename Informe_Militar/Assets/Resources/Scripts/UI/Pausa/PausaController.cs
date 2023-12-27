@@ -11,7 +11,6 @@ public class PausaController : MonoBehaviour
     private UIInput uiInput;
 
     public NavigationButtons pauseNavigationButtons;
-    public NavigationButtons optionsNavigationButtons;
 
     private NavigationController navigationController;
 
@@ -91,13 +90,18 @@ public class PausaController : MonoBehaviour
 
     public void AddNewButtonToNavigation(GameObject button)
     {
-        newNavigationButtons.buttons.Add(button);
+        Buttons horizontalButtons = new Buttons();
+        horizontalButtons.horizontalButtons.Add(button);
+        newNavigationButtons.verticalButtons.Add(horizontalButtons);
     }
 
     public void SetDirectionNavigation(int dir)
     {
         newNavigationButtons.direction = 
             dir == 1 ? NavigationButtons.DirectionType.Vertical : NavigationButtons.DirectionType.Horizontal;
+
+        if (dir == 3)
+            newNavigationButtons.direction = NavigationButtons.DirectionType.All;
     }
     
     public void RestartButtonsNavigation()

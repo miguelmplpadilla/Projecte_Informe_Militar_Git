@@ -8,9 +8,12 @@ using UnityEngine.UI;
 
 public class NavigationController : MonoBehaviour
 {
-    public int indexNavigation = 0;
+    public int indexNavigationY = 0;
+    public int indexNavigationX = 0;
 
     public NavigationButtons navigationButtons;
+
+    public GameObject buttonSelected;
 
     public UIInput uiInput;
 
@@ -46,55 +49,71 @@ public class NavigationController : MonoBehaviour
     private void NavigationHorizontal(InputAction.CallbackContext context)
     {
         if (navigationButtons == null || 
-            navigationButtons.direction != NavigationButtons.DirectionType.Horizontal) return;
+            navigationButtons.direction == NavigationButtons.DirectionType.Vertical) return;
 
-        Navigate((int)context.ReadValue<float>());
+        float changeIndex = context.ReadValue<float>();
+
+        if (changeIndex == 0) return;
+
+        indexNavigationX += changeIndex > 0 ? 1 : -1;
+
+        if (indexNavigationX >= navigationButtons.verticalButtons[indexNavigationY].horizontalButtons.Count)
+            indexNavigationX = 0;
+        else if (indexNavigationX < 0)
+            indexNavigationX = navigationButtons.verticalButtons[indexNavigationY].horizontalButtons.Count - 1;
+
+        buttonSelected = navigationButtons.verticalButtons[indexNavigationY].horizontalButtons[indexNavigationX];
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(buttonSelected);
     }
 
     private void NavigationVertical(InputAction.CallbackContext context)
     {
         if (navigationButtons == null ||
-            navigationButtons.direction != NavigationButtons.DirectionType.Vertical) return;
+            navigationButtons.direction == NavigationButtons.DirectionType.Horizontal) return;
 
-        Navigate(context.ReadValue<float>());
-    }
+        float changeIndex = context.ReadValue<float>();
 
-    private void Navigate(float changeIndex)
-    {
         if (changeIndex == 0) return;
 
-        indexNavigation += changeIndex > 0 ? 1 : -1;
+        indexNavigationY += changeIndex > 0 ? 1 : -1;
 
-        if (indexNavigation >= navigationButtons.buttons.Count)
-            indexNavigation = 0;
-        else if (indexNavigation < 0)
-            indexNavigation = navigationButtons.buttons.Count - 1;
+        if (indexNavigationY >= navigationButtons.verticalButtons.Count)
+            indexNavigationY = 0;
+        else if (indexNavigationY < 0)
+            indexNavigationY = navigationButtons.verticalButtons.Count - 1;
+
+        buttonSelected = navigationButtons.verticalButtons[indexNavigationY].horizontalButtons[indexNavigationX];
 
         EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(navigationButtons.buttons[indexNavigation]);
+        EventSystem.current.SetSelectedGameObject(buttonSelected);
     }
 
     private void PressButton()
     {
         if (navigationButtons == null) return;
 
-        navigationButtons.buttons[indexNavigation].GetComponent<Button>().onClick.Invoke();
+        navigationButtons.verticalButtons[indexNavigationY].horizontalButtons[indexNavigationX].GetComponent<Button>().onClick.Invoke();
     }
 
     public void SetNavigationButtons(NavigationButtons buttons)
     {
-        if (buttons == null)
+        if (buttons == null || Input.GetJoystickNames().Length == 0)
         {
             CloseNavigationButtons();
             return;
         }
 
-        indexNavigation = 0;
+        indexNavigationY = 0;
+        indexNavigationX = 0;
 
         navigationButtons = buttons;
 
+        buttonSelected = navigationButtons.verticalButtons[0].horizontalButtons[0];
+
         EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(navigationButtons.buttons[0]);
+        EventSystem.current.SetSelectedGameObject(buttonSelected);
 
         canNavigate = true;
     }
@@ -110,11 +129,17 @@ public class NavigationController : MonoBehaviour
 public class NavigationButtons
 {
     public DirectionType direction;
-    public List<GameObject> buttons = new List<GameObject>();
+    public List<Buttons> verticalButtons = new List<Buttons>();
 
     [Serializable]
     public enum DirectionType
     {
-        Vertical, Horizontal
+        Vertical, Horizontal, All
     }
+}
+
+[Serializable]
+public class Buttons
+{
+    public List<GameObject> horizontalButtons = new List<GameObject>();
 }

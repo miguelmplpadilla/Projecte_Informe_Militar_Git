@@ -3,26 +3,30 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Resources.Scripts.UI.Idiomas;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class IdiomaController : MonoBehaviour
 {
     private TextMeshProUGUI textButtonIdioma;
-    private GameObject imageArrow;
-    
-    private RectTransform _rectTransformDropdown;
-    private Vector3 originalSizeDelta;
 
+    private NavigationController navigationController;
+
+    public int indexIdioma = 0;
     public List<Idioma> idiomas;
     [NonSerialized] public Dictionary<string, Idioma> dictionaryIdiomas = new Dictionary<string, Idioma>();
 
     public string actualLanguage = "";
 
-    private bool dropdownOpened = false;
-    private bool openingDropdown = false;
+    private UIInput uiInput;
 
     private void Awake()
     {
+        uiInput = new UIInput();
+
+        uiInput.Navigation.Horizontal.performed += ChangeIdiomController;
+
         foreach (var idioma in idiomas)
         {
             dictionaryIdiomas.Add(idioma.id, idioma);
@@ -31,49 +35,52 @@ public class IdiomaController : MonoBehaviour
 
     private void Start()
     {
-        imageArrow = GameObject.Find("ImageArrow");
-        _rectTransformDropdown = GameObject.Find("Content").GetComponent<RectTransform>();
-        originalSizeDelta = _rectTransformDropdown.sizeDelta;
-        _rectTransformDropdown.sizeDelta = new Vector2(originalSizeDelta.x, 0);
-        
+        navigationController = GameObject.Find("NavigationManager").GetComponent<NavigationController>();
         textButtonIdioma = GameObject.Find("TextIdioma").GetComponent<TextMeshProUGUI>();
 
         actualLanguage = getLanguage();
 
-        changeTextLanguage(actualLanguage);
+        changeTextLanguage(dictionaryIdiomas[actualLanguage].name);
         changeAllTexts();
     }
 
-    public async void openCloseDropdownLanguage()
+    private void OnEnable()
     {
-        openingDropdown = true;
-        await _rectTransformDropdown
-            .DOSizeDelta(!dropdownOpened ? originalSizeDelta : new Vector2(originalSizeDelta.x, 0), 0.5f)
-            .SetEase(dropdownOpened ? Ease.InBack : Ease.OutBack).SetUpdate(true).AsyncWaitForCompletion();
-        
-        dropdownOpened = !dropdownOpened;
-        imageArrow.transform.localScale = new Vector3(1,dropdownOpened ? -1 : 1, 1);
-        openingDropdown = false;
+        uiInput.Enable();
     }
 
-    public void changeIdiom(string idioma)
+    private void OnDisable()
     {
-        if (openingDropdown || idioma.Equals(actualLanguage)) return;
-        
-        openCloseDropdownLanguage();
+        uiInput.Disable();
+    }
 
-        actualLanguage = idioma;
+    private void ChangeIdiomController(InputAction.CallbackContext context)
+    {
+        if (!navigationController.buttonSelected.name.Equals("OpcionIdiomas")) return;
+        changeIdiom(context.ReadValue<float>() > 0 ? 1 : -1);
+    }
+
+    public void changeIdiom(int sumIndex)
+    {
+        indexIdioma += sumIndex;
+
+        if (indexIdioma < 0)
+            indexIdioma = idiomas.Count - 1;
+        else if (indexIdioma >= idiomas.Count)
+            indexIdioma = 0;
+
+        actualLanguage = idiomas[indexIdioma].id;
         
-        PlayerPrefs.SetString("idioma", idioma);
+        PlayerPrefs.SetString("idioma", actualLanguage);
         
-        changeTextLanguage(idioma);
+        changeTextLanguage(idiomas[indexIdioma].name);
         
         changeAllTexts();
     }
 
     private void changeTextLanguage(string idioma)
     {
-        textButtonIdioma.text = dictionaryIdiomas[idioma].name;
+        textButtonIdioma.text = idioma;
     }
 
     public static string getLanguage()

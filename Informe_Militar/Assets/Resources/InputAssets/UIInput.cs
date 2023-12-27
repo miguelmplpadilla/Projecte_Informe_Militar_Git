@@ -35,6 +35,15 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenInventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""7be101db-95c6-4eaf-880a-8eccfe7145cb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -57,6 +66,39 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4a75a691-2f58-47ce-98d2-3c0f623c3997"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""088dfe4d-1529-4d57-8546-4cfd1f6ed0c6"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""346a269b-3b5d-4bb6-83bf-18ca506e5e1b"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenInventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -88,6 +130,15 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
                     ""name"": ""Press"",
                     ""type"": ""Button"",
                     ""id"": ""0c38cc0a-3be9-46fe-b0ca-5522a9e72c71"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NavigateInventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""a54674f7-3980-4e2d-b42c-3c7ca973b3d0"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -336,6 +387,39 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
                     ""action"": ""Press"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""ChangeOptions"",
+                    ""id"": ""13ccbcb4-2572-45ef-b0f0-a411537796ba"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateInventory"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""2c2216dc-bad6-4c05-a4d8-14a1fd68e59e"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""bef5b5c7-7c13-4141-93d4-65c077ef34a3"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -345,11 +429,13 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
         // UISelf
         m_UISelf = asset.FindActionMap("UISelf", throwIfNotFound: true);
         m_UISelf_Pause = m_UISelf.FindAction("Pause", throwIfNotFound: true);
+        m_UISelf_OpenInventory = m_UISelf.FindAction("OpenInventory", throwIfNotFound: true);
         // Navigation
         m_Navigation = asset.FindActionMap("Navigation", throwIfNotFound: true);
         m_Navigation_Vertical = m_Navigation.FindAction("Vertical", throwIfNotFound: true);
         m_Navigation_Horizontal = m_Navigation.FindAction("Horizontal", throwIfNotFound: true);
         m_Navigation_Press = m_Navigation.FindAction("Press", throwIfNotFound: true);
+        m_Navigation_NavigateInventory = m_Navigation.FindAction("NavigateInventory", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -412,11 +498,13 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_UISelf;
     private List<IUISelfActions> m_UISelfActionsCallbackInterfaces = new List<IUISelfActions>();
     private readonly InputAction m_UISelf_Pause;
+    private readonly InputAction m_UISelf_OpenInventory;
     public struct UISelfActions
     {
         private @UIInput m_Wrapper;
         public UISelfActions(@UIInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Pause => m_Wrapper.m_UISelf_Pause;
+        public InputAction @OpenInventory => m_Wrapper.m_UISelf_OpenInventory;
         public InputActionMap Get() { return m_Wrapper.m_UISelf; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -429,6 +517,9 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @OpenInventory.started += instance.OnOpenInventory;
+            @OpenInventory.performed += instance.OnOpenInventory;
+            @OpenInventory.canceled += instance.OnOpenInventory;
         }
 
         private void UnregisterCallbacks(IUISelfActions instance)
@@ -436,6 +527,9 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @OpenInventory.started -= instance.OnOpenInventory;
+            @OpenInventory.performed -= instance.OnOpenInventory;
+            @OpenInventory.canceled -= instance.OnOpenInventory;
         }
 
         public void RemoveCallbacks(IUISelfActions instance)
@@ -460,6 +554,7 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Navigation_Vertical;
     private readonly InputAction m_Navigation_Horizontal;
     private readonly InputAction m_Navigation_Press;
+    private readonly InputAction m_Navigation_NavigateInventory;
     public struct NavigationActions
     {
         private @UIInput m_Wrapper;
@@ -467,6 +562,7 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
         public InputAction @Vertical => m_Wrapper.m_Navigation_Vertical;
         public InputAction @Horizontal => m_Wrapper.m_Navigation_Horizontal;
         public InputAction @Press => m_Wrapper.m_Navigation_Press;
+        public InputAction @NavigateInventory => m_Wrapper.m_Navigation_NavigateInventory;
         public InputActionMap Get() { return m_Wrapper.m_Navigation; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -485,6 +581,9 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
             @Press.started += instance.OnPress;
             @Press.performed += instance.OnPress;
             @Press.canceled += instance.OnPress;
+            @NavigateInventory.started += instance.OnNavigateInventory;
+            @NavigateInventory.performed += instance.OnNavigateInventory;
+            @NavigateInventory.canceled += instance.OnNavigateInventory;
         }
 
         private void UnregisterCallbacks(INavigationActions instance)
@@ -498,6 +597,9 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
             @Press.started -= instance.OnPress;
             @Press.performed -= instance.OnPress;
             @Press.canceled -= instance.OnPress;
+            @NavigateInventory.started -= instance.OnNavigateInventory;
+            @NavigateInventory.performed -= instance.OnNavigateInventory;
+            @NavigateInventory.canceled -= instance.OnNavigateInventory;
         }
 
         public void RemoveCallbacks(INavigationActions instance)
@@ -518,11 +620,13 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
     public interface IUISelfActions
     {
         void OnPause(InputAction.CallbackContext context);
+        void OnOpenInventory(InputAction.CallbackContext context);
     }
     public interface INavigationActions
     {
         void OnVertical(InputAction.CallbackContext context);
         void OnHorizontal(InputAction.CallbackContext context);
         void OnPress(InputAction.CallbackContext context);
+        void OnNavigateInventory(InputAction.CallbackContext context);
     }
 }
