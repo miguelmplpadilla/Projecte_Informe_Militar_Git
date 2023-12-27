@@ -12,9 +12,23 @@ public class InterControllerPlayer : MonoBehaviour
 
     public LayerMask layerInter;
 
+    private PlayerControls playerControls;
+
     private void Awake()
     {
         circleCollider2D = GetComponent<CircleCollider2D>();
+
+        playerControls = new PlayerControls();
+    }
+
+    private void OnEnable()
+    {
+        playerControls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerControls.Disable();
     }
 
     private void Update()
@@ -25,7 +39,7 @@ public class InterControllerPlayer : MonoBehaviour
         
         objToInter.SendMessage("interEnter", model);
 
-        if (!Input.GetKeyDown(KeyCode.F)) return;
+        if (!playerControls.Gameplay.Inter.WasPressedThisFrame()) return;
 
         model.mov = false;
         model.canInter = false;

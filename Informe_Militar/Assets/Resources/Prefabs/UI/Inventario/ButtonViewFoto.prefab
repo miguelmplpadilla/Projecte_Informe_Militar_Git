@@ -132,6 +132,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ButtonViewFoto
       objectReference: {fileID: 0}
+    - target: {fileID: 7754807051534142771, guid: 17e2210bd1eaa8442b889b5edcd1ec58, type: 3}
+      propertyPath: m_TagString
+      value: Button
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

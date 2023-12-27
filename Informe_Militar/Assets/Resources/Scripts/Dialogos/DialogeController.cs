@@ -26,6 +26,13 @@ public class DialogeController : MonoBehaviour
 
     private GameObject npc;
 
+    private PlayerControls playerControls;
+
+    private void Awake()
+    {
+        playerControls = new PlayerControls();
+    }
+
     void Start()
     {
         textAnimationController = GameObject.Find("TextoNpc").GetComponent<TextAnimationController>();
@@ -36,11 +43,21 @@ public class DialogeController : MonoBehaviour
             _playerModel = GameObject.Find("Player").GetComponent<PlayerModel>();
     }
 
+    private void OnEnable()
+    {
+        playerControls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerControls.Disable();
+    }
+
     private void Update()
     {
         if (multiOpcion) return;
         
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (playerControls.Gameplay.Inter.WasPressedThisFrame())
             iniciarMostrarTexto(siguietenPassage);
     }
 

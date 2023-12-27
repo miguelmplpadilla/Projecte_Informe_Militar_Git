@@ -9,6 +9,7 @@ TagManager:
   - Inter
   - Ground
   - Ally
+  - Button
   layers:
   - Default
   - TransparentFX

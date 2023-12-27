@@ -10,12 +10,9 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private Animator _animator;
 
-    private GameObject spriteObj;
-
     public float jumpForce = 2f;
 
     private float horizontalVelocity = 0;
-    private float horizontalInput = 0;
 
     public float maxSpeed = 0;
     public float maxSpeedWalk = 2;
@@ -40,17 +37,17 @@ public class PlayerMovement : MonoBehaviour
         {
             if (_model.sliding) return;
             
-            maxSpeed = Input.GetButton("Sprint") && _model.canRun ? maxSpeedWalk*2 : maxSpeedWalk;
+            maxSpeed = _model.isSprinting && _model.canRun ? maxSpeedWalk*2 : maxSpeedWalk;
 
-            horizontalInput = Input.GetAxisRaw("Horizontal");
-            movement = new Vector2(horizontalInput, 0f);
+            //_model.horizontalInput = Input.GetAxisRaw("Horizontal");
+            movement = new Vector2(_model.direction.x, 0f);
 
-            float velocity = horizontalInput != 0 ? Input.GetButton("Sprint") ? 1 : 0.5f : 0;
+            float velocity = _model.direction.x != 0 ? _model.isSprinting ? 1 : 0.5f : 0;
 
             if (_model.agachado)
             {
                 maxSpeed = maxSpeedAgachado;
-                velocity = horizontalInput != 0 ? 1 : 0;
+                velocity = _model.direction.x != 0 ? 1 : 0;
             }
 
             _animator.SetFloat("velocity", velocity);
@@ -64,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.C))
             {
                 _model.agachado = !_model.agachado;
-                if (Input.GetButton("Sprint") && _model.agachado) tirarSuelo();
+                if (_model.isSprinting && _model.agachado) tirarSuelo();
             }
 
             _animator.SetBool("crouch", _model.agachado);
@@ -98,8 +95,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void flip()
     {
-        if (horizontalInput != 0) 
-            transform.localScale = new Vector3(horizontalInput > 0 ? 1 : -1, 1, 1);
+        if (_model.direction.x != 0) 
+            transform.localScale = new Vector3(_model.direction.x > 0 ? 1 : -1, 1, 1);
     }
 
     private void saltar()

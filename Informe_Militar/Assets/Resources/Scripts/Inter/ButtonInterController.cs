@@ -17,6 +17,11 @@ public class ButtonInterController : MonoBehaviour
         ChangeSprite();
     }
 
+    private void Update()
+    {
+        ChangeSprite();
+    }
+
     public void mostrar()
     {
         transform.DOScale(originalScale, 0.1f);
@@ -35,6 +40,6 @@ public class ButtonInterController : MonoBehaviour
     public void SetKey(KeyCode keyCode)
     {
         key = keyCode;
-        ChangeSprite(); ;
+        ChangeSprite();
     }
 }

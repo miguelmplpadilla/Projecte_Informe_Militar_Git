@@ -373,8 +373,6 @@ public class TextAnimationController : MonoBehaviour
 
     private void PlayAudioNPC(string name)
     {
-        Debug.Log("PlayAudioNPC");
-
         if (name.Equals("None") || name.Equals("")) return;
 
         try
