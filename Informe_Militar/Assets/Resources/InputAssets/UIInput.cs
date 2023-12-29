@@ -143,6 +143,24 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NavigateButtons"",
+                    ""type"": ""Button"",
+                    ""id"": ""1d970932-fce7-418a-b699-a4301120af60"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Close"",
+                    ""type"": ""Button"",
+                    ""id"": ""75c74c6d-7eb7-40bd-93a5-df730d17a70c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -402,7 +420,7 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""negative"",
                     ""id"": ""2c2216dc-bad6-4c05-a4d8-14a1fd68e59e"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -413,13 +431,68 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""positive"",
                     ""id"": ""bef5b5c7-7c13-4141-93d4-65c077ef34a3"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""NavigateInventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""ChangeButtons"",
+                    ""id"": ""d62ab795-3c7c-4115-af16-d8c2b365def5"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateButtons"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""9719b91d-0ab1-438f-b8a6-cda093584666"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateButtons"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""0d53e259-5201-43aa-9699-3c3a8fb77029"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateButtons"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0015cf1d-340a-4529-b749-d429f11b5ef5"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Close"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9fd59abb-1507-4d43-92ae-5da53133bf94"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Close"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -436,6 +509,8 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
         m_Navigation_Horizontal = m_Navigation.FindAction("Horizontal", throwIfNotFound: true);
         m_Navigation_Press = m_Navigation.FindAction("Press", throwIfNotFound: true);
         m_Navigation_NavigateInventory = m_Navigation.FindAction("NavigateInventory", throwIfNotFound: true);
+        m_Navigation_NavigateButtons = m_Navigation.FindAction("NavigateButtons", throwIfNotFound: true);
+        m_Navigation_Close = m_Navigation.FindAction("Close", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -555,6 +630,8 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Navigation_Horizontal;
     private readonly InputAction m_Navigation_Press;
     private readonly InputAction m_Navigation_NavigateInventory;
+    private readonly InputAction m_Navigation_NavigateButtons;
+    private readonly InputAction m_Navigation_Close;
     public struct NavigationActions
     {
         private @UIInput m_Wrapper;
@@ -563,6 +640,8 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
         public InputAction @Horizontal => m_Wrapper.m_Navigation_Horizontal;
         public InputAction @Press => m_Wrapper.m_Navigation_Press;
         public InputAction @NavigateInventory => m_Wrapper.m_Navigation_NavigateInventory;
+        public InputAction @NavigateButtons => m_Wrapper.m_Navigation_NavigateButtons;
+        public InputAction @Close => m_Wrapper.m_Navigation_Close;
         public InputActionMap Get() { return m_Wrapper.m_Navigation; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -584,6 +663,12 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
             @NavigateInventory.started += instance.OnNavigateInventory;
             @NavigateInventory.performed += instance.OnNavigateInventory;
             @NavigateInventory.canceled += instance.OnNavigateInventory;
+            @NavigateButtons.started += instance.OnNavigateButtons;
+            @NavigateButtons.performed += instance.OnNavigateButtons;
+            @NavigateButtons.canceled += instance.OnNavigateButtons;
+            @Close.started += instance.OnClose;
+            @Close.performed += instance.OnClose;
+            @Close.canceled += instance.OnClose;
         }
 
         private void UnregisterCallbacks(INavigationActions instance)
@@ -600,6 +685,12 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
             @NavigateInventory.started -= instance.OnNavigateInventory;
             @NavigateInventory.performed -= instance.OnNavigateInventory;
             @NavigateInventory.canceled -= instance.OnNavigateInventory;
+            @NavigateButtons.started -= instance.OnNavigateButtons;
+            @NavigateButtons.performed -= instance.OnNavigateButtons;
+            @NavigateButtons.canceled -= instance.OnNavigateButtons;
+            @Close.started -= instance.OnClose;
+            @Close.performed -= instance.OnClose;
+            @Close.canceled -= instance.OnClose;
         }
 
         public void RemoveCallbacks(INavigationActions instance)
@@ -628,5 +719,7 @@ public partial class @UIInput: IInputActionCollection2, IDisposable
         void OnHorizontal(InputAction.CallbackContext context);
         void OnPress(InputAction.CallbackContext context);
         void OnNavigateInventory(InputAction.CallbackContext context);
+        void OnNavigateButtons(InputAction.CallbackContext context);
+        void OnClose(InputAction.CallbackContext context);
     }
 }

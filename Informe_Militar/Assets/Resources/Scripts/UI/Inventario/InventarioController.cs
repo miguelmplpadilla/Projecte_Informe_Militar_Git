@@ -3,6 +3,7 @@ using System.IO;
 using DG.Tweening;
 using Resources.Scripts.UI.Inventario;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,6 +12,7 @@ using UnityEngine.UI;
 public class InventarioController : MonoBehaviour
 {
     private List<GameObject> createdButtons = new List<GameObject>();
+    public List<GameObject> currentContinerButtons = new List<GameObject>();
 
     public GameObject prefabButtonDocumento;
     public GameObject prefabButtonFoto;
@@ -35,11 +37,14 @@ public class InventarioController : MonoBehaviour
 
     private UIInput uiInput;
 
+    public int indexContiner = 0;
+
     private void Awake()
     {
         uiInput = new UIInput();
 
         uiInput.Navigation.NavigateInventory.performed += MoveOptions;
+        uiInput.Navigation.NavigateButtons.performed += MoveContinerButtons;
     }
 
     private void Start()
@@ -65,7 +70,8 @@ public class InventarioController : MonoBehaviour
         if (uiInput.UISelf.OpenInventory.WasPressedThisFrame() && !showingInventario)
         {
             pausaController.pause();
-            
+            model.canPause = !model.canPause;
+
             if (!inventarioShowed) 
                 showInventario();
             else
@@ -73,6 +79,37 @@ public class InventarioController : MonoBehaviour
             
             inventarioShowed = !inventarioShowed;
             showingInventario = true;
+        }
+    }
+
+    private void MoveContinerButtons(InputAction.CallbackContext context)
+    {
+        GameObject continer = actualPanelShowed.transform.GetChild(0).gameObject;
+        Debug.Log(continer.name);
+        ShowButtons(context.ReadValue<float>() > 0 ? 1 : -1);
+        Navigate(continer);
+    }
+
+    public void ShowButtons(int sumIndex)
+    {
+        if (currentContinerButtons.Count == 0) return;
+
+        indexContiner += sumIndex;
+
+        if (indexContiner > currentContinerButtons.Count / 10)
+            indexContiner = currentContinerButtons.Count / 10;
+        else if (indexContiner < 0)
+            indexContiner = 0;
+
+        for (int i = 0; i < currentContinerButtons.Count; i++)
+        {
+            currentContinerButtons[i].SetActive(false);
+        }
+
+        for (int i = 10 * indexContiner; i < (indexContiner * 10) + 10; i++)
+        {
+            if (i >= currentContinerButtons.Count) break;
+            currentContinerButtons[i].SetActive(true);
         }
     }
 
@@ -84,14 +121,75 @@ public class InventarioController : MonoBehaviour
 
         indexOptions += context.ReadValue<float>() > 0 ? 1 : -1;
 
-        if (indexOptions >= optionsNavigationButtons.verticalButtons.Count)
+        if (indexOptions >= optionsNavigationButtons.verticalButtons[0].horizontalButtons.Count)
             indexOptions = 0;
         else if (indexOptions < 0)
-            indexOptions = optionsNavigationButtons.verticalButtons.Count - 1;
+            indexOptions = optionsNavigationButtons.verticalButtons[0].horizontalButtons.Count - 1;
 
         optionsNavigationButtons.verticalButtons[0].horizontalButtons[indexOptions].GetComponent<Button>().onClick.Invoke();
         optionsNavigationButtons.verticalButtons[0].horizontalButtons[indexOptions].GetComponent<Image>().color = Color.red;
         optionsNavigationButtons.verticalButtons[0].horizontalButtons[lastIndexOptions].GetComponent<Image>().color = Color.white;
+    }
+
+    public void SetIndexOptionsButton(int indexButton)
+    {
+        int lastIndexOptions = indexOptions;
+
+        indexOptions = indexButton;
+
+        optionsNavigationButtons.verticalButtons[0].horizontalButtons[indexOptions].GetComponent<Image>().color = Color.red;
+        optionsNavigationButtons.verticalButtons[0].horizontalButtons[lastIndexOptions].GetComponent<Image>().color = Color.white;
+    }
+
+    public void Navigate(GameObject continer)
+    {
+        NavigationButtons navigationButtons = new NavigationButtons();
+
+        navigationButtons.direction = NavigationButtons.DirectionType.All;
+
+        int countChild = 0;
+
+        List<GameObject> activeButtonContiner = new List<GameObject>();
+        for (int i = 0; i < continer.transform.childCount; i++)
+        {
+            GameObject button = continer.transform.GetChild(i).gameObject;
+            if (button.activeSelf) activeButtonContiner.Add(button);
+        }
+
+        if (continer.transform.childCount < 2)
+        {
+            Buttons buttons = new Buttons();
+            buttons.horizontalButtons.Add(continer.transform.GetChild(0).gameObject);
+            navigationButtons.verticalButtons.Add(buttons);
+            navigationController.SetNavigationButtons(navigationButtons);
+            return;
+        }
+
+        for (int i = 0; i < (activeButtonContiner.Count / continer.GetComponent<GridLayoutGroup>().constraintCount)+1; i++)
+        {
+            Buttons buttons = new Buttons();
+
+            for (int j = 0; j < continer.GetComponent<GridLayoutGroup>().constraintCount; j++)
+            {
+                if (countChild >= activeButtonContiner.Count)
+                {
+                    if (buttons.horizontalButtons.Count > 0) 
+                        navigationButtons.verticalButtons.Add(buttons);
+                    navigationController.SetNavigationButtons(navigationButtons);
+                    return;
+                }
+
+                buttons.horizontalButtons.Add(activeButtonContiner[countChild].gameObject);
+
+                countChild++;
+            }
+
+            if (buttons.horizontalButtons.Count == 0) continue;
+
+            navigationButtons.verticalButtons.Add(buttons);
+        }
+
+        navigationController.SetNavigationButtons(navigationButtons);
     }
 
     public async void showInventario()
@@ -99,6 +197,8 @@ public class InventarioController : MonoBehaviour
         createDocumentButtons();
         createFotoButtons();
         CreateObjectsButtons();
+
+        StartNavigationButtons(contentDocumentos);
 
         optionsNavigationButtons.verticalButtons[0].horizontalButtons[0].GetComponent<Button>().onClick.Invoke();
         optionsNavigationButtons.verticalButtons[0].horizontalButtons[0].GetComponent<Image>().color = Color.red;
@@ -151,11 +251,27 @@ public class InventarioController : MonoBehaviour
         showingPanel = false;
     }
 
+    private void SetCurrentButtonsContiner(GameObject continer)
+    {
+        if (continer.transform.childCount == 0) return;
+
+        currentContinerButtons = new List<GameObject>();
+
+        for (int i = 0; i < continer.transform.childCount; i++)
+        {
+            currentContinerButtons.Add(continer.transform.GetChild(i).gameObject);
+        }
+    }
+
     public void StartNavigationButtons(GameObject continer)
     {
-        NavigationButtons navigationButtons = new NavigationButtons();
+        if (continer.transform.childCount == 0) return;
 
+        SetCurrentButtonsContiner(continer);
 
+        ShowButtons(0);
+
+        Navigate(continer);
     }
 
     private void createDocumentButtons()
@@ -180,6 +296,7 @@ public class InventarioController : MonoBehaviour
         foreach (var foto in UnityEngine.Resources.LoadAll<Sprite>("Sprites/Camera/Fotografias"))
         {
             GameObject button = Instantiate(prefabButtonFoto, contentFotos.transform);
+            button.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = foto;
             button.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = foto.name;
             button.GetComponent<ButtonViewController>().id = foto.name;
             createdButtons.Add(button);

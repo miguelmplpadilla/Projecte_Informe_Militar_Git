@@ -42,7 +42,7 @@ public class PausaController : MonoBehaviour
 
     public void pauseUnPause()
     {
-        if (!_model.isPaused && !_model.mov) return;
+        if (!_model.isPaused && !_model.mov || !_model.canPause) return;
 
         pause();
 

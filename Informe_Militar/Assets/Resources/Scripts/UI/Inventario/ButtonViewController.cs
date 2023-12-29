@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using DG.Tweening;
 using TMPro;
 using UnityEditor;
@@ -15,7 +16,9 @@ namespace Resources.Scripts.UI.Inventario
         public async void showDocument()
         {
             GameObject imageDocument = GameObject.Find("ImageDocument");
-        
+
+            imageDocument.transform.parent.Find("CloseButton").GetComponent<DocumentPanelController>().panelShowed = true;
+
             Sprite spriteDocument = UnityEngine.Resources.Load<Sprite>("Sprites/Documents/" + id);
 
             imageDocument.GetComponent<Image>().sprite = spriteDocument;
@@ -28,7 +31,9 @@ namespace Resources.Scripts.UI.Inventario
         public async void showFoto()
         {
             GameObject panelFotos = GameObject.Find("PanelFotos");
-        
+
+            panelFotos.transform.Find("CloseButton").GetComponent<DocumentPanelController>().panelShowed = true;
+
             Sprite spriteDocument = UnityEngine.Resources.Load<Sprite>("Sprites/Camera/Fotografias/" + id);
 
             GameObject imageDocument = panelFotos.transform.GetChild(2).GetChild(0).gameObject;
@@ -45,6 +50,8 @@ namespace Resources.Scripts.UI.Inventario
             if (id.Equals("")) return;
 
             GameObject panelObjects = GameObject.Find("PanelObjects");
+
+            panelObjects.transform.Find("CloseButton").GetComponent<DocumentPanelController>().panelShowed = true;
 
             Inventory inventory =
                 AssetDatabase.LoadAssetAtPath<Inventory>("Assets/Resources/Scripts/ScriptableObjetcts/Objects/InventoryObjects.asset");

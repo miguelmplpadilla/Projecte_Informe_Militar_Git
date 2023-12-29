@@ -82,7 +82,14 @@ public class NavigationController : MonoBehaviour
         if (indexNavigationY >= navigationButtons.verticalButtons.Count)
             indexNavigationY = 0;
         else if (indexNavigationY < 0)
+        {
             indexNavigationY = navigationButtons.verticalButtons.Count - 1;
+            if (navigationButtons.verticalButtons[indexNavigationY].horizontalButtons.Count <= indexNavigationX)
+                indexNavigationY -= 1;
+        }
+
+        if (navigationButtons.verticalButtons[indexNavigationY].horizontalButtons.Count <= indexNavigationX)
+            indexNavigationY = 0;
 
         buttonSelected = navigationButtons.verticalButtons[indexNavigationY].horizontalButtons[indexNavigationX];
 

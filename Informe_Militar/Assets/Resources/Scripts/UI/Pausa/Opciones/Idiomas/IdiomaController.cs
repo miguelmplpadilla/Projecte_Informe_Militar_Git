@@ -56,7 +56,7 @@ public class IdiomaController : MonoBehaviour
 
     private void ChangeIdiomController(InputAction.CallbackContext context)
     {
-        if (!navigationController.buttonSelected.name.Equals("OpcionIdiomas")) return;
+        if (navigationController.buttonSelected == null || !navigationController.buttonSelected.name.Equals("OpcionIdiomas")) return;
         changeIdiom(context.ReadValue<float>() > 0 ? 1 : -1);
     }
 
