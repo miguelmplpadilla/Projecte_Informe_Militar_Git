@@ -40,7 +40,6 @@ public class CamaraFotosController : MonoBehaviour
 
     private void Update()
     {
-        playerModel.canInter = !cameraShowed;
         if (Input.GetKeyDown(KeyCode.P))
             showCamera();
 

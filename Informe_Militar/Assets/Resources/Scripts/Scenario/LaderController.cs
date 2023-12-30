@@ -41,7 +41,7 @@ public class LaderController : MonoBehaviour, InterBaseInterface
             playerAnimator.SetBool("climbing", false);
             playerRb.bodyType = RigidbodyType2D.Dynamic;
             playerModel.mov = true;
-            playerModel.canInter = true;
+            //playerModel.canInter = true;
             playerAnimator.speed = 1;
             canClimb = false;
             playerClimbing = false;

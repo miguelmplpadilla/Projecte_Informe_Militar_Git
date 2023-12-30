@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class InterControllerPlayer : MonoBehaviour
@@ -31,7 +32,7 @@ public class InterControllerPlayer : MonoBehaviour
         playerControls.Disable();
     }
 
-    private void Update()
+    private async void Update()
     {
         objToInter = comprobarInterCollider();
 

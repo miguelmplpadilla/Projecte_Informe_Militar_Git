@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using DG.Tweening;
 using Resources.Scripts;
 using TMPro;
@@ -24,7 +25,7 @@ public class DialogeController : MonoBehaviour
 
     public string voiceTone;
 
-    private GameObject npc;
+    public GameObject npc;
 
     private PlayerControls playerControls;
 
@@ -53,10 +54,12 @@ public class DialogeController : MonoBehaviour
         playerControls.Disable();
     }
 
-    private void Update()
+    private async void Update()
     {
-        if (multiOpcion) return;
-        
+        if (multiOpcion || npc == null) return;
+
+        await Task.Delay(1);
+
         if (playerControls.Gameplay.Inter.WasPressedThisFrame())
             iniciarMostrarTexto(siguietenPassage);
     }
@@ -74,8 +77,10 @@ public class DialogeController : MonoBehaviour
         iniciarMostrarTexto(p);
     }
 
-    public void iniciarMostrarTexto(Passage text)
+    public async void iniciarMostrarTexto(Passage text)
     {
+        GameObject.Find("NavigationManager").GetComponent<NavigationController>().SetNavigationButtons(null);
+
         if (text != null)
         {
             setPassageUnique(text);
@@ -89,10 +94,14 @@ public class DialogeController : MonoBehaviour
             return;
         }
 
-       if(!SceneManager.GetActiveScene().name.Equals("TextosPruebaEscena")) 
+        if(!SceneManager.GetActiveScene().name.Equals("TextosPruebaEscena")) 
            JSONConverter.rewriteJson(story);
 
         transform.parent.localScale = Vector3.zero;
+
+        Debug.Log("Dialoge: "+ _playerModel.canInter + " Frame: " + Time.frameCount);
+
+        npc = null;
 
         if (_playerModel == null) return;
         _playerModel.canInter = true;
@@ -103,16 +112,15 @@ public class DialogeController : MonoBehaviour
     {
         for (int i = 0; i < story.passages.Count; i++)
         {
-            if (passage.name.Equals(story.passages[i].name))
+            if (!passage.name.Equals(story.passages[i].name)) continue;
+
+            foreach (var tg in story.passages[i].tags)
             {
-                foreach (var tg in story.passages[i].tags)
+                string[] splitTags = Regex.Split(tg, ">");
+                if (splitTags[1].Equals("unique"))
                 {
-                    string[] splitTags = Regex.Split(tg, ">");
-                    if (splitTags[1].Equals("unique"))
-                    {
-                        story.passages[i].ussed = true;
-                        return;
-                    }
+                    story.passages[i].ussed = true;
+                    return;
                 }
             }
         }
@@ -152,6 +160,7 @@ public class DialogeController : MonoBehaviour
         {
             multiOpcion = true;
             int index = 1;
+
             foreach (var link in passage.links)
             {
                 if (dialogos[link.name].ussed) continue;
@@ -173,6 +182,31 @@ public class DialogeController : MonoBehaviour
 
                 index++;
             }
+
+            NavigationButtons navigateButtons = new NavigationButtons();
+            navigateButtons.direction = NavigationButtons.DirectionType.All;
+            Buttons button = new Buttons();
+
+            if (continerBotones1.transform.childCount > 0)
+            {
+                for (int i = 0; i < continerBotones1.transform.childCount; i++)
+                {
+                    button.horizontalButtons.Add(continerBotones1.transform.GetChild(i).gameObject);
+                }
+                navigateButtons.verticalButtons.Add(button);
+            }
+
+            if (continerBotones2.transform.childCount > 0)
+            {
+                button = new Buttons();
+                for (int i = 0; i < continerBotones2.transform.childCount; i++)
+                {
+                    button.horizontalButtons.Add(continerBotones2.transform.GetChild(i).gameObject);
+                }
+                navigateButtons.verticalButtons.Add(button);
+            }
+
+            GameObject.Find("NavigationManager").GetComponent<NavigationController>().SetNavigationButtons(navigateButtons);
 
             if (listBotones.Count == 0)
             {

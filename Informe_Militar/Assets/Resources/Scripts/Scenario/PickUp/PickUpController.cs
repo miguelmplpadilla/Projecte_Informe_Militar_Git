@@ -75,8 +75,6 @@ public class PickUpController : MonoBehaviour
         Animator animatorPlayer = GameObject.Find("Player").GetComponent<Animator>();
         animatorPlayer.SetTrigger("agachar");
 
-        Debug.Log(animatorPlayer.GetCurrentAnimatorStateInfo(0).length);
-
         await Task.Delay((int)(animatorPlayer.GetCurrentAnimatorStateInfo(0).length * 1000));
 
         playerModel.canInter = true;

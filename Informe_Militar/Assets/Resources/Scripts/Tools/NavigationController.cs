@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -71,7 +70,8 @@ public class NavigationController : MonoBehaviour
     private void NavigationVertical(InputAction.CallbackContext context)
     {
         if (navigationButtons == null ||
-            navigationButtons.direction == NavigationButtons.DirectionType.Horizontal) return;
+            navigationButtons.direction == NavigationButtons.DirectionType.Horizontal ||
+            navigationButtons.verticalButtons.Count == 0) return;
 
         float changeIndex = context.ReadValue<float>();
 
@@ -89,7 +89,7 @@ public class NavigationController : MonoBehaviour
         }
 
         if (navigationButtons.verticalButtons[indexNavigationY].horizontalButtons.Count <= indexNavigationX)
-            indexNavigationY = 0;
+            indexNavigationX--;
 
         buttonSelected = navigationButtons.verticalButtons[indexNavigationY].horizontalButtons[indexNavigationX];
 
@@ -99,7 +99,7 @@ public class NavigationController : MonoBehaviour
 
     private void PressButton()
     {
-        if (navigationButtons == null) return;
+        if (navigationButtons == null || navigationButtons.verticalButtons.Count == 0) return;
 
         navigationButtons.verticalButtons[indexNavigationY].horizontalButtons[indexNavigationX].GetComponent<Button>().onClick.Invoke();
     }

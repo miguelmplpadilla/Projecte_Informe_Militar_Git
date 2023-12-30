@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     
     private Rigidbody2D _rigidbody;
     private Animator _animator;
+    private CapsuleCollider2D _capsuleCollider;
 
     public float jumpForce = 2f;
 
@@ -20,13 +21,30 @@ public class PlayerMovement : MonoBehaviour
 
     public float maxSpeedAgachado = 0.5f;
 
+    public PhysicsMaterial2D fullFriction;
+    public PhysicsMaterial2D noFriction;
+
+    private PlayerControls playerControls;
 
     private void Awake()
     {
+        playerControls = new PlayerControls();
+
         maxSpeed = maxSpeedWalk;
         _model = GetComponent<PlayerModel>();
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
+        _capsuleCollider = GetComponent<CapsuleCollider2D>();
+    }
+
+    private void OnEnable()
+    {
+        playerControls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerControls.Disable();
     }
 
     void Update()
@@ -39,7 +57,6 @@ public class PlayerMovement : MonoBehaviour
             
             maxSpeed = _model.isSprinting && _model.canRun ? maxSpeedWalk*2 : maxSpeedWalk;
 
-            //_model.horizontalInput = Input.GetAxisRaw("Horizontal");
             movement = new Vector2(_model.direction.x, 0f);
 
             float velocity = _model.direction.x != 0 ? _model.isSprinting ? 1 : 0.5f : 0;
@@ -55,10 +72,18 @@ public class PlayerMovement : MonoBehaviour
             flip();
             movePlayer();
 
-            if (_model.isGrounded && _model.canJump && 
-                Input.GetButtonDown("Jump")) saltar();
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, Mathf.Infinity, LayerMask.GetMask("Ground"));
 
-            if (Input.GetKeyDown(KeyCode.C))
+            _capsuleCollider.sharedMaterial = _model.direction.x != 0 ? null : fullFriction;
+
+            if (_model.isGrounded && hit.collider != null && _model.direction.x == 0 && !_model.positionedInRamp)
+            {
+                _rigidbody.velocity = Vector2.zero;
+                transform.position = new Vector3(transform.position.x, hit.point.y);
+                _model.positionedInRamp = true;
+            }
+
+            if (playerControls.Gameplay.Slide.WasPressedThisFrame())
             {
                 _model.agachado = !_model.agachado;
                 if (_model.isSprinting && _model.agachado) tirarSuelo();
@@ -68,7 +93,8 @@ public class PlayerMovement : MonoBehaviour
 
             return;
         }
-        
+
+        _animator.SetFloat("velocity", 0);
         _rigidbody.velocity = Vector3.zero;
     }
 
@@ -97,10 +123,5 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_model.direction.x != 0) 
             transform.localScale = new Vector3(_model.direction.x > 0 ? 1 : -1, 1, 1);
-    }
-
-    private void saltar()
-    {
-        _rigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
 }
