@@ -20,10 +20,17 @@ public class PlayerModel : MonoBehaviour
 
     public Vector2 direction;
 
-    private PlayerControls playerControls;
+    public PlayerControls playerControls;
+
+    public Animator animator;
+    public Rigidbody2D rigidbody;
+
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
+        rigidbody = GetComponent<Rigidbody2D>();
+
         playerControls = new PlayerControls();
 
         playerControls.Gameplay.Move.performed += ReadInput;

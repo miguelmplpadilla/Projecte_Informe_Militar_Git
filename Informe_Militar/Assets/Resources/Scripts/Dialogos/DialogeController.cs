@@ -99,8 +99,6 @@ public class DialogeController : MonoBehaviour
 
         transform.parent.localScale = Vector3.zero;
 
-        Debug.Log("Dialoge: "+ _playerModel.canInter + " Frame: " + Time.frameCount);
-
         npc = null;
 
         if (_playerModel == null) return;

@@ -67,7 +67,7 @@ public class InventarioController : MonoBehaviour
 
     private void Update()
     {
-        if (uiInput.UISelf.OpenInventory.WasPressedThisFrame() && !showingInventario)
+        if (uiInput.UISelf.OpenInventory.WasPressedThisFrame() && !showingInventario && !model.isPaused)
         {
             pausaController.pause();
             model.canPause = !model.canPause;

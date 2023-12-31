@@ -165,107 +165,10 @@ public class TextAnimationController : MonoBehaviour
                 }
             }
             
-            if (terminarBucle)
-            {
-                break;
-            }
+            if (terminarBucle) break;
         }
         
         textComponent.text = textoEscribir;
-    }
-
-    private void moverCaracteresArribaAbajo()
-    {
-        textComponent.ForceMeshUpdate();
-        Mesh mesh = textComponent.mesh;
-        vertices = mesh.vertices;
-
-        for (int i = 0; i < textComponent.textInfo.characterCount; i++)
-        {
-            TMP_CharacterInfo c = textComponent.textInfo.characterInfo[i];
-
-            int index = c.vertexIndex;
-            
-            Vector3 orig = vertices[index];
-            
-            Vector3 offset = new Vector3(0, Mathf.Sin(Time.time * 2 + orig.x * 0.01f) * 10, 0);
-
-            if (c.isVisible)
-            {
-                for (int j = 0; j < 4; j++)
-                {
-                    vertices[index + j] += offset;
-                }
-            
-                mesh.vertices = vertices;
-                textComponent.canvasRenderer.SetMesh(mesh);
-            }
-        }
-    }
-
-    /*private void moverPalabrasArribaAbajo()
-    {
-        textComponent.ForceMeshUpdate();
-
-        for (int i = 0; i < wordIndexes.Count; i++)
-        {
-            int wordIndex = wordIndexes[i].wordIndex;
-
-            for (int j = 0; j < wordLengths[i]; j++)
-            {
-                if (wordIndexes[i].tipoFrase.Equals("m"))
-                {
-                    TMP_CharacterInfo c = textComponent.textInfo.characterInfo[wordIndex + j];
-
-                    int index = c.vertexIndex;
-
-                    Vector3 orig = vertices[index];
-                    Vector3 offset = new Vector3(0, Mathf.Sin(Time.time * 2 + orig.x * 0.01f) * 10, 0);
-
-                    for (int n = 0; n < 4; n++)
-                    {
-                        vertices[index + n] += offset;
-                    }
-
-                    meshPrincipal.vertices = vertices;
-                }
-            }
-        }
-    }*/
-
-    private void moverTextoArribaAbajo()
-    {
-        var textInfo = textComponent.textInfo;
-
-        for (int i = 0; i < textInfo.characterCount; i++)
-        {
-            var charInfo = textInfo.characterInfo[i];
-
-            if (!charInfo.isVisible)
-            {
-                continue;
-            }
-
-            var verts = textInfo.meshInfo[charInfo.materialReferenceIndex].vertices;
-
-            for (int j = 0; j < 4; j++)
-            {
-                if (tamanoVertices[i][j] != new Vector3(0, 0, 0))
-                {
-                    var orig = verts[charInfo.vertexIndex + j];
-
-                    verts[charInfo.vertexIndex + j] =
-                        orig + new Vector3(0, Mathf.Sin(Time.time * 2 + orig.x * 0.01f) * 10, 0);
-                }
-            }
-        }
-
-        for (int i = 0; i < textInfo.meshInfo.Length; i++)
-        {
-            var meshInfo = textInfo.meshInfo[i];
-            meshInfo.mesh.vertices = meshInfo.vertices;
-            textComponent.UpdateGeometry(meshInfo.mesh, i);
-        }
     }
 
     private void esconderTexto()
@@ -293,53 +196,22 @@ public class TextAnimationController : MonoBehaviour
         textComponent.canvasRenderer.SetMesh(mesh);
     }
 
-    IEnumerator mostrarTextoV2()
-    {
-        textComponent.ForceMeshUpdate();
-        
-        esconderTexto();
-
-        Mesh mesh = textComponent.mesh;
-        Color32[] colores = mesh.colors32;
-
-        for (int i = 0; i < textComponent.textInfo.characterCount; i++)
-        {
-            TMP_CharacterInfo c = textComponent.textInfo.characterInfo[i];
-            int index = c.vertexIndex;
-            
-            Color32 colorNuevo = new Color32(255,255,255, 255);
-            
-            for (int j = 0; j < 4; j++)
-            {
-                colores[index + (j+1)] = colorNuevo;
-                coloresActuales[index + (j+1)] = colorNuevo;
-            }
-
-            yield return new WaitForSeconds(0.05f);
-            
-            mesh.colors32 = colores;
-            textComponent.canvasRenderer.SetMesh(mesh);
-        }
-
-        yield return null;
-    }
-
     public GameObject npcParent;
 
     public void iniciarMostrarTexto(string textoMostrar, string voiceTone, GameObject parent = null)
     {
         if (parent != null) npcParent = parent;
 
-        StopCoroutine("mostrarTextoV1");
-        
-        textoEscribir = textoMostrar;
+        StopCoroutine(mostrarTexto(""));
+
+        textoEscribir = textoMostrar.Replace("'", "\"");
         
         initialiceWordIndexer();
 
-        StartCoroutine("mostrarTextoV1", voiceTone);
+        StartCoroutine(mostrarTexto(voiceTone));
     }
 
-    IEnumerator mostrarTextoV1(string voiceTone)
+    IEnumerator mostrarTexto(string voiceTone)
     {
         int totalVisibleCharacters = textoEscribir.Length;
 
@@ -380,46 +252,5 @@ public class TextAnimationController : MonoBehaviour
             AudioManagerController.PlaySfx("NPCTalk-" + name + "-0" + Random.Range(1, 8 + 1), npcParent,
             pitch: Random.Range(1.0f, 1.15f));
         } catch (Exception e) { }
-    }
-    
-    private void temblarVertices()
-    {
-        textComponent.ForceMeshUpdate();
-        Mesh mesh = textComponent.mesh;
-        vertices = mesh.vertices;
-
-        for (int i = 0; i < vertices.Length; i++)
-        {
-            Vector3 offset = new Vector3(Random.Range(1.5f,5f), Random.Range(1.5f,5f), Random.Range(1.5f,5f));
-
-            vertices[i] = vertices[i] + offset;
-        }
-
-        mesh.vertices = vertices;
-        textComponent.canvasRenderer.SetMesh(mesh);
-    }
-    
-    private void temblarCaracteres()
-    {
-        textComponent.ForceMeshUpdate();
-        Mesh mesh = textComponent.mesh;
-        vertices = mesh.vertices;
-
-        for (int i = 0; i < textComponent.textInfo.characterCount; i++)
-        {
-            TMP_CharacterInfo c = textComponent.textInfo.characterInfo[i];
-
-            int index = c.vertexIndex;
-            
-            Vector3 offset = new Vector3(Random.Range(1.5f,5f), Random.Range(1.5f,5f), Random.Range(1.5f,5f));
-
-            vertices[index] += offset;
-            vertices[index+1] += offset;
-            vertices[index+2] += offset;
-            vertices[index+3] += offset;
-        }
-
-        mesh.vertices = vertices;
-        textComponent.canvasRenderer.SetMesh(mesh);
     }
 }

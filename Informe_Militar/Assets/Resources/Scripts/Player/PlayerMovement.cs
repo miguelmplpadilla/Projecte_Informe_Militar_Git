@@ -7,8 +7,6 @@ public class PlayerMovement : MonoBehaviour
     
     public Vector2 movement;
     
-    private Rigidbody2D _rigidbody;
-    private Animator _animator;
     private CapsuleCollider2D _capsuleCollider;
 
     public float jumpForce = 2f;
@@ -24,27 +22,11 @@ public class PlayerMovement : MonoBehaviour
     public PhysicsMaterial2D fullFriction;
     public PhysicsMaterial2D noFriction;
 
-    private PlayerControls playerControls;
-
     private void Awake()
     {
-        playerControls = new PlayerControls();
-
         maxSpeed = maxSpeedWalk;
         _model = GetComponent<PlayerModel>();
-        _animator = GetComponent<Animator>();
-        _rigidbody = GetComponent<Rigidbody2D>();
         _capsuleCollider = GetComponent<CapsuleCollider2D>();
-    }
-
-    private void OnEnable()
-    {
-        playerControls.Enable();
-    }
-
-    private void OnDisable()
-    {
-        playerControls.Disable();
     }
 
     void Update()
@@ -67,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
                 velocity = _model.direction.x != 0 ? 1 : 0;
             }
 
-            _animator.SetFloat("velocity", velocity);
+            _model.animator.SetFloat("velocity", velocity);
 
             flip();
             movePlayer();
@@ -78,35 +60,35 @@ public class PlayerMovement : MonoBehaviour
 
             if (_model.isGrounded && hit.collider != null && _model.direction.x == 0 && !_model.positionedInRamp)
             {
-                _rigidbody.velocity = Vector2.zero;
+                _model.rigidbody.velocity = Vector2.zero;
                 transform.position = new Vector3(transform.position.x, hit.point.y);
                 _model.positionedInRamp = true;
             }
 
-            if (playerControls.Gameplay.Slide.WasPressedThisFrame())
+            if (_model.playerControls.Gameplay.Slide.WasPressedThisFrame())
             {
                 _model.agachado = !_model.agachado;
                 if (_model.isSprinting && _model.agachado) tirarSuelo();
             }
 
-            _animator.SetBool("crouch", _model.agachado);
+            _model.animator.SetBool("crouch", _model.agachado);
 
             return;
         }
 
-        _animator.SetFloat("velocity", 0);
-        _rigidbody.velocity = Vector3.zero;
+        _model.animator.SetFloat("velocity", 0);
+        _model.rigidbody.velocity = Vector3.zero;
     }
 
     private void tirarSuelo()
     {
-        _animator.SetTrigger("slide");
+        _model.animator.SetTrigger("slide");
         
         _model.sliding = true;
 
         Vector2 force = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
 
-        _rigidbody.AddForce(force, ForceMode2D.Force);
+        _model.rigidbody.AddForce(force, ForceMode2D.Force);
     }
     
     private void movePlayer()
@@ -114,9 +96,9 @@ public class PlayerMovement : MonoBehaviour
         currentSpeed = Input.GetAxisRaw("Horizontal") == 0 ? movement.x * maxSpeed : maxSpeed;
 
         horizontalVelocity = movement.normalized.x * Math.Abs(currentSpeed);
-        _rigidbody.velocity = new Vector2(horizontalVelocity, _rigidbody.velocity.y);
-        
-        _animator.SetBool("run", Input.GetButton("Horizontal"));
+        _model.rigidbody.velocity = new Vector2(horizontalVelocity, _model.rigidbody.velocity.y);
+
+        _model.animator.SetBool("run", Input.GetButton("Horizontal"));
     }
 
     private void flip()

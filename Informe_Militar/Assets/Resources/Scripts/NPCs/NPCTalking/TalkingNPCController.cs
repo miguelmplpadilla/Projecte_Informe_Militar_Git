@@ -27,9 +27,12 @@ public class TalkingNPCController : MonoBehaviour
 
     public int dialogueIndex = 0;
 
+    private PlayerModel playerModel;
+
     private void Start()
     {
         player = GameObject.Find("Player");
+        playerModel = player.GetComponent<PlayerModel>();
 
         text1.text = "";
         text2.text = "";
@@ -43,7 +46,7 @@ public class TalkingNPCController : MonoBehaviour
     {
         float distanceToPlayer = Vector2.Distance(player.transform.position, transform.position);
 
-        if (distanceToPlayer <= 7 && !talkStarted)
+        if (distanceToPlayer <= 7 && !talkStarted && !playerModel.isPaused)
         {
             talkStarted = true;
             Invoke("StartTalking", 1);
@@ -61,15 +64,16 @@ public class TalkingNPCController : MonoBehaviour
 
         for (int i = dialogueIndex; i < talk.dialoge.Count; i++)
         {
-            if (!talkStarted)
+            dialogueIndex = i;
+
+            if (!talkStarted || playerModel.isPaused)
             {
                 isTalking = false;
                 text1.text = "";
                 text2.text = "";
+                if (playerModel.isPaused) talkStarted = false;
                 return;
             }
-
-            dialogueIndex = i;
 
             SetAnimation(talk.dialoge[i].npc == 1 ? customNPCController1 : customNPCController2, 
                 talk.dialoge[i].animation);

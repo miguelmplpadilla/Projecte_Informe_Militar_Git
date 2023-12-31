@@ -65,7 +65,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.004252687, y: 0.035553575}
+  m_Offset: {x: -0.004252687, y: -0.015240252}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -76,7 +76,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.32252863, y: 0.34201646}
+  m_Size: {x: 0.32252863, y: 0.4436041}
   m_EdgeRadius: 0
 --- !u!114 &4857243299532295873
 MonoBehaviour:
@@ -218,10 +218,13 @@ GameObject:
   - component: {fileID: 9201776010818520783}
   - component: {fileID: 3243552456020923309}
   - component: {fileID: 7311093194087153362}
+  - component: {fileID: 844454912566442816}
   - component: {fileID: 7489531762268985147}
+  - component: {fileID: 1323583981469442152}
   - component: {fileID: 2500189041337900569}
   - component: {fileID: 4097317407723317181}
   - component: {fileID: 6015340651835478560}
+  - component: {fileID: 2182965625147087385}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -245,7 +248,7 @@ Transform:
   - {fileID: 845795618053212688}
   - {fileID: 1194867008659275367}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &9201776010818520783
 SpriteRenderer:
@@ -287,7 +290,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: a2fa1840dc3f5954ebc25293827080ea, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -314,12 +317,16 @@ MonoBehaviour:
   canInter: 1
   mov: 1
   isGrounded: 1
-  canJump: 0
   canRun: 1
+  isSprinting: 0
   isPaused: 0
   canPause: 1
   agachado: 0
   sliding: 0
+  positionedInRamp: 0
+  direction: {x: 0, y: 0}
+  animator: {fileID: 0}
+  rigidbody: {fileID: 0}
 --- !u!114 &7311093194087153362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,6 +345,23 @@ MonoBehaviour:
   maxSpeedWalk: 2.5
   currentSpeed: 2
   maxSpeedAgachado: 0.5
+  fullFriction: {fileID: 6200000, guid: e0f115569a0f97a43a088d5eb9eb08d2, type: 2}
+  noFriction: {fileID: 6200000, guid: f39de1f7b8869654c8e703bddde8fa55, type: 2}
+--- !u!114 &844454912566442816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7839187471023144368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc7498f42f12b2429e40e4e8d0ef206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rayPosition1: {fileID: 0}
+  rayPosition2: {fileID: 0}
+  distanceCheckRay: 0.35
 --- !u!114 &7489531762268985147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,6 +374,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6499066f4c8ee24f8f96065e6526114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!70 &1323583981469442152
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7839187471023144368}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0030645132, y: 0.6785197}
+  m_Size: {x: 0.51584554, y: 1.3291984}
+  m_Direction: 0
 --- !u!61 &2500189041337900569
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -357,7 +416,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7839187471023144368}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -443,3 +502,11 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!81 &2182965625147087385
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7839187471023144368}
+  m_Enabled: 1

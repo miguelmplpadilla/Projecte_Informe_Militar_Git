@@ -13,34 +13,20 @@ public class InterControllerPlayer : MonoBehaviour
 
     public LayerMask layerInter;
 
-    private PlayerControls playerControls;
-
     private void Awake()
     {
         circleCollider2D = GetComponent<CircleCollider2D>();
-
-        playerControls = new PlayerControls();
-    }
-
-    private void OnEnable()
-    {
-        playerControls.Enable();
-    }
-
-    private void OnDisable()
-    {
-        playerControls.Disable();
     }
 
     private async void Update()
     {
         objToInter = comprobarInterCollider();
 
-        if (!objToInter || !model.mov || !model.canInter) return;
+        if (!objToInter || !model.mov || !model.canInter || model.isPaused) return;
         
         objToInter.SendMessage("interEnter", model);
 
-        if (!playerControls.Gameplay.Inter.WasPressedThisFrame()) return;
+        if (!model.playerControls.Gameplay.Inter.WasPressedThisFrame()) return;
 
         model.mov = false;
         model.canInter = false;
@@ -105,23 +91,6 @@ public class InterControllerPlayer : MonoBehaviour
         if (numObjInter == 0) objInter = null;
 
         return objInter;
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Inter"))
-        {
-            //objToInter = other.gameObject;
-            //other.SendMessage("interEnter", model);
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.CompareTag("Inter"))
-        {
-            //objToInter = other.gameObject;
-        }
     }
 
     private void OnTriggerExit2D(Collider2D other)

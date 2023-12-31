@@ -13,6 +13,7 @@ public class PlayerClimbController : MonoBehaviour
 
     private PlayerModel playerModel;
     private Animator animatorPlayer;
+    private Rigidbody2D rb;
 
     private PlayerControls playerControls;
 
@@ -22,6 +23,7 @@ public class PlayerClimbController : MonoBehaviour
 
         playerModel = GetComponent<PlayerModel>();
         animatorPlayer = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
 
         rayPosition1 = transform.GetChild(2);
         rayPosition2 = transform;
@@ -38,6 +40,8 @@ public class PlayerClimbController : MonoBehaviour
 
     private async void Update()
     {
+        if (!playerModel.mov || playerModel.isPaused) return;
+
         Vector3 positionRay2 = rayPosition2.position + new Vector3(0, 0.05f, 0);
 
         Debug.DrawRay(rayPosition1.position,
@@ -59,22 +63,36 @@ public class PlayerClimbController : MonoBehaviour
 
         if (hit2.collider != null && hit1.collider == null)
         {
+            rb.bodyType = RigidbodyType2D.Static;
+
             playerModel.canInter = false;
             playerModel.mov = false;
+
+            animatorPlayer.SetTrigger("ClimbLedge");
 
             Vector3 vectorSum = new Vector3(transform.localScale.x == 1 ? 0.5f : -0.5f, 0, 0);
 
             RaycastHit2D hitGround = Physics2D.Raycast(rayPosition1.position + vectorSum,
             Vector2.down, Mathf.Infinity, LayerMask.GetMask("Ground"));
 
-            transform.position = hitGround.point;
+            float distanceDiference = 0.1751041f - Vector2.Distance(rayPosition1.position + vectorSum, hitGround.point);
 
-            animatorPlayer.SetTrigger("levantar");
-
-            await Task.Delay((int)(((animatorPlayer.GetCurrentAnimatorClipInfo(0)[0].clip.length-0.4f) / animatorPlayer.speed) * 1000));
-
-            playerModel.canInter = true;
-            playerModel.mov = true;
+            transform.position += new Vector3(0, distanceDiference, 0);
         }
+    }
+
+    public void EndClimb()
+    {
+        rb.bodyType = RigidbodyType2D.Dynamic;
+
+        Vector3 vectorSum = new Vector3(transform.localScale.x == 1 ? 0.5f : -0.5f, 0, 0);
+
+        RaycastHit2D hitGround = Physics2D.Raycast(rayPosition1.position + vectorSum,
+        Vector2.down, Mathf.Infinity, LayerMask.GetMask("Ground"));
+
+        transform.position = hitGround.point;
+
+        playerModel.canInter = true;
+        playerModel.mov = true;
     }
 }
