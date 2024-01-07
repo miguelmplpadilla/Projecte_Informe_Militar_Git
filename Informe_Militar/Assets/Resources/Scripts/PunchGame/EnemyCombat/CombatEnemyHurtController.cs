@@ -13,7 +13,7 @@ public class CombatEnemyHurtController : MonoBehaviour
 
     public int combo = 0;
 
-    public Animator animator;
+    public float knockBackForce = 2;
 
     private void Awake()
     {
@@ -23,6 +23,8 @@ public class CombatEnemyHurtController : MonoBehaviour
     public async void Hurt()
     {
         if (!model.canHit) return;
+
+        model.canMove = false;
 
         StopCoroutine("RestartCombo");
         combo++;
@@ -35,18 +37,32 @@ public class CombatEnemyHurtController : MonoBehaviour
         spriteRenderer.material = blinkMaterial;
         await Task.Delay(100);
         spriteRenderer.material = normalMaterial;
+
+        await Task.Delay(100);
+
+        model.canMove = true;
     }
 
     private async void KnockBack()
     {
         model.canHit = false;
 
-        animator.SetTrigger("knock");
+        model.animator.SetTrigger("knock");
         combo = 0;
 
-        await Task.Delay(2000);
+        model.rb.velocity = Vector2.zero;
 
-        animator.SetTrigger("getUp");
+        model.rb.AddForce(
+            new Vector2(transform.position.x < model.player.transform.position.x ? -1 : 1, 0) * knockBackForce, 
+            ForceMode2D.Impulse);
+
+        await Task.Delay(200);
+
+        model.rb.velocity = Vector2.zero;
+
+        await Task.Delay(1800);
+
+        model.animator.SetTrigger("getUp");
 
         await Task.Delay(300);
 

@@ -5,35 +5,29 @@ using UnityEngine;
 
 public class EnemyCombatController : MonoBehaviour
 {
-    private Rigidbody2D rb;
-
-    private GameObject player;
-
     public float speed = 2;
 
     private EnemyCombatModel model;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
         model = GetComponent<EnemyCombatModel>();
-    }
-
-    private void Start()
-    {
-        player = GameObject.Find("PlayerCombat");
     }
 
     void Update()
     {
-        float distance = Vector2.Distance(player.transform.position, transform.position);
+        float distance = Vector2.Distance(model.player.transform.position, transform.position);
 
-        if (distance < 0.66f || !model.canHit) return;
+        model.animator.SetBool("run", false);
 
-        transform.localScale = new Vector3(transform.position.x < player.transform.position.x ? 1 : -1, 1, 1);
+        if (distance < 0.66f || !model.canHit || !model.canMove) return;
+
+        model.animator.SetBool("run", true);
+
+        transform.localScale = new Vector3(transform.position.x < model.player.transform.position.x ? 1 : -1, 1, 1);
 
         transform.position = 
-            new Vector3(Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime).x,
+            new Vector3(Vector2.MoveTowards(transform.position, model.player.transform.position, speed * Time.deltaTime).x,
             transform.position.y);
     }
 }

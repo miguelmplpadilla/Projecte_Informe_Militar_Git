@@ -72,7 +72,9 @@ public class PlayerCombatController : MonoBehaviour
 
         _model.animator.SetFloat("velocity", Input.GetAxisRaw("Horizontal"));
 
-        if (attaking && _model.rigidbody.velocity.x < 0) _model.rigidbody.velocity = Vector2.zero;
+        bool reduceVelocity = transform.localScale.x > 0 ? _model.rigidbody.velocity.x < 0 : _model.rigidbody.velocity.x > 0;
+
+        if (attaking && reduceVelocity) _model.rigidbody.velocity = Vector2.zero;
     }
 
     private async void Dash()
