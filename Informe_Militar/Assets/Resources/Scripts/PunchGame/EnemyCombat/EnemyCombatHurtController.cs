@@ -1,10 +1,14 @@
+using DG.Tweening;
 using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class CombatEnemyHurtController : MonoBehaviour
+public class EnemyCombatHurtController : MonoBehaviour
 {
     public SpriteRenderer spriteRenderer;
+
+    public Image imageLifeBar;
 
     private EnemyCombatModel model;
 
@@ -22,7 +26,23 @@ public class CombatEnemyHurtController : MonoBehaviour
 
     public async void Hurt()
     {
-        if (!model.canHit) return;
+        if (!model.canHit || !model.canMove) return;
+
+        model.life--;
+
+        imageLifeBar.DOFillAmount(model.life / model.maxLife, 0.2f);
+
+        if (model.life <= 0)
+        {
+            model.animator.SetTrigger("die");
+            model.canMove = false;
+
+            spriteRenderer.material = blinkMaterial;
+            await Task.Delay(100);
+            spriteRenderer.material = normalMaterial;
+
+            return;
+        }
 
         model.canMove = false;
 

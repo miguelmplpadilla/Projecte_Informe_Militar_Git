@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PlayerCombatController : MonoBehaviour
 {
@@ -174,7 +173,7 @@ public class PlayerCombatController : MonoBehaviour
         foreach (Collider2D coll in results)
         {
             if (coll.name.Equals("HurtBoxEnemy"))
-                coll.GetComponent<CombatEnemyHurtController>().Hurt();
+                coll.GetComponent<EnemyCombatHurtController>().Hurt();
         }
     }
 }

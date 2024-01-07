@@ -10,8 +10,13 @@ public class EnemyCombatModel : MonoBehaviour
 
     public GameObject player;
 
+    public float life = 10;
+    public float maxLife = 10;
+
     private void Awake()
     {
+        life = maxLife;
+
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
