@@ -17,7 +17,7 @@ public class PruebaCreacionScripts : MonoBehaviour
         File.WriteAllText(
             Application.dataPath + 
             AssetDatabase.GetAssetPath(Selection.activeObject).Replace("Assets", "")+"/"+ scriptName + "Controller.cs",
-            "using Infrastructure.Services;\r\nusing Infrastructure.Source.MVC.Objects.Controllers;\r\nusing Infrastructure.Source.MVC.States.DTO;\n" +
+            "using Infrastructure.Source.MVC.Objects.Controllers;\r\n\n" +
             "namespace " + AssetDatabase.GetAssetPath(Selection.activeObject).Replace("/", ".") + "\n" +
             "{\n" +
             "   public class "+ scriptName + "Controller : GameController<"+ scriptName + "View>\n" +
@@ -29,11 +29,11 @@ public class PruebaCreacionScripts : MonoBehaviour
         File.WriteAllText(
             Application.dataPath +
             AssetDatabase.GetAssetPath(Selection.activeObject).Replace("Assets", "") + "/" + scriptName + "Model.cs",
-            "using System;\r\nusing Infrastructure.Source.MVC.Objects.Models;\r\n" +
+            "using System;\r\nusing Infrastructure.Source.MVC.Objects.Models;\r\n\n" +
             "namespace " + AssetDatabase.GetAssetPath(Selection.activeObject).Replace("/", ".") + "\n" +
             "{\n" +
             "   [Serializable]\n" +
-            "   public class " + scriptName + "View : GameModel\n" +
+            "   public class " + scriptName + "Model : GameModel\n" +
             "   {\n" +
             "   }\n" +
             "}\n");
@@ -42,7 +42,7 @@ public class PruebaCreacionScripts : MonoBehaviour
         File.WriteAllText(
             Application.dataPath +
             AssetDatabase.GetAssetPath(Selection.activeObject).Replace("Assets", "") + "/" + scriptName + "View.cs",
-            "using Infrastructure.Source.Attribute;\r\nusing Infrastructure.Source.MVC.Objects.Views;\r\nusing UnityEngine;\n" +
+            "using Infrastructure.Source.Attribute;\r\nusing Infrastructure.Source.MVC.Objects.Views;\r\nusing UnityEngine;\n\n" +
             "namespace " + AssetDatabase.GetAssetPath(Selection.activeObject).Replace("/",".") + "\n" +
             "{\n" +
             "   public class " + scriptName + "View : GameView\n" +

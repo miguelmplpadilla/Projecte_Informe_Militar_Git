@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Punch1
+  m_Name: Dash
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -22,22 +22,12 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 21300000, guid: d4b38b1f84b21d64a91f581e63218204, type: 3}
-    - time: 0.1
-      value: {fileID: 21300000, guid: 21b07a291d567fb48a12105b79e7a284, type: 3}
-    - time: 0.2
-      value: {fileID: 21300000, guid: 1011b2d4fadcff247ad59abde9e4fda0, type: 3}
-    - time: 0.3
-      value: {fileID: 21300000, guid: df3cd54c7310dea4691b8b3374b93fca, type: 3}
-    - time: 0.4
-      value: {fileID: 21300000, guid: 825b8c169cf7a6a4f8112ee6938b75d0, type: 3}
-    - time: 0.5
-      value: {fileID: 21300000, guid: 0ddd5db6ecf05f74585149d1153e0085, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
     flags: 2
-  m_SampleRate: 10
+  m_SampleRate: 1
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -55,17 +45,12 @@ AnimationClip:
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
     - {fileID: 21300000, guid: d4b38b1f84b21d64a91f581e63218204, type: 3}
-    - {fileID: 21300000, guid: 21b07a291d567fb48a12105b79e7a284, type: 3}
-    - {fileID: 21300000, guid: 1011b2d4fadcff247ad59abde9e4fda0, type: 3}
-    - {fileID: 21300000, guid: df3cd54c7310dea4691b8b3374b93fca, type: 3}
-    - {fileID: 21300000, guid: 825b8c169cf7a6a4f8112ee6938b75d0, type: 3}
-    - {fileID: 21300000, guid: 0ddd5db6ecf05f74585149d1153e0085, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.6
+    m_StopTime: 1
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -84,18 +69,4 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0.2
-    functionName: HitEnemy
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.3
-    functionName: SetAttakingFalse
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
+  m_Events: []

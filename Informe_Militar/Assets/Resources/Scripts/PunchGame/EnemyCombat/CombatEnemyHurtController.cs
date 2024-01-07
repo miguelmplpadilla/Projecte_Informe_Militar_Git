@@ -6,6 +6,8 @@ public class CombatEnemyHurtController : MonoBehaviour
 {
     public SpriteRenderer spriteRenderer;
 
+    private EnemyCombatModel model;
+
     public Material normalMaterial;
     public Material blinkMaterial;
 
@@ -13,11 +15,14 @@ public class CombatEnemyHurtController : MonoBehaviour
 
     public Animator animator;
 
-    public bool canHit = true;
+    private void Awake()
+    {
+        model = GetComponentInParent<EnemyCombatModel>();
+    }
 
     public async void Hurt()
     {
-        if (!canHit) return;
+        if (!model.canHit) return;
 
         StopCoroutine("RestartCombo");
         combo++;
@@ -34,7 +39,7 @@ public class CombatEnemyHurtController : MonoBehaviour
 
     private async void KnockBack()
     {
-        canHit = false;
+        model.canHit = false;
 
         animator.SetTrigger("knock");
         combo = 0;
@@ -45,12 +50,12 @@ public class CombatEnemyHurtController : MonoBehaviour
 
         await Task.Delay(300);
 
-        canHit = true;
+        model.canHit = true;
     }
 
     private IEnumerator RestartCombo()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
 
         combo = 0;
     }
