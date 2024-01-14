@@ -45,27 +45,25 @@ public class PausaController : MonoBehaviour
         if (!_model.isPaused && !_model.mov || !_model.canPause) return;
 
         pause();
+        
+        _model.pauseShowed = _model.isPaused;
 
         if (_model.isPaused)
         {
             showPanel("PanelPausa");
+            return;
         }
-        else
-        {
-            hidePanel("PanelPausa");
-            closePanel("PanelOpciones");
-        }
+        
+        hidePanel("PanelPausa");
+        closePanel("PanelOpciones");
     }
 
     public void pause()
     {
         _model.isPaused = !_model.isPaused;
         Time.timeScale = _model.isPaused ? 0 : 1;
-
-        if (_model.isPaused)
-            navigationController.SetNavigationButtons(pauseNavigationButtons);
-        else
-            navigationController.SetNavigationButtons(null);
+        
+        navigationController.SetNavigationButtons(_model.isPaused ? pauseNavigationButtons : null);
     }
 
     public void closeGame()

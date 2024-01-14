@@ -12,6 +12,7 @@ public class PlayerModel : MonoBehaviour
 
     public bool isPaused = false;
     public bool canPause = true;
+    public bool pauseShowed = false;
 
     public bool agachado = false;
     public bool sliding = false;
@@ -49,7 +50,7 @@ public class PlayerModel : MonoBehaviour
 
     private void Update()
     {
-        isSprinting = playerControls.Gameplay.Sprint.IsPressed();
+        isSprinting = playerControls.Gameplay.Sprint.IsPressed() && canRun;
     }
 
     private void ReadInput(InputAction.CallbackContext context)
