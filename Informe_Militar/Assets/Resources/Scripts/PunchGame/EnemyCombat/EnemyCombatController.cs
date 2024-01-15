@@ -20,7 +20,20 @@ public class EnemyCombatController : MonoBehaviour
 
         model.animator.SetBool("run", false);
 
-        if (distance < 0.66f || !model.canHit || !model.canMove) return;
+        if (model.atack && !model.atacking)
+        {
+            model.currentTimeAtack += Time.deltaTime;
+
+            if (model.currentTimeAtack >= model.timeWaitAtack) Attack();
+        }
+
+        if (!model.canHit || !model.canMove || model.dashing) return;
+
+        if (distance < 0.66f)
+        {
+            model.atack = true;
+            return;
+        }
 
         model.animator.SetBool("run", true);
 
@@ -29,5 +42,20 @@ public class EnemyCombatController : MonoBehaviour
         transform.position = 
             new Vector3(Vector2.MoveTowards(transform.position, model.player.transform.position, speed * Time.deltaTime).x,
             transform.position.y);
+    }
+
+    public void Attack()
+    {
+        model.atacking = true;
+        model.animator.SetTrigger("atack"+Random.Range(1, 6+1));
+        model.currentTimeAtack = 0;
+    }
+
+    public void SetAtackingFalse()
+    {
+        model.animator.SetTrigger("idle");
+        model.atack = false;
+        model.atacking = false;
+        model.currentTimeAtack = 0;
     }
 }

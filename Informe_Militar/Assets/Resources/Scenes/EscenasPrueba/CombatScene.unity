@@ -1062,7 +1062,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 2
-  dashSpeed: 3
+  dashTime: 0.25
+  dashSpeed: 5
   currentSpeed: 2
   movement: {x: 0, y: 0}
   attaking: 0

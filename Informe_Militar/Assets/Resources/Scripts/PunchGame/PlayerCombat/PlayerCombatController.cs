@@ -9,6 +9,8 @@ public class PlayerCombatController : MonoBehaviour
     private PlayerModel _model;
 
     public float maxSpeed = 2;
+
+    public float dashTime = 0.25f;
     public float dashSpeed = 3;
 
     public float currentSpeed = 2f;
@@ -85,11 +87,11 @@ public class PlayerCombatController : MonoBehaviour
         _model.animator.SetTrigger("dash");
 
         Vector2 direction = Input.GetAxisRaw("Horizontal") != 0 ?
-            Input.GetAxisRaw("Horizontal") * new Vector2(1, 0) : new Vector2(1, 0);
+            Input.GetAxisRaw("Horizontal") * new Vector2(1, 0) : new Vector2(transform.localScale.x > 0 ? -1 : 1, 0);
 
         _model.rigidbody.AddForce(direction * dashSpeed, ForceMode2D.Impulse);
 
-        await Task.Delay(250);
+        await Task.Delay((int)(dashTime*1000));
 
         dashing = false;
     }
