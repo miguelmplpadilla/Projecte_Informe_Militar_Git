@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Resources.Scripts.PunchGame.PlayerCombat;
 using UnityEngine;
 
 public class PlayerCombatController : MonoBehaviour
@@ -18,22 +19,21 @@ public class PlayerCombatController : MonoBehaviour
 
     public Vector2 movement;
 
-    public bool attaking = false;
-    public bool dashing = false;
-
     public int numTriggerPunch = 1;
     public int numTriggerKick = 1;
 
     public BoxColliderInfo[] punchBoxColliderInfo;
     public BoxColliderInfo[] kickBoxColliderInfo;
 
+    private PlayerCombatModel playerCombatModel;
+
     public BoxCollider2D hitBox;
 
     private GameObject enemy;
 
-
     private void Awake()
     {
+        playerCombatModel = GetComponent<PlayerCombatModel>();
         _model = GetComponent<PlayerModel>();
     }
 
@@ -44,7 +44,7 @@ public class PlayerCombatController : MonoBehaviour
 
     private void Update()
     {
-        if (attaking || dashing)
+        if (playerCombatModel.attaking || playerCombatModel.dashing || !playerCombatModel.canMove)
         {
             _model.animator.SetBool("run", false);
             return;
@@ -75,12 +75,12 @@ public class PlayerCombatController : MonoBehaviour
 
         bool reduceVelocity = transform.localScale.x > 0 ? _model.rigidbody.velocity.x < 0 : _model.rigidbody.velocity.x > 0;
 
-        if (attaking && reduceVelocity) _model.rigidbody.velocity = Vector2.zero;
+        if (playerCombatModel.attaking && reduceVelocity) _model.rigidbody.velocity = Vector2.zero;
     }
 
     private async void Dash()
     {
-        dashing = true;
+        playerCombatModel.dashing = true;
 
         _model.rigidbody.velocity = Vector2.zero;
 
@@ -93,7 +93,7 @@ public class PlayerCombatController : MonoBehaviour
 
         await Task.Delay((int)(dashTime*1000));
 
-        dashing = false;
+        playerCombatModel.dashing = false;
     }
 
     private void Punch()
@@ -112,7 +112,7 @@ public class PlayerCombatController : MonoBehaviour
 
         _model.rigidbody.velocity = Vector2.zero;
 
-        attaking = true;
+        playerCombatModel.attaking = true;
 
         StartCoroutine("RestartComboPunch");
     }
@@ -133,7 +133,7 @@ public class PlayerCombatController : MonoBehaviour
 
         _model.rigidbody.velocity = Vector2.zero;
 
-        attaking = true;
+        playerCombatModel.attaking = true;
 
         StartCoroutine("RestartComboKick");
     }
@@ -154,7 +154,7 @@ public class PlayerCombatController : MonoBehaviour
 
     public void SetAttakingFalse()
     {
-        attaking = false;
+        playerCombatModel.attaking = false;
     }
 
     public void ActiveHitBox()

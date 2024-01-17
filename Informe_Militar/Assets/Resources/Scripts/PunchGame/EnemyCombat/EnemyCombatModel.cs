@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EnemyCombatModel : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class EnemyCombatModel : MonoBehaviour
     public bool atacking = false;
 
     public float timeWaitAtack = 1;
+    public float maxTimeWaitAtack = 1;
+    public float minTimeWaitAtack = 0;
     public float currentTimeAtack = 0;
 
     public float dashSpeed = 1;

@@ -1,21 +1,35 @@
-using DG.Tweening;
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
+using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class EnemyCombatController : MonoBehaviour
 {
     public float speed = 2;
 
     private EnemyCombatModel model;
+    private PlayerHurtController playerHurtController;
+    
+    public BoxCollider2D hitBox;
+
+    public BoxColliderInfo[] boxColliderInfo;
 
     private void Awake()
     {
         model = GetComponent<EnemyCombatModel>();
     }
 
+    private void Start()
+    {
+        playerHurtController = GameObject.Find("HurtBoxPlayer").GetComponent<PlayerHurtController>();
+    }
+
     void Update()
     {
+        if (playerHurtController.life <= 0) return;
+        
         float distance = Vector2.Distance(model.player.transform.position, transform.position);
 
         model.animator.SetBool("run", false);
@@ -31,6 +45,7 @@ public class EnemyCombatController : MonoBehaviour
 
         if (distance < 0.66f)
         {
+            model.timeWaitAtack = Random.Range(model.minTimeWaitAtack, model.maxTimeWaitAtack+1);
             model.atack = true;
             return;
         }
@@ -47,8 +62,25 @@ public class EnemyCombatController : MonoBehaviour
     public void Attack()
     {
         model.atacking = true;
-        model.animator.SetTrigger("atack"+Random.Range(1, 6+1));
+        int numTrigger = Random.Range(1, 6 + 1);
+        model.animator.SetTrigger("atack"+numTrigger);
+        
+        hitBox.offset = boxColliderInfo[numTrigger - 1].offset;
+        hitBox.size = boxColliderInfo[numTrigger - 1].size;
+        
         model.currentTimeAtack = 0;
+    }
+    
+    public void HitPlayer()
+    {
+        List<Collider2D> results = new List<Collider2D>();
+        Physics2D.OverlapCollider(hitBox, new ContactFilter2D().NoFilter(), results);
+
+        foreach (Collider2D coll in results)
+        {
+            if (coll.name.Equals("HurtBoxPlayer"))
+                coll.GetComponent<PlayerHurtController>().Hurt();
+        }
     }
 
     public void SetAtackingFalse()

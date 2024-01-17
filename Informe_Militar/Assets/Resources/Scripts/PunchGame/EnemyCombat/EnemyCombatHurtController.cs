@@ -1,10 +1,8 @@
 using DG.Tweening;
-using System;
 using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements.Experimental;
 
 public class EnemyCombatHurtController : MonoBehaviour
 {
@@ -32,7 +30,7 @@ public class EnemyCombatHurtController : MonoBehaviour
     {
         if (!model.canHit || !model.canMove) return;
 
-        int numRan = UnityEngine.Random.Range(0, 10);
+        int numRan = Random.Range(0, 5);
 
         if (numRan == 0)
         {
@@ -60,8 +58,13 @@ public class EnemyCombatHurtController : MonoBehaviour
         StopCoroutine("RestartCombo");
         combo++;
 
+        bool knockedBack = false;
+
         if (combo == 3)
+        {
+            knockedBack = true;
             KnockBack();
+        }
 
         StartCoroutine("RestartCombo");
 
@@ -71,6 +74,9 @@ public class EnemyCombatHurtController : MonoBehaviour
 
         await Task.Delay(100);
 
+        if (Random.Range(0, 2) == 0 && !knockedBack)
+            Dash();
+        
         model.canMove = true;
     }
 
@@ -135,7 +141,12 @@ public class EnemyCombatHurtController : MonoBehaviour
 
         model.canHit = true;
 
-        Dash();
+        int randomAction = Random.Range(0, 2);
+        
+        if (randomAction == 0) 
+            enemyCombatController.Attack();
+        else
+           Dash();
     }
 
     private IEnumerator RestartCombo()
