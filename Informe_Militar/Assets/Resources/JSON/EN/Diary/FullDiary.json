@@ -1,0 +1,48 @@
+{
+  "passages": [
+    {
+      "text": "{\n  \"id\": \"Entrada1\",\n  \"paginas\": [\n    {\n      \"id\": \"1\",\n      \"dateLeft\": \"July 25, 1937\",\n      \"textLeft\": \"The truth is, I didn't expect to leave San Esteban and see the world in this way, although the last few years had been confusing for everyone. With the war now between the nationalists and the reds, military service became indispensable and inevitable, at least for those of us on the nationalist side.\",\n      \"dateRight\": \"July 25, 1937\",\n      \"textRight\": \"While some fight for the ideals of one side or the other, I am reluctant to all of this. I have never been much of a churchgoer, and I leave politics to those who are eager to get involved in fights.\"\n    },\n    {\n      \"id\": \"2\",\n      \"dateLeft\": \"July 25, 1937\",\n      \"textLeft\": \"I know that I could end up arrested for these words, and the truth is, I don't care. Today, on July 25, 1937, I leave San Esteban De Gormaz for the Soria recruitment center by train. I have only one goal, to return home.\",\n      \"dateRight\": \"July 25, 1937\",\n      \"textRight\": \"I have never been in the war, but those from the village who have been tell me that if I obey the commands, keep my head down, and stay with my squad, I will get through this.\"\n    }\n  ]\n}\n\n<->\n\n[[Entrada2-1]]\n[[Entrada2-2]]",
+      "links": [
+        {
+          "name": "Entrada2-1",
+          "link": "Entrada2-1",
+          "pid": "2"
+        },
+        {
+          "name": "Entrada2-2",
+          "link": "Entrada2-2",
+          "pid": "3"
+        }
+      ],
+      "name": "Entrada1",
+      "pid": "1",
+      "position": {
+        "x": "860",
+        "y": "361.5"
+      }
+    },
+    {
+      "text": "{\n  \"id\": \"Entrada2-1\",\n  \"paginas\": [\n    {\n      \"id\": \"1\",\n      \"dateLeft\": \"August 5\",\n      \"textLeft\": \"It's been a few days since I arrived at my unit's barracks. After about 10 days in Soria, on August 5, they sent me to Zaragoza. Now, I am a soldier in the national army, Battalion 103 belonging to Division 105. However, I haven't reached my unit yet.\",\n      \"dateRight\": \"August 5\",\n      \"textRight\": \"The captain who received us told us that we would be here for two weeks. After that, we would be assigned to our units as replacements, reinforcements, or simply new troops for new units.\"\n    },\n    {\n      \"id\": \"2\",\n      \"dateLeft\": \"August 5\",\n      \"textLeft\": \"So far, the only thing we've done is learn how to communicate with the officers, and we've fired a couple of shots. I still haven't fully gotten used to shooting; the recoil of the butt leaves my shoulder a bit sore after a few shots.\",\n      \"dateRight\": \"August 5\",\n      \"textRight\": \"The sergeant says it's common and that after we fire a bit more and know how to use them well, we won't feel the pain anymore.\"\n    }\n  ]\n}\n\n<->\n",
+      "name": "Entrada2-1",
+      "pid": "2",
+      "position": {
+        "x": "750",
+        "y": "510.5"
+      }
+    },
+    {
+      "text": "{\n  \"id\": \"Entrada2-2\",\n  \"paginas\": [\n    {\n      \"id\": \"1\",\n      \"dateLeft\": \"August 20\",\n      \"textLeft\": \"I have finished the training; they are sending me to my unit. I feel some nerves as I won't be long before being sent to the front. Today, on August 20, I will arrive in Lumpiaque. From there, I don't know what comes next; I just know that I must report to the 4th company, join my squad, and that's it.\",\n      \"dateRight\": \"August 20\",\n      \"textRight\": \"The sergeant instructor, Alfonso, with whom I got along well, gave me a pack of tobacco before leaving. He told me that tobacco is the only real currency in war. Well-used, it can get you friends, ammunition, anything.\"\n    },\n    {\n      \"id\": \"2\",\n      \"dateLeft\": \"August 20\",\n      \"textLeft\": \"He told me that when I arrive at my unit, I should lend cigarettes to my comrades as soon as possible to break the ice and make friends right away.\",\n      \"dateRight\": \"\",\n      \"textRight\": \"\"\n    }\n  ]\n}\n\n<->\n",
+      "name": "Entrada2-2",
+      "pid": "3",
+      "position": {
+        "x": "956",
+        "y": "511.5"
+      }
+    }
+  ],
+  "name": "Diary_EN",
+  "startnode": "1",
+  "creator": "Twine",
+  "creator-version": "2.2.0",
+  "ifid": "C05940FB-1D0D-401C-B29D-43343F2E48B8"
+}

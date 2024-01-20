@@ -96,5 +96,7 @@ public class IdiomaController : MonoBehaviour
         {
             changeTextObj.changeText();
         }
+
+        GameObject.Find("Diary").GetComponent<DiaryController>().ChangeIdiomDiary();
     }
 }

@@ -11,8 +11,8 @@ public class PausaController : MonoBehaviour
     private UIInput uiInput;
 
     public NavigationButtons pauseNavigationButtons;
-
     private NavigationController navigationController;
+    private InventarioController inventarioController;
 
     private void Awake()
     {
@@ -21,6 +21,7 @@ public class PausaController : MonoBehaviour
 
     private void Start()
     {
+        inventarioController = GameObject.Find("PanelInventario").GetComponent<InventarioController>();
         navigationController = GameObject.Find("NavigationManager").GetComponent<NavigationController>();
         _model = GameObject.Find("Player").GetComponent<PlayerModel>();
     }
@@ -42,7 +43,7 @@ public class PausaController : MonoBehaviour
 
     public void pauseUnPause()
     {
-        if (!_model.isPaused && !_model.mov || !_model.canPause) return;
+        if (!_model.isPaused && !_model.mov || !_model.canPause || inventarioController.inventarioShowed) return;
 
         pause();
         
@@ -64,6 +65,11 @@ public class PausaController : MonoBehaviour
         Time.timeScale = _model.isPaused ? 0 : 1;
         
         navigationController.SetNavigationButtons(_model.isPaused ? pauseNavigationButtons : null);
+    }
+
+    public void OpenInventory()
+    {
+        inventarioController.OpenCloseInventory();
     }
 
     public void closeGame()

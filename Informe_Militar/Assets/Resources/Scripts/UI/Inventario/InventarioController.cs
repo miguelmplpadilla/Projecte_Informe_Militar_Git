@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using DG.Tweening;
@@ -26,7 +27,7 @@ public class InventarioController : MonoBehaviour
     private bool showingPanel = false;
 
     private bool showingInventario = false;
-    private bool inventarioShowed = false;
+    public bool inventarioShowed = false;
 
     private PlayerModel model;
     private PausaController pausaController;
@@ -67,11 +68,14 @@ public class InventarioController : MonoBehaviour
 
     private void Update()
     {
-        if (uiInput.UISelf.OpenInventory.WasPressedThisFrame() && !showingInventario && !model.isPaused)
-        {
-            pausaController.pause();
-            model.canPause = !model.canPause;
+        if (inventarioShowed && uiInput.Navigation.Close.WasPressedThisFrame())
+            OpenCloseInventory();
+    }
 
+    public void OpenCloseInventory()
+    {
+        if (!showingInventario)
+        {
             if (!inventarioShowed) 
                 showInventario();
             else

@@ -53,4 +53,16 @@ public class JSONConverter : MonoBehaviour
 
         return "";
     }
+
+    public static Story GetDiary()
+    {
+        string idioma = IdiomaController.getLanguage();
+
+        Story diary = new Story();
+        
+        TextAsset jsonDialogo = UnityEngine.Resources.Load<TextAsset>("JSON/"+idioma+"/Diary/FullDiary");
+        JsonUtility.FromJsonOverwrite(jsonDialogo.text, diary);
+
+        return diary;
+    }
 }

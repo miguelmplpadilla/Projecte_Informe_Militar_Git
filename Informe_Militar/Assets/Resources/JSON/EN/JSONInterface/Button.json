@@ -23,6 +23,10 @@
     {
       "id": "cerrar",
       "text": "Close"
+    },
+    {
+      "id": "inventario",
+      "text": "Inventory"
     }
   ]
 }

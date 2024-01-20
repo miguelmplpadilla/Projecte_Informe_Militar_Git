@@ -1,0 +1,48 @@
+{
+  "passages": [
+    {
+      "text": "{\n  \"id\":\"Entrada1\",\n  \"paginas\": [\n    {\n\t  \"id\":\"1\",\n      \"dateLeft\": \"25 de Julio de 1937\",\n      \"textLeft\": \"La verdad es que no esperaba salir de San Esteban y ver mundo de esta manera, aunque en verdad los últimos años habían sido confusos, para todos, con la guerra ahora entre los nacionales y los rojos la mili ahora se hacia indispensable y inevitable, al menos para los que estábamos en el bando nacional.\",\n      \"dateRight\": \"25 de Julio de 1937\",\n      \"textRight\": \"Si bien algunos luchan por los ideales de un bando o otro, yo me encuentro reticente a todo esto. Nunca he sido mucho de ir a misa y la política se la dejo a aquellos que tengan ganas de meterse en peleas.\"\n    },\n    {\n\t  \"id\":\"2\",\n      \"dateLeft\": \"25 de Julio de 1937\",\n      \"textLeft\": \"Se bien que podría termina arrestado por estas palabras y la verdad es que me da igual. Hoy, 25 de Julio de 1937 salgo de San Esteban De Gormaz a la caja de reclutas de Soria por ferrocarril, solo tengo un objetivo, volver a casa.\",\n      \"dateRight\": \"25 de Julio de 1937\",\n      \"textRight\": \"Nunca he estado en la guerra, pero aquellos del pueblo que han estado me han dicho que si obedezco a los mandos, mantengo la cabeza baja y me mantengo con mi escuadra saldré de esta.\"\n    }\n  ]\n}\n\n<->\n\n[[Entrada2-1]]\n[[Entrada2-2]]",
+      "links": [
+        {
+          "name": "Entrada2-1",
+          "link": "Entrada2-1",
+          "pid": "2"
+        },
+        {
+          "name": "Entrada2-2",
+          "link": "Entrada2-2",
+          "pid": "3"
+        }
+      ],
+      "name": "Entrada1",
+      "pid": "1",
+      "position": {
+        "x": "860",
+        "y": "360.5"
+      }
+    },
+    {
+      "text": "{\n  \"id\":\"Entrada2-1\",\n  \"paginas\": [\n    {\n\t  \"id\":\"1\",\n      \"dateLeft\": \"5 de Agosto\",\n      \"textLeft\": \"Han pasado unos cuantos días desde que llegue al cuartel de mi unidad, tras unos 10 días de Soria, el 5 de Agosto me enviaron a Zaragoza, ahora soy un soldado del ejercito nacional, Batallón 103 perteneciente a la División 105, eso si, aun no he llegado con mi unidad,\",\n      \"dateRight\": \"5 de Agosto\",\n      \"textRight\": \"el capitán que nos recibió nos dijo que estaríamos aquí dos semanas, después de eso seriamos destinados a nuestra unidades bien como remplazos, refuerzos o simplemente nueva tropa para nuevas unidades.\"\n    },\n    {\n\t  \"id\":\"2\",\n      \"dateLeft\": \"5 de Agosto\",\n      \"textLeft\": \"De momento lo único que hemos hecho ha sido aprender como hablar con los mandos y hemos pegado un par de tiros, aun no me termino de acostumbrar a disparar, el baqueteo de la culata me deja el hombro un poco adolorido después de algunos tiros,\",\n      \"dateRight\": \"5 de Agosto\",\n      \"textRight\": \"el sargento dice que es común y que cuanto disparemos un poco mas y sepamos como usarlos bien ya no sentiremos el dolor.\"\n    }\n  ]\n}\n\n<->\n",
+      "name": "Entrada2-1",
+      "pid": "2",
+      "position": {
+        "x": "750",
+        "y": "510.5"
+      }
+    },
+    {
+      "text": "{\n  \"id\":\"Entrada2-2\",\n  \"paginas\": [\n    {\n\t  \"id\":\"1\",\n      \"dateLeft\": \"20 de Agosto\",\n      \"textLeft\": \"He terminado el entrenamiento, me envían a mi unidad, siento algunos nervios pues no tardare en ser enviado al frente, hoy 20 de Agosto llegare a Lumpiaque, a partir de ahí ya no se que viene después, solo se que debo presentarme a la 4a compañía, unirme a mi escuadrón y ya,\",\n      \"dateRight\": \"20 de Agosto\",\n      \"textRight\": \"el sargento instructor, Alfonso, con el que hice buenas migas me dio un paquete de tabaco antes de salir, me dijo que el tabaco es el único dinero real en la guerra, bien usado te puede conseguir amigos, municiones, lo que sea,\"\n    },\n    {\n\t  \"id\":\"2\",\n      \"dateLeft\": \"20 de Agosto\",\n      \"textLeft\": \"me dijo que cuando llegue a mi unidad que le preste cigarrillos a mis compañeros en cuanto pueda para romper el hielo y hacer migas enseguida.\",\n      \"dateRight\": \"\",\n      \"textRight\": \"\"\n    }\n  ]\n}\n\n<->\n",
+      "name": "Entrada2-2",
+      "pid": "3",
+      "position": {
+        "x": "956",
+        "y": "511.5"
+      }
+    }
+  ],
+  "name": "Diary_ES",
+  "startnode": "1",
+  "creator": "Twine",
+  "creator-version": "2.2.0",
+  "ifid": "E26E3106-79F1-4C84-BF04-04222735DE9F"
+}

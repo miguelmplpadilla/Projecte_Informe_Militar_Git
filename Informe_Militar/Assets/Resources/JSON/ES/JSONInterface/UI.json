@@ -2,11 +2,15 @@
   "texts": [
     {
       "id": "inventory",
-      "text": "Inventario:"
+      "text": "Inventario"
     },
     {
       "id": "ejercito-popular-periodico-prueba",
       "text": "Ejercito popular"
+    },
+    {
+      "id": "diary",
+      "text": "Diario"
     }
   ]
 }
