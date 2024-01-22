@@ -5350,7 +5350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0e81eb38def72645b4b44bd784e8600, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentDiary: {fileID: 11400000, guid: d879ecf3112670b4abc455fc0995faf9, type: 2}
+  currentDiary: {fileID: 11400000, guid: ef4803988d5fda540a3d7b832d99fc54, type: 2}
   currentPage: 0
   text1: {fileID: 239769320}
   text2: {fileID: 1372682365}

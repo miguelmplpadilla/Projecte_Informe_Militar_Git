@@ -34,9 +34,18 @@ public class TalkingNPCController : MonoBehaviour
         player = GameObject.Find("Player");
         playerModel = player.GetComponent<PlayerModel>();
 
+        SetTexts();
+    }
+
+    public void SetTexts()
+    {
         text1.text = "";
         text2.text = "";
 
+        dialogueIndex = 0;
+        
+        talkStarted = false;
+        
         TextAsset json = UnityEngine.Resources.Load<TextAsset>("JSON/" + IdiomaController.getLanguage() + "/JSONTalking/" + jsonName);
 
         JsonUtility.FromJsonOverwrite(json.text, talk);

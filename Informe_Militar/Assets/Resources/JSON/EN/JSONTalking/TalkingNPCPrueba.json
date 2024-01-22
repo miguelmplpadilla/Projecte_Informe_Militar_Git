@@ -1,0 +1,5 @@
+{"dialoge":[
+	{"npc":1,"text":"Hello, how are you?","animation":"Idle"},
+	{"npc":2,"text":"Good, and you?","animation":"Idle"},
+	{"npc":1,"text":"Good","animation":"Idle"}
+]}
