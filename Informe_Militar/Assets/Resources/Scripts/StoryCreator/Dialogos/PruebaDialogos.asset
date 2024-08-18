@@ -1,0 +1,428 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9010960087050555409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211b1a9ed8369c1498bce8f6543c2d56, type: 3}
+  m_Name: Dialogue
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -184, y: -120}
+  ports:
+    keys:
+    - dialogue
+    - followingDialogue
+    values:
+    - _fieldName: dialogue
+      _node: {fileID: -9010960087050555409}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: decisionConnection1
+        node: {fileID: 2726343178452438639}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: followingDialogue
+      _node: {fileID: -9010960087050555409}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: dialogue
+        node: {fileID: -1991823572968690767}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  dialogue: {fileID: 0}
+  followingDialogue: {fileID: -1991823572968690767}
+  speakerData:
+    data: {fileID: 0}
+    emocion: 0
+  texts:
+    textEs: 
+    textEn: 
+--- !u!114 &-5056821660080632699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211b1a9ed8369c1498bce8f6543c2d56, type: 3}
+  m_Name: Dialogue
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -184, y: 88}
+  ports:
+    keys:
+    - followingDialogue
+    - dialogue
+    values:
+    - _fieldName: followingDialogue
+      _node: {fileID: -5056821660080632699}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: dialogue
+        node: {fileID: -1991823572968690767}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: dialogue
+      _node: {fileID: -5056821660080632699}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: decisionConnection2
+        node: {fileID: 2726343178452438639}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  dialogue: {fileID: 0}
+  followingDialogue: {fileID: -1991823572968690767}
+  speakerData:
+    data: {fileID: 0}
+    emocion: 0
+  texts:
+    textEs: 
+    textEn: 
+--- !u!114 &-4220683534858472018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 712cd2ca5ac9401a940e0313a23c4149, type: 3}
+  m_Name: Secondary Final Dialogue
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 200, y: 328}
+  ports:
+    keys:
+    - dialogue
+    values:
+    - _fieldName: dialogue
+      _node: {fileID: -4220683534858472018}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: followingDialogue
+        node: {fileID: 6564178315870496157}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  dialogue: {fileID: 0}
+--- !u!114 &-1991823572968690767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e12ac7ffeabc4b27995c2e89668eceb3, type: 3}
+  m_Name: Primary Final Dialogue
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 184, y: 8}
+  ports:
+    keys:
+    - dialogue
+    values:
+    - _fieldName: dialogue
+      _node: {fileID: -1991823572968690767}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: followingDialogue
+        node: {fileID: -9010960087050555409}
+        reroutePoints: []
+      - fieldName: followingDialogue
+        node: {fileID: -5056821660080632699}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  dialogue: {fileID: 0}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc0630cb7f70e7740b3ba4f163367fae, type: 3}
+  m_Name: PruebaDialogos
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: -9010960087050555409}
+  - {fileID: 6637480066542613449}
+  - {fileID: 6898231873103015917}
+  - {fileID: 2726343178452438639}
+  - {fileID: -5056821660080632699}
+  - {fileID: 6564178315870496157}
+  - {fileID: -1991823572968690767}
+  - {fileID: -4220683534858472018}
+--- !u!114 &2726343178452438639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d50a72a4da294b69a9a23dbfefd20925, type: 3}
+  m_Name: Decisions
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -600, y: 24}
+  ports:
+    keys:
+    - decisionConnection1
+    - decisionConnection2
+    - decisionConnection3
+    - decisionConnection4
+    - dialogue
+    values:
+    - _fieldName: decisionConnection1
+      _node: {fileID: 2726343178452438639}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: dialogue
+        node: {fileID: -9010960087050555409}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: decisionConnection2
+      _node: {fileID: 2726343178452438639}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: dialogue
+        node: {fileID: -5056821660080632699}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: decisionConnection3
+      _node: {fileID: 2726343178452438639}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: dialogue
+        node: {fileID: 6564178315870496157}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: decisionConnection4
+      _node: {fileID: 2726343178452438639}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: dialogue
+        node: {fileID: 6564178315870496157}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: dialogue
+      _node: {fileID: 2726343178452438639}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: followingDialogue
+        node: {fileID: 6898231873103015917}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  dialogue: {fileID: 0}
+  decisionConnection1: {fileID: -9010960087050555409}
+  decision1:
+    decisionEs: 
+    decisionEn: 
+  decisionConnection2: {fileID: -5056821660080632699}
+  decision2:
+    decisionEs: 
+    decisionEn: 
+  decisionConnection3: {fileID: 6564178315870496157}
+  decision3:
+    decisionEs: 
+    decisionEn: 
+  decisionConnection4: {fileID: 6564178315870496157}
+  decision4:
+    decisionEs: 
+    decisionEn: 
+  texts:
+    textEs: 
+    textEn: 
+--- !u!114 &6564178315870496157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211b1a9ed8369c1498bce8f6543c2d56, type: 3}
+  m_Name: Dialogue
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -184, y: 312}
+  ports:
+    keys:
+    - followingDialogue
+    - dialogue
+    values:
+    - _fieldName: followingDialogue
+      _node: {fileID: 6564178315870496157}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: dialogue
+        node: {fileID: -4220683534858472018}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: dialogue
+      _node: {fileID: 6564178315870496157}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: decisionConnection3
+        node: {fileID: 2726343178452438639}
+        reroutePoints: []
+      - fieldName: decisionConnection4
+        node: {fileID: 2726343178452438639}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  dialogue: {fileID: 0}
+  followingDialogue: {fileID: -4220683534858472018}
+  speakerData:
+    data: {fileID: 11400000, guid: a7e1f105a961d95409fd716bbf2ceedf, type: 2}
+    emocion: 0
+  texts:
+    textEs: 
+    textEn: 
+--- !u!114 &6637480066542613449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e64cdc6c7791eab44983e3de9b7691f2, type: 3}
+  m_Name: Start Dialogue
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -1320, y: 72}
+  ports:
+    keys:
+    - dialogueStart
+    values:
+    - _fieldName: dialogueStart
+      _node: {fileID: 6637480066542613449}
+      _typeQualifiedName: DialogueNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: dialogue
+        node: {fileID: 6898231873103015917}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  dialogueStart: {fileID: 6898231873103015917}
+--- !u!114 &6898231873103015917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211b1a9ed8369c1498bce8f6543c2d56, type: 3}
+  m_Name: Dialogue
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -968, y: 72}
+  ports:
+    keys:
+    - followingDialogue
+    - dialogue
+    values:
+    - _fieldName: followingDialogue
+      _node: {fileID: 6898231873103015917}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: dialogue
+        node: {fileID: 2726343178452438639}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: dialogue
+      _node: {fileID: 6898231873103015917}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: dialogueStart
+        node: {fileID: 6637480066542613449}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  dialogue: {fileID: 0}
+  followingDialogue: {fileID: 2726343178452438639}
+  speakerData:
+    data: {fileID: 11400000, guid: a7e1f105a961d95409fd716bbf2ceedf, type: 2}
+    emocion: 3
+  texts:
+    textEs: 
+    textEn: 
