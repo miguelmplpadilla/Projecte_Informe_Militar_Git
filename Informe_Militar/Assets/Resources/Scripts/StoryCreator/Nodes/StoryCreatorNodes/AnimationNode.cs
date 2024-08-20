@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.Video;
 using XNode;
 
 [CreateNodeMenu("StoryCreator/Animation")]
@@ -11,7 +13,8 @@ public class AnimationNode : StoryBaseNode
     [Space(20)] 
     [TextArea(4,150)] public string description;
     [Space(20)]
-    public GameObject prefabAnimation;
+    public VideoClip videoAnimationES;
+    public VideoClip videoAnimationEN;
     
     public override void OnCreateConnection(NodePort from, NodePort to) 
     {

@@ -2,3 +2,8 @@
 {
     public StoryBaseNode node;
 }
+
+public class HideAllScenes : IEvent
+{
+    
+}

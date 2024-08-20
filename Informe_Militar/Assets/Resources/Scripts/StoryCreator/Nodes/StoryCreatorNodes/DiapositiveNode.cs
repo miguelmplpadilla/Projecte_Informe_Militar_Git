@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using XNode;
 
 [CreateNodeMenu("StoryCreator/Diapositive")]
@@ -11,7 +12,9 @@ public class DiapositiveNode : StoryBaseNode
     [Space(20)] 
     [TextArea(4,150)] public string description;
     [Space(20)]
-    public Sprite imageDialositive;
+    public Sprite imageDialositiveES;
+    public Sprite imageDialositiveEN;
+    [Space(20)]
     public Sprite backgroundDiapositive;
     
     public override void OnCreateConnection(NodePort from, NodePort to) 

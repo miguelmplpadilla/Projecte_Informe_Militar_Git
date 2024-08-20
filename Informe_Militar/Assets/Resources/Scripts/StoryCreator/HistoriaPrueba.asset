@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7350251021020347838
+--- !u!114 &-7379818089001482217
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,43 +9,46 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cca3127587f04c719477bbb6a90f5aed, type: 3}
-  m_Name: Game
+  m_Script: {fileID: 11500000, guid: c323f2f183304465b9360027bd52aac8, type: 3}
+  m_Name: Diapositive
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1144, y: -280}
+  position: {x: 696, y: 120}
   ports:
     keys:
     - next
     - input
     values:
     - _fieldName: next
-      _node: {fileID: -7350251021020347838}
+      _node: {fileID: -7379818089001482217}
       _typeQualifiedName: StoryBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: input
-        node: {fileID: 7648535189878875683}
+        node: {fileID: 7923648541342075321}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: input
-      _node: {fileID: -7350251021020347838}
+      _node: {fileID: -7379818089001482217}
       _typeQualifiedName: StoryBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
-      - fieldName: primaryNext
-        node: {fileID: 650977655528419061}
+      - fieldName: secondaryNext
+        node: {fileID: -2222603075976208637}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
   input: {fileID: 0}
-  next: {fileID: 7648535189878875683}
-  prefabGame: {fileID: 0}
+  next: {fileID: 7923648541342075321}
+  description: "Personajes d\xE1ndose la mano ensangrentada contentos"
+  imageDialositiveES: {fileID: 0}
+  imageDialositiveEN: {fileID: 0}
+  backgroundDiapositive: {fileID: 0}
 --- !u!114 &-5013513254546480360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,7 +62,7 @@ MonoBehaviour:
   m_Name: Start Story
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -184, y: -104}
+  position: {x: -408, y: -88}
   ports:
     keys:
     - startStoryOutput
@@ -70,13 +73,75 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: input
-        node: {fileID: 1860742724647662944}
+        node: {fileID: -1951318558968077835}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  startStoryOutput: {fileID: 1860742724647662944}
+  startStoryOutput: {fileID: -1951318558968077835}
+--- !u!114 &-2222603075976208637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cca3127587f04c719477bbb6a90f5aed, type: 3}
+  m_Name: Game
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 264, y: -88}
+  ports:
+    keys:
+    - primaryNext
+    - input
+    - secondaryNext
+    values:
+    - _fieldName: primaryNext
+      _node: {fileID: -2222603075976208637}
+      _typeQualifiedName: StoryBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: input
+        node: {fileID: 8595860675362090825}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: input
+      _node: {fileID: -2222603075976208637}
+      _typeQualifiedName: StoryBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: next
+        node: {fileID: -1951318558968077835}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: secondaryNext
+      _node: {fileID: -2222603075976208637}
+      _typeQualifiedName: StoryBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: input
+        node: {fileID: -7379818089001482217}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  input: {fileID: 0}
+  primaryNext: {fileID: 8595860675362090825}
+  secondaryNext: {fileID: -7379818089001482217}
+  prefabGame: {fileID: 0}
+  extraArguments: 
+  description: 
 --- !u!114 &-1951318558968077835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,7 +155,7 @@ MonoBehaviour:
   m_Name: Diapositive
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1144, y: -104}
+  position: {x: -120, y: -136}
   ports:
     keys:
     - next
@@ -102,7 +167,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: input
-        node: {fileID: 7648535189878875683}
+        node: {fileID: -2222603075976208637}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -113,17 +178,19 @@ MonoBehaviour:
       _typeQualifiedName: StoryBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
-      - fieldName: secondaryNext
-        node: {fileID: 650977655528419061}
+      - fieldName: startStoryOutput
+        node: {fileID: -5013513254546480360}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
   input: {fileID: 0}
-  next: {fileID: 7648535189878875683}
-  description: 
-  imageDialositive: {fileID: 0}
+  next: {fileID: -2222603075976208637}
+  description: "Personajes d\xE1ndose la mano ensangrentada contentos"
+  imageDialositiveES: {fileID: 0}
+  imageDialositiveEN: {fileID: 0}
+  backgroundDiapositive: {fileID: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,143 +205,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodes:
   - {fileID: -5013513254546480360}
-  - {fileID: 1860742724647662944}
-  - {fileID: 650977655528419061}
   - {fileID: 7648535189878875683}
-  - {fileID: -7350251021020347838}
   - {fileID: 8595860675362090825}
   - {fileID: -1951318558968077835}
+  - {fileID: 7923648541342075321}
+  - {fileID: -2222603075976208637}
+  - {fileID: -7379818089001482217}
   nodesCreated:
   - {fileID: -5013513254546480360}
-  - {fileID: 1860742724647662944}
-  - {fileID: 650977655528419061}
   - {fileID: 7648535189878875683}
-  - {fileID: -7350251021020347838}
   - {fileID: 8595860675362090825}
   - {fileID: -1951318558968077835}
---- !u!114 &650977655528419061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fed60d9150ffe6241b1429ed92109282, type: 3}
-  m_Name: Dialogue Story
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 760, y: -168}
-  ports:
-    keys:
-    - primaryNext
-    - secondaryNext
-    - input
-    values:
-    - _fieldName: primaryNext
-      _node: {fileID: 650977655528419061}
-      _typeQualifiedName: StoryBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: input
-        node: {fileID: -7350251021020347838}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: secondaryNext
-      _node: {fileID: 650977655528419061}
-      _typeQualifiedName: StoryBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: input
-        node: {fileID: -1951318558968077835}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: input
-      _node: {fileID: 650977655528419061}
-      _typeQualifiedName: StoryBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: primaryNext
-        node: {fileID: 1860742724647662944}
-        reroutePoints: []
-      - fieldName: next
-        node: {fileID: 8595860675362090825}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  input: {fileID: 0}
-  primaryNext: {fileID: -7350251021020347838}
-  secondaryNext: {fileID: -1951318558968077835}
-  dialogueGraph: {fileID: 0}
---- !u!114 &1860742724647662944
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fed60d9150ffe6241b1429ed92109282, type: 3}
-  m_Name: Dialogue Story
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 72, y: -104}
-  ports:
-    keys:
-    - input
-    - primaryNext
-    - secondaryNext
-    values:
-    - _fieldName: input
-      _node: {fileID: 1860742724647662944}
-      _typeQualifiedName: StoryBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: startStoryOutput
-        node: {fileID: -5013513254546480360}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: primaryNext
-      _node: {fileID: 1860742724647662944}
-      _typeQualifiedName: StoryBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: input
-        node: {fileID: 650977655528419061}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: secondaryNext
-      _node: {fileID: 1860742724647662944}
-      _typeQualifiedName: StoryBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: input
-        node: {fileID: 8595860675362090825}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  input: {fileID: 0}
-  primaryNext: {fileID: 650977655528419061}
-  secondaryNext: {fileID: 8595860675362090825}
-  dialogueGraph: {fileID: 11400000, guid: 1debfcb1aba771542ba38881cb5a5445, type: 2}
+  - {fileID: 7923648541342075321}
+  - {fileID: -2222603075976208637}
 --- !u!114 &7648535189878875683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,7 +231,7 @@ MonoBehaviour:
   m_Name: End Story
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1576, y: -88}
+  position: {x: 1560, y: 40}
   ports:
     keys:
     - input
@@ -299,16 +242,64 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: next
-        node: {fileID: -7350251021020347838}
-        reroutePoints: []
-      - fieldName: next
-        node: {fileID: -1951318558968077835}
+        node: {fileID: 7923648541342075321}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
   input: {fileID: 0}
+--- !u!114 &7923648541342075321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe3809c1b7265db4f9da6795127fef63, type: 3}
+  m_Name: Animation
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1160, y: 8}
+  ports:
+    keys:
+    - next
+    - input
+    values:
+    - _fieldName: next
+      _node: {fileID: 7923648541342075321}
+      _typeQualifiedName: StoryBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: input
+        node: {fileID: 7648535189878875683}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: input
+      _node: {fileID: 7923648541342075321}
+      _typeQualifiedName: StoryBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: next
+        node: {fileID: -7379818089001482217}
+        reroutePoints: []
+      - fieldName: next
+        node: {fileID: 8595860675362090825}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  input: {fileID: 8595860675362090825}
+  next: {fileID: 7923648541342075321}
+  description: Los dos personajes se caen al suelo muertos
+  videoAnimationES: {fileID: 0}
+  videoAnimationEN: {fileID: 0}
 --- !u!114 &8595860675362090825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,7 +313,7 @@ MonoBehaviour:
   m_Name: Animation
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 424, y: 8}
+  position: {x: 696, y: -184}
   ports:
     keys:
     - next
@@ -334,7 +325,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: input
-        node: {fileID: 650977655528419061}
+        node: {fileID: 7923648541342075321}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -345,14 +336,15 @@ MonoBehaviour:
       _typeQualifiedName: StoryBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
-      - fieldName: secondaryNext
-        node: {fileID: 1860742724647662944}
+      - fieldName: primaryNext
+        node: {fileID: -2222603075976208637}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
   input: {fileID: 0}
-  next: {fileID: 650977655528419061}
-  description: 
-  prefabAnimation: {fileID: 0}
+  next: {fileID: 7923648541342075321}
+  description: "Animaci\xF3n de dos personajes peg\xE1ndose navajazos furiosamente"
+  videoAnimationES: {fileID: 0}
+  videoAnimationEN: {fileID: 0}
