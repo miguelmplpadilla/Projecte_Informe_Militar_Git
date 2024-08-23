@@ -15,10 +15,6 @@ public class DecisionsNode : DialogueBaseNode
 	[Output] public DialogueBaseNode decisionConnection4;
 	public Decision decision4;
 	
-	[Space(20)]
-	
-	public DialogueNode.Texts texts;
-	
 	public override void OnCreateConnection(NodePort from, NodePort to) 
 	{
 		base.OnCreateConnection(from, to);

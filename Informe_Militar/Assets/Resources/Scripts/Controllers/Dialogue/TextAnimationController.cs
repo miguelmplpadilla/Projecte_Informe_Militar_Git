@@ -3,15 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
-using static AudioManagerController;
 using Random = UnityEngine.Random;
 
 public class TextAnimationController : MonoBehaviour
 {
     public TMP_Text textComponent;
+    public TMP_Text tmpText1;
+    public TMP_Text tmpText2;
 
     public string textoEscribir;
 
@@ -22,6 +22,8 @@ public class TextAnimationController : MonoBehaviour
 
     public Color32 color;
     private List<Color32> coloresActuales = new List<Color32>();
+
+    public bool mostrandoTexto = false;
 
     [Serializable]
     public class TipoFrase
@@ -165,92 +167,203 @@ public class TextAnimationController : MonoBehaviour
                 }
             }
             
-            if (terminarBucle) break;
+            if (terminarBucle)
+            {
+                break;
+            }
         }
         
         textComponent.text = textoEscribir;
     }
 
-    private void esconderTexto()
+    private void moverCaracteresArribaAbajo()
     {
         textComponent.ForceMeshUpdate();
-
         Mesh mesh = textComponent.mesh;
-        Color32[] colores = mesh.colors32;
+        vertices = mesh.vertices;
 
         for (int i = 0; i < textComponent.textInfo.characterCount; i++)
         {
             TMP_CharacterInfo c = textComponent.textInfo.characterInfo[i];
+
             int index = c.vertexIndex;
             
-            Color32 colorNuevo = new Color32(0,0,0, 0);
+            Vector3 orig = vertices[index];
+            
+            Vector3 offset = new Vector3(0, Mathf.Sin(Time.time * 2 + orig.x * 0.01f) * 10, 0);
+
+            if (c.isVisible)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    vertices[index + j] += offset;
+                }
+            
+                mesh.vertices = vertices;
+                textComponent.canvasRenderer.SetMesh(mesh);
+            }
+        }
+    }
+
+    /*private void moverPalabrasArribaAbajo()
+    {
+        textComponent.ForceMeshUpdate();
+
+        for (int i = 0; i < wordIndexes.Count; i++)
+        {
+            int wordIndex = wordIndexes[i].wordIndex;
+
+            for (int j = 0; j < wordLengths[i]; j++)
+            {
+                if (wordIndexes[i].tipoFrase.Equals("m"))
+                {
+                    TMP_CharacterInfo c = textComponent.textInfo.characterInfo[wordIndex + j];
+
+                    int index = c.vertexIndex;
+
+                    Vector3 orig = vertices[index];
+                    Vector3 offset = new Vector3(0, Mathf.Sin(Time.time * 2 + orig.x * 0.01f) * 10, 0);
+
+                    for (int n = 0; n < 4; n++)
+                    {
+                        vertices[index + n] += offset;
+                    }
+
+                    meshPrincipal.vertices = vertices;
+                }
+            }
+        }
+    }*/
+
+    private void moverTextoArribaAbajo()
+    {
+        var textInfo = textComponent.textInfo;
+
+        for (int i = 0; i < textInfo.characterCount; i++)
+        {
+            var charInfo = textInfo.characterInfo[i];
+
+            if (!charInfo.isVisible)
+            {
+                continue;
+            }
+
+            var verts = textInfo.meshInfo[charInfo.materialReferenceIndex].vertices;
 
             for (int j = 0; j < 4; j++)
             {
-                colores[index + (j+1)] = colorNuevo;
-                coloresActuales.Add(colorNuevo);
+                if (tamanoVertices[i][j] != new Vector3(0, 0, 0))
+                {
+                    var orig = verts[charInfo.vertexIndex + j];
+
+                    verts[charInfo.vertexIndex + j] =
+                        orig + new Vector3(0, Mathf.Sin(Time.time * 2 + orig.x * 0.01f) * 10, 0);
+                }
             }
         }
-        
-        mesh.colors32 = colores;
-        textComponent.canvasRenderer.SetMesh(mesh);
+
+        for (int i = 0; i < textInfo.meshInfo.Length; i++)
+        {
+            var meshInfo = textInfo.meshInfo[i];
+            meshInfo.mesh.vertices = meshInfo.vertices;
+            textComponent.UpdateGeometry(meshInfo.mesh, i);
+        }
     }
 
-    public GameObject npcParent;
-
-    public void iniciarMostrarTexto(string textoMostrar, string voiceTone, GameObject parent = null)
+    public void iniciarMostrarTexto(string textoMostrar, string hablante)
     {
-        if (parent != null) npcParent = parent;
+        textComponent = hablante.Equals("Player") ? tmpText1 : tmpText2;
+        textComponent.transform.localScale = Vector3.one;
+        
+        textComponent.ForceMeshUpdate();
 
-        StopCoroutine(mostrarTexto(""));
-
-        textoEscribir = textoMostrar.Replace("'", "\"");
+        meshPrincipal = textComponent.mesh;
+        vertices = meshPrincipal.vertices;
+        
+        textoEscribir = textoMostrar;
         
         initialiceWordIndexer();
 
-        StartCoroutine(mostrarTexto(voiceTone));
+        StartCoroutine("mostrarTextoV1", false);
     }
 
-    IEnumerator mostrarTexto(string voiceTone)
+    public void showAllText()
+    {
+        StopCoroutine("mostrarTextoV1");
+        StartCoroutine("mostrarTextoV1", true);
+    }
+
+    public void esconderTexto(string hablante)
+    {
+        textComponent = hablante.Equals("Player") ? tmpText1 : tmpText2;
+        textComponent.transform.localScale = Vector3.zero;
+    }
+
+    IEnumerator mostrarTextoV1(bool showAllCharacters)
     {
         int totalVisibleCharacters = textoEscribir.Length;
 
         int cont = 0;
 
-        int contChar = 0;
-
-        PlayAudioNPC(voiceTone);
+        mostrandoTexto = true;
 
         while (true)
         {
-            int visibleCount = cont % (totalVisibleCharacters + 1);
-
-            contChar++;
-
-            if (cont < textComponent.text.Length && (textComponent.text[cont].Equals(' ') || contChar == 4))
-            {
-                PlayAudioNPC(voiceTone);
-                contChar = 0;
-            }
+            int visibleCount = showAllCharacters ? totalVisibleCharacters : cont % (totalVisibleCharacters + 1);
 
             textComponent.maxVisibleCharacters = visibleCount;
 
-            if (visibleCount >= totalVisibleCharacters) break;
+            if (visibleCount >= totalVisibleCharacters)
+            {
+                break;
+            }
 
             cont++;
 
             yield return new WaitForSeconds(0.05f);
         }
+        
+        mostrandoTexto = false;
     }
-
-    private void PlayAudioNPC(string name)
+    
+    private void temblarVertices()
     {
-        if (name.Equals("None") || name.Equals("")) return;
+        textComponent.ForceMeshUpdate();
+        Mesh mesh = textComponent.mesh;
+        vertices = mesh.vertices;
 
-        try
+        for (int i = 0; i < vertices.Length; i++)
         {
-            AudioManagerController.PlaySfx("NPCTalk-" + name + "-0" + Random.Range(1, 8 + 1), npcParent,
-            pitch: Random.Range(1.0f, 1.15f));
-        } catch (Exception e) { }
+            Vector3 offset = new Vector3(Random.Range(1.5f,5f), Random.Range(1.5f,5f), Random.Range(1.5f,5f));
+
+            vertices[i] = vertices[i] + offset;
+        }
+
+        mesh.vertices = vertices;
+        textComponent.canvasRenderer.SetMesh(mesh);
+    }
+    
+    private void temblarCaracteres()
+    {
+        textComponent.ForceMeshUpdate();
+        Mesh mesh = textComponent.mesh;
+        vertices = mesh.vertices;
+
+        for (int i = 0; i < textComponent.textInfo.characterCount; i++)
+        {
+            TMP_CharacterInfo c = textComponent.textInfo.characterInfo[i];
+
+            int index = c.vertexIndex;
+            
+            Vector3 offset = new Vector3(Random.Range(1.5f,5f), Random.Range(1.5f,5f), Random.Range(1.5f,5f));
+
+            vertices[index] += offset;
+            vertices[index+1] += offset;
+            vertices[index+2] += offset;
+            vertices[index+3] += offset;
+        }
+
+        mesh.vertices = vertices;
+        textComponent.canvasRenderer.SetMesh(mesh);
     }
 }

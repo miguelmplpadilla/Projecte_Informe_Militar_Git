@@ -110,6 +110,7 @@ public class DiaryController : MonoBehaviour
 
     public void AddPages(string id)
     {
+        /*
         if (CheckIfPageAdded(id)) return;
         
         Story fullDiary = JSONConverter.GetDiary();
@@ -136,7 +137,7 @@ public class DiaryController : MonoBehaviour
         currentDiary.diary.paginas.AddRange(diary.paginas);
         AssetDatabase.Refresh();
 
-        Debug.Log("Added: "+id);
+        Debug.Log("Added: "+id);*/
     }
 
     private bool CheckIfPageAdded(string id)

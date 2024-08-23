@@ -1,32 +1,44 @@
-using System.Collections;
-using System.Collections.Generic;
 using Resources.Scripts;
+using Resources.Scripts.Dialogos;
 using UnityEngine;
 
 public class NPCController : MonoBehaviour, InterBaseInterface
 {
-    private Story _textos;
-    private Dictionary<string, Passage> dialogos = new Dictionary<string, Passage>();
-
     private GameObject _player;
 
-    public string idJson = "HistoriaPrueba";
+    public string json;
+
+    public string pathJson1 = "Dialogo1";
+    public string pathJson2 = "Dialogo2";
+    public string pathJsonEndMission = "Dialogo3";
+
+    public string nombreMetodoDialogo;
+    
     private DialogeController _dialogeController;
 
     private Animator _animator;
 
-    public bool scaleRevert = false;
+    public GameObject missionPopup;
 
-    public AudioManagerController.VoiceTone voiceTone;
-    
-    //[Header("Deliver Letter Method")]
-    
+    private bool misionCompleted = false;
+
     void Start()
     {
+        if (PlayerPrefs.HasKey(name))
+            json = PlayerPrefs.GetString(name);
+        else
+            json = pathJson1;
+
+        if (pathJsonEndMission.Equals(json))
+        {
+            misionCompleted = true;
+            SendMessage("competeMision", "default");
+        }
+
         _animator = GetComponentInChildren<Animator>();
         
         _player = GameObject.Find("Player");
-        _dialogeController = GameObject.Find("TextoNpc").GetComponent<DialogeController>();
+        _dialogeController = GameObject.Find("PanelDialogo").GetComponent<DialogeController>();
     }
     
     public void interEnter(PlayerModel model)
@@ -35,50 +47,30 @@ public class NPCController : MonoBehaviour, InterBaseInterface
 
     public void inter(PlayerModel model)
     {
-        _textos = JSONConverter.parseJson(idJson);
+        if (!nombreMetodoDialogo.Equals("") && json.Equals(pathJson2))
+            ejecutarMetodoDialogo(nombreMetodoDialogo);
         
-        dialogos.Clear();
+        //RootStory root = JSONConverter.parseJson(json);
+        //_dialogeController.StartDialoge(gameObject, root);
         
-        foreach (Passage passage in _textos.passages)
-        {
-            dialogos.Add(passage.name, passage);
-        }
+        if (json.Equals(pathJson1))
+            json = pathJson2;
 
-        int xScale = model.transform.position.x > transform.position.x ? 1 : -1;
-        if (scaleRevert) xScale = model.transform.position.x > transform.position.x ? -1 : 1;
-        
-        transform.GetChild(0).localScale = new Vector3(xScale, 1, 1);
-        _dialogeController.startDialoge(_textos.passages[0], dialogos, gameObject, _textos, voiceTone.ToString());
-        setIdleAnimation();
+        PlayerPrefs.SetString(name, json);
     }
 
     public void interExit(PlayerModel model)
     {
     }
 
-    public void changeAnimation1()
+    public void ejecutarMetodoDialogo(string nombreMetodo)
     {
-        CancelInvoke("setIdleAnimation");
-        _animator.SetTrigger("dance1");
-        Invoke("setIdleAnimation", 10);
-    }
-    
-    public void changeAnimation2()
-    {
-        CancelInvoke("setIdleAnimation");
-        _animator.SetTrigger("dance2");
-        Invoke("setIdleAnimation", 10);
-    }
-    
-    public void changeAnimation3()
-    {
-        CancelInvoke("setIdleAnimation");
-        _animator.SetTrigger("dance3");
-        Invoke("setIdleAnimation", 10);
+        string[] metodos = nombreMetodo.Split("=");
+        SendMessage(metodos[0], metodos[1]);
     }
 
-    private void setIdleAnimation()
+    public void changeAnimation(string trigger)
     {
-        _animator.SetTrigger("idle");
+        _animator.SetTrigger(trigger);
     }
 }

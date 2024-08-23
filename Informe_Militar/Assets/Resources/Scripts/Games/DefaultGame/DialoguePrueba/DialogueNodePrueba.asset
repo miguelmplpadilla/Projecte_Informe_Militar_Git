@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fed60d9150ffe6241b1429ed92109282, type: 3}
+  m_Name: DialogueNodePrueba
+  m_EditorClassIdentifier: 
+  graph: {fileID: 0}
+  position: {x: 0, y: 0}
+  ports:
+    keys:
+    - primaryNext
+    - secondaryNext
+    - input
+    values:
+    - _fieldName: primaryNext
+      _node: {fileID: 11400000}
+      _typeQualifiedName: StoryBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: secondaryNext
+      _node: {fileID: 11400000}
+      _typeQualifiedName: StoryBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: input
+      _node: {fileID: 11400000}
+      _typeQualifiedName: StoryBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  input: {fileID: 0}
+  primaryNext: {fileID: 11400000, guid: d1b0c1b0c7531fc4785356e568e317d7, type: 2}
+  secondaryNext: {fileID: 11400000, guid: 555ba2d8654868e479646b484a49ac78, type: 2}
+  dialogueGraph: {fileID: 11400000, guid: 4e9113345b0f9074196a3ab87ffda8f0, type: 2}
+  background: {fileID: 0}
+  backgroundDescription: 

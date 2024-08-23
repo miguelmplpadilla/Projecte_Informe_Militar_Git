@@ -8,7 +8,8 @@ public class DefaultGameController : MonoBehaviour
     
     private void Start()
     {
-        Debug.Log(GameController.instance.isMultiDecision);
+        EventBus<SendDecision>.Register(new EventBinding<SendDecision>(ReciveDecision));
+        
         if (GameController.instance.isMultiDecision)
         {
             oneButton.SetActive(false);
@@ -20,11 +21,29 @@ public class DefaultGameController : MonoBehaviour
         optionsButtons.SetActive(false);
     }
 
+    private void OnDestroy()
+    {
+        EventBus<SendDecision>.Deregister(new EventBinding<SendDecision>(ReciveDecision));
+    }
+
     public void CloseGame(int decisionNumber = 0)
     {
         EventBus<CloseGame>.Raise(new CloseGame
         {
             decision = decisionNumber
+        });
+    }
+
+    private void ReciveDecision(SendDecision s)
+    {
+        Debug.Log("Decision: "+s.final);
+    }
+
+    public void PlayButton(StoryBaseNode node)
+    {
+        EventBus<PlayNodeInGame>.Raise(new PlayNodeInGame
+        {
+            node = node
         });
     }
 }

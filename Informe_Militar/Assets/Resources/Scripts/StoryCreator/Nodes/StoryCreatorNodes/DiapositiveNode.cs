@@ -1,19 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Serialization;
 using XNode;
 
 [CreateNodeMenu("StoryCreator/Diapositive")]
 [NodeWidth(304)]
+[CreateAssetMenu(fileName = "DiapositiveData", menuName = "StoryCreator/DiapositiveData", order = 1)]
 public class DiapositiveNode : StoryBaseNode
 {
     [Output] public StoryBaseNode next;
     [Space(20)] 
     [TextArea(4,150)] public string description;
     [Space(20)]
-    public Sprite imageDialositiveES;
-    public Sprite imageDialositiveEN;
+    public Sprite imageDialositiveFrontES;
+    public Sprite imageDialositiveFrontEN;
+    
+    public Sprite imageDialositiveBackES;
+    public Sprite imageDialositiveBackEN;
     [Space(20)]
     public Sprite backgroundDiapositive;
     

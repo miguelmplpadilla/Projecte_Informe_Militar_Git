@@ -15,6 +15,7 @@ public class OpenTextAsset : MonoBehaviour
 
     public void startDialogueSystem()
     {
+        /*
         string json = getJsonFromFileBrowser();
         Story story = JSONConverter.parseFromJson(json);
 
@@ -25,7 +26,7 @@ public class OpenTextAsset : MonoBehaviour
             d.Add(passage.name, passage);
         }
 
-        _dialogeController.startDialoge(story.passages[0], d, gameObject, story, "");
+        _dialogeController.StartDialoge(story.passages[0], d, gameObject, story, "");*/
     }
 
     private string getJsonFromFileBrowser()

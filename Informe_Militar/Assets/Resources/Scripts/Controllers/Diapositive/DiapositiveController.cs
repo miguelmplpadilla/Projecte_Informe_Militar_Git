@@ -5,8 +5,12 @@ using UnityEngine.UI;
 
 public class DiapositiveController : BaseControllerStory
 {
-    public Image imageDiapositive;
-    public Image backgroundDiapositive;
+    public GameObject parentMarco;
+    public GameObject parentDiapositive;
+    
+    public Image imageDiapositiveFront;
+    public Image imageDiapositiveBack;
+    public SpriteRenderer backgroundDiapositive;
 
     public TextMeshProUGUI descriptionText;
 
@@ -31,21 +35,29 @@ public class DiapositiveController : BaseControllerStory
 
         canvas.GetComponent<GraphicRaycaster>().enabled = true;
         canvasGroup.alpha = 1;
-
-        Debug.Log(diapositive.description);
+        parentDiapositive.transform.localScale = Vector3.one;
         
-        if (diapositive.imageDiapositive == null)
+        parentMarco.SetActive(true);
+        
+        if (diapositive.imageDiapositiveFront == null)
         {
-            imageDiapositive.enabled = false;
-            backgroundDiapositive.enabled = false;
+            parentMarco.SetActive(false);
             
             descriptionText.enabled = true;
             descriptionText.text = diapositive.description;
             return;
         }
         
+        imageDiapositiveBack.gameObject.SetActive(false);
+
+        if (diapositive.imageDiapositiveBack != null)
+        {
+            imageDiapositiveBack.gameObject.SetActive(true);
+            imageDiapositiveBack.sprite = diapositive.imageDiapositiveBack;
+        } 
+        
         descriptionText.enabled = false;
-        imageDiapositive.sprite = diapositive.imageDiapositive;
+        imageDiapositiveFront.sprite = diapositive.imageDiapositiveFront;
         backgroundDiapositive.sprite = diapositive.backgroundDiapositive;
 
         backgroundDiapositive.DOFade(diapositive.backgroundDiapositive == null ? 0.7f : 1, 0);
@@ -63,5 +75,6 @@ public class DiapositiveController : BaseControllerStory
     {
         canvas.GetComponent<GraphicRaycaster>().enabled = false;
         canvasGroup.alpha = 0;
+        parentDiapositive.transform.localScale = Vector3.zero;
     }
 }

@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Serialization;
+﻿using UnityEngine;
 using UnityEngine.Video;
 using XNode;
 
 [CreateNodeMenu("StoryCreator/Animation")]
 [NodeWidth(304)]
+[CreateAssetMenu(fileName = "AnimationData", menuName = "StoryCreator/AnimationData", order = 1)]
 public class AnimationNode : StoryBaseNode
 {
     [Output] public StoryBaseNode next;

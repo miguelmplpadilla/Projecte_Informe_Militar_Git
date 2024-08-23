@@ -19,6 +19,8 @@ public class GameController : BaseControllerStory
 
     public GameObject defaultGame;
 
+    private bool isPlayingGame = false;
+
     private void Awake()
     {
         instance = this;
@@ -30,6 +32,8 @@ public class GameController : BaseControllerStory
         EventBus<CloseGame>.Register(new EventBinding<CloseGame>(CloseGame));
         
         EventBus<HideAllScenes>.Register(new EventBinding<HideAllScenes>(HideScene));
+        EventBus<ActiveDesactiveCurrentGame>.Register(new EventBinding<ActiveDesactiveCurrentGame>(ActiveCurrentGame));
+        EventBus<ReanudeGame>.Register(new EventBinding<ReanudeGame>(ReanudeGame));
     }
 
     private void OnDestroy()
@@ -38,6 +42,8 @@ public class GameController : BaseControllerStory
         EventBus<CloseGame>.Deregister(new EventBinding<CloseGame>(CloseGame));
         
         EventBus<HideAllScenes>.Deregister(new EventBinding<HideAllScenes>(HideScene));
+        EventBus<ActiveDesactiveCurrentGame>.Deregister(new EventBinding<ActiveDesactiveCurrentGame>(ActiveCurrentGame));
+        EventBus<ReanudeGame>.Deregister(new EventBinding<ReanudeGame>(ReanudeGame));
     }
 
     private async void PlayGame(PlayGame game)
@@ -57,10 +63,14 @@ public class GameController : BaseControllerStory
         if (gameToInstantiate == null) gameToInstantiate = defaultGame;
         
         currentGame = Instantiate(gameToInstantiate, parentGames.transform);
+
+        isPlayingGame = true;
     }
 
     private void CloseGame(CloseGame closeGame)
     {
+        isPlayingGame = false;
+        
         switch (closeGame.decision)
         {
             case 1: nextNode = primaryNextNode;
@@ -74,9 +84,32 @@ public class GameController : BaseControllerStory
             node = nextNode
         });
     }
+
+    private async void ReanudeGame(ReanudeGame r)
+    {
+        ActiveCurrentGame(new ActiveDesactiveCurrentGame
+        {
+            active = true
+        });
+
+        Task.Yield();
+        Task.Yield();
+        
+        EventBus<SendDecision>.Raise(new SendDecision
+        {
+            final = r.numFinal
+        });
+    }
+
+    private void ActiveCurrentGame(ActiveDesactiveCurrentGame a)
+    {
+        currentGame.SetActive(a.active);
+    }
     
     private void HideScene()
     {
+        if (isPlayingGame) return;
+        
         if (currentGame != null) Destroy(currentGame);
         extraArguments = "";
     }

@@ -1,336 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6319320170464924012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e12ac7ffeabc4b27995c2e89668eceb3, type: 3}
-  m_Name: Primary Final Dialogue
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 536, y: -104}
-  ports:
-    keys:
-    - dialogue
-    values:
-    - _fieldName: dialogue
-      _node: {fileID: -6319320170464924012}
-      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: followingDialogue
-        node: {fileID: 5498673672379003300}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  dialogue: {fileID: 0}
---- !u!114 &-5100292931386401607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 211b1a9ed8369c1498bce8f6543c2d56, type: 3}
-  m_Name: Dialogue
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 120, y: 184}
-  ports:
-    keys:
-    - followingDialogue
-    - dialogue
-    values:
-    - _fieldName: followingDialogue
-      _node: {fileID: -5100292931386401607}
-      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: dialogue
-        node: {fileID: -4277665769587477632}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: dialogue
-      _node: {fileID: -5100292931386401607}
-      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: followingDialogue
-        node: {fileID: 6810116405690782946}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  dialogue: {fileID: 0}
-  followingDialogue: {fileID: -4277665769587477632}
-  speakerData:
-    data: {fileID: 11400000, guid: a7e1f105a961d95409fd716bbf2ceedf, type: 2}
-    emocion: 0
-  texts:
-    textEs: De locos
-    textEn: 
---- !u!114 &-4277665769587477632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 712cd2ca5ac9401a940e0313a23c4149, type: 3}
-  m_Name: Secondary Final Dialogue
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 552, y: 184}
-  ports:
-    keys:
-    - dialogue
-    values:
-    - _fieldName: dialogue
-      _node: {fileID: -4277665769587477632}
-      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: followingDialogue
-        node: {fileID: -5100292931386401607}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  dialogue: {fileID: 0}
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc0630cb7f70e7740b3ba4f163367fae, type: 3}
-  m_Name: PruebaDialogos
-  m_EditorClassIdentifier: 
-  nodes:
-  - {fileID: 6637480066542613449}
-  - {fileID: 6898231873103015917}
-  - {fileID: -6319320170464924012}
-  - {fileID: 5604182446805783430}
-  - {fileID: 3983273165041379640}
-  - {fileID: 5498673672379003300}
-  - {fileID: 6810116405690782946}
-  - {fileID: -5100292931386401607}
-  - {fileID: -4277665769587477632}
---- !u!114 &3983273165041379640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 211b1a9ed8369c1498bce8f6543c2d56, type: 3}
-  m_Name: Dialogue
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -248, y: -88}
-  ports:
-    keys:
-    - followingDialogue
-    - dialogue
-    values:
-    - _fieldName: followingDialogue
-      _node: {fileID: 3983273165041379640}
-      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: dialogue
-        node: {fileID: 5498673672379003300}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: dialogue
-      _node: {fileID: 3983273165041379640}
-      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: decisionConnection1
-        node: {fileID: 5604182446805783430}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  dialogue: {fileID: 0}
-  followingDialogue: {fileID: 5498673672379003300}
-  speakerData:
-    data: {fileID: 11400000, guid: 87e5cd7eca35a2140b2ae3004ea4dcba, type: 2}
-    emocion: 0
-  texts:
-    textEs: Pues que te follen
-    textEn: 
---- !u!114 &5498673672379003300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 211b1a9ed8369c1498bce8f6543c2d56, type: 3}
-  m_Name: Dialogue
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 120, y: -104}
-  ports:
-    keys:
-    - followingDialogue
-    - dialogue
-    values:
-    - _fieldName: followingDialogue
-      _node: {fileID: 5498673672379003300}
-      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: dialogue
-        node: {fileID: -6319320170464924012}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: dialogue
-      _node: {fileID: 5498673672379003300}
-      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: followingDialogue
-        node: {fileID: 3983273165041379640}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  dialogue: {fileID: 0}
-  followingDialogue: {fileID: -6319320170464924012}
-  speakerData:
-    data: {fileID: 11400000, guid: a7e1f105a961d95409fd716bbf2ceedf, type: 2}
-    emocion: 0
-  texts:
-    textEs: QUe te jodan a ti
-    textEn: 
---- !u!114 &5604182446805783430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d50a72a4da294b69a9a23dbfefd20925, type: 3}
-  m_Name: Decisions
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -616, y: 56}
-  ports:
-    keys:
-    - decisionConnection1
-    - decisionConnection2
-    - decisionConnection3
-    - decisionConnection4
-    - dialogue
-    values:
-    - _fieldName: decisionConnection1
-      _node: {fileID: 5604182446805783430}
-      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: dialogue
-        node: {fileID: 3983273165041379640}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: decisionConnection2
-      _node: {fileID: 5604182446805783430}
-      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: dialogue
-        node: {fileID: 6810116405690782946}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: decisionConnection3
-      _node: {fileID: 5604182446805783430}
-      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: decisionConnection4
-      _node: {fileID: 5604182446805783430}
-      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: dialogue
-      _node: {fileID: 5604182446805783430}
-      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: followingDialogue
-        node: {fileID: 6898231873103015917}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  dialogue: {fileID: 0}
-  decisionConnection1: {fileID: 3983273165041379640}
-  decision1:
-    decisionEs: Fatal
-    decisionEn: 
-  decisionConnection2: {fileID: 6810116405690782946}
-  decision2:
-    decisionEs: De puta madre
-    decisionEn: 
-  decisionConnection3: {fileID: 0}
-  decision3:
-    decisionEs: 
-    decisionEn: 
-  decisionConnection4: {fileID: 0}
-  decision4:
-    decisionEs: 
-    decisionEn: 
---- !u!114 &6637480066542613449
+--- !u!114 &-7391952352395045372
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -343,25 +13,25 @@ MonoBehaviour:
   m_Name: Start Dialogue
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1320, y: 72}
+  position: {x: -280.59998, y: -74.7}
   ports:
     keys:
     - dialogueStart
     values:
     - _fieldName: dialogueStart
-      _node: {fileID: 6637480066542613449}
+      _node: {fileID: -7391952352395045372}
       _typeQualifiedName: DialogueNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: dialogue
-        node: {fileID: 6898231873103015917}
+        node: {fileID: 482204511779267915}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  dialogueStart: {fileID: 6898231873103015917}
---- !u!114 &6810116405690782946
+  dialogueStart: {fileID: 482204511779267915}
+--- !u!114 &-4538325140197305499
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -374,45 +44,45 @@ MonoBehaviour:
   m_Name: Dialogue
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -248, y: 184}
+  position: {x: 984, y: -104}
   ports:
     keys:
     - followingDialogue
     - dialogue
     values:
     - _fieldName: followingDialogue
-      _node: {fileID: 6810116405690782946}
+      _node: {fileID: -4538325140197305499}
       _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: dialogue
-        node: {fileID: -5100292931386401607}
+        node: {fileID: 8497588868238815951}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: dialogue
-      _node: {fileID: 6810116405690782946}
+      _node: {fileID: -4538325140197305499}
       _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: decisionConnection2
-        node: {fileID: 5604182446805783430}
+        node: {fileID: 3343970514392389143}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
   dialogue: {fileID: 0}
-  followingDialogue: {fileID: -5100292931386401607}
+  followingDialogue: {fileID: 8497588868238815951}
   speakerData:
     data: {fileID: 11400000, guid: 87e5cd7eca35a2140b2ae3004ea4dcba, type: 2}
     emocion: 0
   texts:
-    textEs: Perfecto
+    textEs: Yasssss queeeeeen
     textEn: 
---- !u!114 &6898231873103015917
+--- !u!114 &-2428638726754962889
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -425,41 +95,383 @@ MonoBehaviour:
   m_Name: Dialogue
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -968, y: 72}
+  position: {x: 984, y: 312}
   ports:
     keys:
     - followingDialogue
     - dialogue
     values:
     - _fieldName: followingDialogue
-      _node: {fileID: 6898231873103015917}
+      _node: {fileID: -2428638726754962889}
       _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: dialogue
-        node: {fileID: 5604182446805783430}
+        node: {fileID: 4538198567984435645}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: dialogue
-      _node: {fileID: 6898231873103015917}
+      _node: {fileID: -2428638726754962889}
       _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
-      - fieldName: dialogueStart
-        node: {fileID: 6637480066542613449}
+      - fieldName: decisionConnection4
+        node: {fileID: 3343970514392389143}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
   dialogue: {fileID: 0}
-  followingDialogue: {fileID: 5604182446805783430}
+  followingDialogue: {fileID: 4538198567984435645}
+  speakerData:
+    data: {fileID: 0}
+    emocion: 0
+  texts:
+    textEs: Que te follen a ti
+    textEn: 
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc0630cb7f70e7740b3ba4f163367fae, type: 3}
+  m_Name: DialoguePruebaJuego
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: -7391952352395045372}
+  - {fileID: 482204511779267915}
+  - {fileID: 3343970514392389143}
+  - {fileID: 4666435494401423728}
+  - {fileID: -4538325140197305499}
+  - {fileID: 2185154565924505988}
+  - {fileID: -2428638726754962889}
+  - {fileID: 8497588868238815951}
+  - {fileID: 4538198567984435645}
+--- !u!114 &482204511779267915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211b1a9ed8369c1498bce8f6543c2d56, type: 3}
+  m_Name: Dialogue
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 72, y: -104}
+  ports:
+    keys:
+    - followingDialogue
+    - dialogue
+    values:
+    - _fieldName: followingDialogue
+      _node: {fileID: 482204511779267915}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: dialogue
+        node: {fileID: 3343970514392389143}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: dialogue
+      _node: {fileID: 482204511779267915}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: dialogueStart
+        node: {fileID: -7391952352395045372}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  dialogue: {fileID: 0}
+  followingDialogue: {fileID: 3343970514392389143}
   speakerData:
     data: {fileID: 11400000, guid: 87e5cd7eca35a2140b2ae3004ea4dcba, type: 2}
-    emocion: 3
+    emocion: 0
   texts:
-    textEs: Hola que tal estas?
+    textEs: Esto es una prueba de dialogos
     textEn: 
+--- !u!114 &2185154565924505988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211b1a9ed8369c1498bce8f6543c2d56, type: 3}
+  m_Name: Dialogue
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 984, y: 104}
+  ports:
+    keys:
+    - followingDialogue
+    - dialogue
+    values:
+    - _fieldName: followingDialogue
+      _node: {fileID: 2185154565924505988}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: dialogue
+        node: {fileID: 4538198567984435645}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: dialogue
+      _node: {fileID: 2185154565924505988}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: decisionConnection3
+        node: {fileID: 3343970514392389143}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  dialogue: {fileID: 0}
+  followingDialogue: {fileID: 4538198567984435645}
+  speakerData:
+    data: {fileID: 11400000, guid: 87e5cd7eca35a2140b2ae3004ea4dcba, type: 2}
+    emocion: 0
+  texts:
+    textEs: ???
+    textEn: 
+--- !u!114 &3343970514392389143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d50a72a4da294b69a9a23dbfefd20925, type: 3}
+  m_Name: Decisions
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 424, y: -152}
+  ports:
+    keys:
+    - decisionConnection1
+    - decisionConnection2
+    - decisionConnection3
+    - decisionConnection4
+    - dialogue
+    values:
+    - _fieldName: decisionConnection1
+      _node: {fileID: 3343970514392389143}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: dialogue
+        node: {fileID: 4666435494401423728}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: decisionConnection2
+      _node: {fileID: 3343970514392389143}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: dialogue
+        node: {fileID: -4538325140197305499}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: decisionConnection3
+      _node: {fileID: 3343970514392389143}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: dialogue
+        node: {fileID: 2185154565924505988}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: decisionConnection4
+      _node: {fileID: 3343970514392389143}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: dialogue
+        node: {fileID: -2428638726754962889}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: dialogue
+      _node: {fileID: 3343970514392389143}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: followingDialogue
+        node: {fileID: 482204511779267915}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  dialogue: {fileID: 0}
+  decisionConnection1: {fileID: 4666435494401423728}
+  decision1:
+    decisionEs: Claro que si
+    decisionEn: 
+  decisionConnection2: {fileID: -4538325140197305499}
+  decision2:
+    decisionEs: Por supuesto
+    decisionEn: 
+  decisionConnection3: {fileID: 2185154565924505988}
+  decision3:
+    decisionEs: Y una mierda
+    decisionEn: 
+  decisionConnection4: {fileID: -2428638726754962889}
+  decision4:
+    decisionEs: Que te follen
+    decisionEn: 
+--- !u!114 &4538198567984435645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 712cd2ca5ac9401a940e0313a23c4149, type: 3}
+  m_Name: Secondary Final Dialogue
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1368, y: 232}
+  ports:
+    keys:
+    - dialogue
+    values:
+    - _fieldName: dialogue
+      _node: {fileID: 4538198567984435645}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: followingDialogue
+        node: {fileID: 2185154565924505988}
+        reroutePoints: []
+      - fieldName: followingDialogue
+        node: {fileID: -2428638726754962889}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  dialogue: {fileID: 0}
+--- !u!114 &4666435494401423728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211b1a9ed8369c1498bce8f6543c2d56, type: 3}
+  m_Name: Dialogue
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 984, y: -312}
+  ports:
+    keys:
+    - followingDialogue
+    - dialogue
+    values:
+    - _fieldName: followingDialogue
+      _node: {fileID: 4666435494401423728}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: dialogue
+        node: {fileID: 8497588868238815951}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: dialogue
+      _node: {fileID: 4666435494401423728}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: decisionConnection1
+        node: {fileID: 3343970514392389143}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  dialogue: {fileID: 0}
+  followingDialogue: {fileID: 8497588868238815951}
+  speakerData:
+    data: {fileID: 11400000, guid: 87e5cd7eca35a2140b2ae3004ea4dcba, type: 2}
+    emocion: 0
+  texts:
+    textEs: Es lo que acabo de decir imbecil
+    textEn: 
+--- !u!114 &8497588868238815951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e12ac7ffeabc4b27995c2e89668eceb3, type: 3}
+  m_Name: Primary Final Dialogue
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1368, y: -184}
+  ports:
+    keys:
+    - dialogue
+    values:
+    - _fieldName: dialogue
+      _node: {fileID: 8497588868238815951}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: followingDialogue
+        node: {fileID: 4666435494401423728}
+        reroutePoints: []
+      - fieldName: followingDialogue
+        node: {fileID: -4538325140197305499}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  dialogue: {fileID: 0}

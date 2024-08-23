@@ -29,7 +29,7 @@ public class AnimationController : BaseControllerStory
         EventBus<PlayAnimation>.Deregister(new EventBinding<PlayAnimation>(PlayAnimation));
     }
 
-    private void SetAnimation(SetAnimation animation)
+    private async void SetAnimation(SetAnimation animation)
     {
         nextNode = animation.nextNode;
 
@@ -52,12 +52,29 @@ public class AnimationController : BaseControllerStory
         
         videoPlayer.clip = currentAnimation;
         videoPlayer.Prepare();
+
+        while (!videoPlayer.isPrepared) await Task.Yield();
+        
+        PlayAnimation();
     }
 
-    private void PlayAnimation()
+    private async void PlayAnimation()
     {
         videoPlayer.loopPointReached += OnVideoEnd;
         videoPlayer.Play();
+
+        while (!videoPlayer.isPlaying) await Task.Yield();
+        
+        videoPlayer.Pause();
+        
+        EventBus<FadeInFadeOut>.Raise(new FadeInFadeOut
+        {
+            fade = false,
+            callback = () =>
+            {
+                videoPlayer.Play();
+            }
+        });
     }
 
     private void OnVideoEnd(VideoPlayer vp)

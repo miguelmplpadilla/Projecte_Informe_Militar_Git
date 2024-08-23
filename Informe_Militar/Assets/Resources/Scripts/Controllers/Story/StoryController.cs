@@ -1,30 +1,28 @@
-using System;
 using System.Threading.Tasks;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using UnityEngine.Video;
 
 public class StoryController : MonoBehaviour
 {
     public StoryCreator story;
 
-    public Image fadeImage;
-
     public string[] scenesToStart;
 
     public GameObject canvasPortada;
 
+    private bool isPlayingNodeInGame = false;
+
     private void Awake()
     {
         EventBus<SetNextScene>.Register(new EventBinding<SetNextScene>(SetNextScene));
+        EventBus<PlayNodeInGame>.Register(new EventBinding<PlayNodeInGame>(PlayNodeInGame));
     }
     
     private void OnDestroy()
     {
         EventBus<SetNextScene>.Deregister(new EventBinding<SetNextScene>(SetNextScene));
+        EventBus<PlayNodeInGame>.Deregister(new EventBinding<PlayNodeInGame>(PlayNodeInGame));
     }
 
     private async void Start()
@@ -46,22 +44,49 @@ public class StoryController : MonoBehaviour
             }
         }
         
-        FadeIn(() =>
+        EventBus<FadeInFadeOut>.Raise(new FadeInFadeOut
         {
-            canvasPortada.SetActive(false);
-            SetScene(firstNode);
+            fade = true,
+            callback = () =>
+            {
+                canvasPortada.SetActive(false);
+                SetScene(firstNode);
+            }
         });
     }
 
     private void SetNextScene(SetNextScene nextSceneData)
     {
-        FadeIn(async () =>
+        EventBus<FadeInFadeOut>.Raise(new FadeInFadeOut
         {
-            EventBus<HideAllScenes>.Raise(new HideAllScenes());
-
-            await Task.Delay(100);
-            
-            SetScene(nextSceneData.node);
+            fade = true,
+            callback = async () =>
+            {
+                EventBus<HideAllScenes>.Raise(new HideAllScenes());
+                
+                await Task.Delay(100);
+                
+                if (isPlayingNodeInGame)
+                {
+                    EventBus<ReanudeGame>.Raise(new ReanudeGame
+                    {
+                        numFinal = nextSceneData.node == null ? 0 :
+                            nextSceneData.node.name.Equals("PrimaryFinalGame") ? 1 : 2
+                    });
+                    
+                    EventBus<FadeInFadeOut>.Raise(new FadeInFadeOut
+                    {
+                        fade = false,
+                        callback = () =>
+                        {
+                            isPlayingNodeInGame = false;
+                        }
+                    });
+                    return;
+                }
+                
+                SetScene(nextSceneData.node);
+            }
         });
     }
 
@@ -69,17 +94,26 @@ public class StoryController : MonoBehaviour
     {
         await Task.Delay(700);
         
+        PlayNodeType(node);
+    }
+
+    private void PlayNodeType(StoryBaseNode node)
+    {
         if (node is DiapositiveNode)
         {
             DiapositiveNode diapositiveNode = node as DiapositiveNode;
             EventBus<StartDiapositive>.Raise(new StartDiapositive
             {
-                imageDiapositive = diapositiveNode.imageDialositiveES,
+                imageDiapositiveFront = diapositiveNode.imageDialositiveFrontES,
+                imageDiapositiveBack = diapositiveNode.imageDialositiveBackES,
                 backgroundDiapositive = diapositiveNode.backgroundDiapositive,
                 description = diapositiveNode.description,
                 nextNode = diapositiveNode.next
             });
-            FadeOut();
+            EventBus<FadeInFadeOut>.Raise(new FadeInFadeOut
+            {
+                fade = false
+            });
         } else if (node is AnimationNode)
         {
             AnimationNode animationNode = node as AnimationNode;
@@ -89,9 +123,6 @@ public class StoryController : MonoBehaviour
                 descriptionAnimation = animationNode.description,
                 nextNode = animationNode.next
             });
-            EventBus<PlayAnimation>.Raise(new PlayAnimation());
-            
-            FadeOut();
         } else if (node is GameNode)
         {
             GameNode gameNode = node as GameNode;
@@ -102,24 +133,51 @@ public class StoryController : MonoBehaviour
                 primaryNextNode = gameNode.primaryNext,
                 secondaryNextNode = gameNode.secondaryNext
             });
-            FadeOut();
+            EventBus<FadeInFadeOut>.Raise(new FadeInFadeOut
+            {
+                fade = false
+            });
+        } else if (node is DialogueStoryNode)
+        {
+            DialogueStoryNode dialogueStoryNode = node as DialogueStoryNode;
+            DialogueCreator dialogueCreator = dialogueStoryNode.dialogueGraph;
+
+            DialogueBaseNode startDialogueNode = null;
+
+            for (int i = 0; i < dialogueCreator.nodes.Count; i++)
+                if (dialogueCreator.nodes[i] is StartDialogueNode)
+                {
+                    startDialogueNode = (dialogueCreator.nodes[i] as StartDialogueNode).dialogueStart;
+                    break;
+                }
+            
+            EventBus<SetDialogue>.Raise(new SetDialogue
+            {
+                primaryEnd = dialogueStoryNode.primaryNext,
+                secondaryEnd = dialogueStoryNode.secondaryNext,
+                startDialogue = startDialogueNode,
+                imageBackground = dialogueStoryNode.background
+            });
         }
     }
 
-    private async void FadeIn(Action callback = null)
+    private void PlayNodeInGame(PlayNodeInGame p)
     {
-        await fadeImage.DOFade(1, 2f).AsyncWaitForCompletion();
-        fadeImage.transform.parent.GetComponent<GraphicRaycaster>().enabled = false;
+        isPlayingNodeInGame = true;
         
-        callback?.Invoke();
-    }
-    
-    private async void FadeOut(Action callback = null)
-    {
-        await fadeImage.DOFade(0, 2f).AsyncWaitForCompletion();
-        fadeImage.transform.parent.GetComponent<GraphicRaycaster>().enabled = true;
-        
-        callback?.Invoke();
+        EventBus<FadeInFadeOut>.Raise(new FadeInFadeOut
+        {
+            fade = true,
+            callback = () =>
+            {
+                EventBus<ActiveDesactiveCurrentGame>.Raise(new ActiveDesactiveCurrentGame
+                {
+                    active = false
+                });
+                
+                PlayNodeType(p.node);
+            }
+        });
     }
 
     private async Task StartAllScenes()

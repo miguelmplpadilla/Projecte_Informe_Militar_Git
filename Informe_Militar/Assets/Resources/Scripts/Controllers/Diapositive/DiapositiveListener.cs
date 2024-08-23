@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class StartDiapositive : IEvent
 {
-    public Sprite imageDiapositive;
+    public Sprite imageDiapositiveFront;
+    public Sprite imageDiapositiveBack;
     public Sprite backgroundDiapositive;
 
     public string description;

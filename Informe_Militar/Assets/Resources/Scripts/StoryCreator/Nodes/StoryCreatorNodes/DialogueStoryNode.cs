@@ -3,6 +3,7 @@ using XNode;
 
 [CreateNodeMenu("StoryCreator/Dialogue")]
 [NodeWidth(304)]
+[CreateAssetMenu(fileName = "DialogueStoryNode", menuName = "StoryCreator/DialogueStoryNode", order = 1)]
 public class DialogueStoryNode : StoryBaseNode
 {
 	[Space(20)]
@@ -10,6 +11,10 @@ public class DialogueStoryNode : StoryBaseNode
 	[Output] public StoryBaseNode secondaryNext;
 	[Space(20)]
 	public DialogueCreator dialogueGraph;
+	[Space(20)] 
+	public Sprite background;
+	[Space(20)] 
+	[TextArea(4,150)] public string backgroundDescription;
 	
 	public override void OnCreateConnection(NodePort from, NodePort to) 
 	{

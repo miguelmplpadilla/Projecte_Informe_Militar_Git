@@ -6,10 +6,6 @@ using XNode;
 public class StartDialogueNode : Node {
 
 	[Output] public DialogueNode dialogueStart;
-	[Space(20)] 
-	public Sprite background;
-	[Space(20)] 
-	[TextArea(4,150)] public string backgroundDescription;
     
 	public override void OnCreateConnection(NodePort from, NodePort to) {
 		

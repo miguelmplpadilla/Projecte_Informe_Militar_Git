@@ -24,7 +24,7 @@ public class ChangeTextController : MonoBehaviour
     {
         if (!newId.Equals("")) id = newId;
 
-        string text = JSONConverter.getText(textType.ToString(), id);
+        string text = ""; //JSONConverter.getText(textType.ToString(), id);
         textMesh.text = text;
     }
 }

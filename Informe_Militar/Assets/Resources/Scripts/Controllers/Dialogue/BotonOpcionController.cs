@@ -16,6 +16,5 @@ public class BotonOpcionController : MonoBehaviour
 
     public void responder()
     {
-        _dialogeController.iniciarMostrarTexto(passage);
     }
 }
