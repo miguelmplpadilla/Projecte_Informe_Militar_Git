@@ -45,10 +45,16 @@ MonoBehaviour:
       _dynamic: 0
   input: {fileID: 0}
   next: {fileID: 2213550171478400701}
-  description: "Personajes d\xE1ndose la mano ensangrentada contentos"
-  imageDialositiveES: {fileID: 0}
-  imageDialositiveEN: {fileID: 0}
-  backgroundDiapositive: {fileID: 0}
+  dataDiapositive:
+    frontES: {fileID: 0}
+    frontEN: {fileID: 0}
+    textFront: 
+    descriptionFront: 
+    backES: {fileID: 0}
+    backEN: {fileID: 0}
+    textBack: 
+    descriptionBack: 
+    backgroundDiapositive: {fileID: 0}
 --- !u!114 &-5013513254546480360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,10 +193,27 @@ MonoBehaviour:
       _dynamic: 0
   input: {fileID: 0}
   next: {fileID: -2222603075976208637}
-  description: "Personajes d\xE1ndose la mano ensangrentada contentos"
-  imageDialositiveES: {fileID: 0}
-  imageDialositiveEN: {fileID: 0}
-  backgroundDiapositive: {fileID: 0}
+  dataDiapositive:
+    frontES: {fileID: 21300000, guid: 1f110edf47c5e8548a869d8ebb92cbeb, type: 3}
+    frontEN: {fileID: 0}
+    textFront: 
+    descriptionFront: Juan y Paulino con un cazo
+    backES: {fileID: 21300000, guid: 0cb804bfb8fc4934686ff442909bcf03, type: 3}
+    backEN: {fileID: 0}
+    textBack: 'Salamanca
+
+      Agosto 1939
+
+      -
+
+      Juan Manzanares
+
+      y
+
+      Paulino
+      Molinete'
+    descriptionBack: Lugar, fecha y nombres de los dos
+    backgroundDiapositive: {fileID: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

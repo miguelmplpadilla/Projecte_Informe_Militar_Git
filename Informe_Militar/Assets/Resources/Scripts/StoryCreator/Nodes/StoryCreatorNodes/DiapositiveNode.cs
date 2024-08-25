@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Serialization;
 using XNode;
 
@@ -8,16 +9,7 @@ using XNode;
 public class DiapositiveNode : StoryBaseNode
 {
     [Output] public StoryBaseNode next;
-    [Space(20)] 
-    [TextArea(4,150)] public string description;
-    [Space(20)]
-    public Sprite imageDialositiveFrontES;
-    public Sprite imageDialositiveFrontEN;
-    
-    public Sprite imageDialositiveBackES;
-    public Sprite imageDialositiveBackEN;
-    [Space(20)]
-    public Sprite backgroundDiapositive;
+    public DataDiapositive dataDiapositive;
     
     public override void OnCreateConnection(NodePort from, NodePort to) 
     {
@@ -43,5 +35,22 @@ public class DiapositiveNode : StoryBaseNode
         if (port.fieldName.Equals("next"))
             next = null;
     }
+
+    [Serializable]
+    public class DataDiapositive
+    {
+        [Space(20)] 
+        [Space(20)]
+        public Sprite frontES;
+        public Sprite frontEN;
+        [TextArea(4,150)] public string textFront;
+        [TextArea(4,150)] public string descriptionFront;
     
+        public Sprite backES;
+        public Sprite backEN;
+        [TextArea(4,150)] public string textBack;
+        [TextArea(4,150)] public string descriptionBack;
+        [Space(20)]
+        public Sprite backgroundDiapositive;
+    }
 }

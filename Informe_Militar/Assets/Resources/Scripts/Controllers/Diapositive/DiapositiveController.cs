@@ -5,14 +5,15 @@ using UnityEngine.UI;
 
 public class DiapositiveController : BaseControllerStory
 {
-    public GameObject parentMarco;
+    public GameObject parentFrame;
     public GameObject parentDiapositive;
     
     public Image imageDiapositiveFront;
     public Image imageDiapositiveBack;
     public SpriteRenderer backgroundDiapositive;
 
-    public TextMeshProUGUI descriptionText;
+    public TextMeshProUGUI descriptionFront;
+    public TextMeshProUGUI descriptionBack;
 
     public Canvas canvas;
     public CanvasGroup canvasGroup;
@@ -31,32 +32,45 @@ public class DiapositiveController : BaseControllerStory
 
     private void StartDiapositive(StartDiapositive diapositive)
     {
+        EventBus<RestartPositionFrame>.Raise(new RestartPositionFrame());
+        
         nextNode = diapositive.nextNode;
+
+        descriptionFront.text = "";
+        descriptionBack.text = "";
 
         canvas.GetComponent<GraphicRaycaster>().enabled = true;
         canvasGroup.alpha = 1;
         parentDiapositive.transform.localScale = Vector3.one;
         
-        parentMarco.SetActive(true);
+        parentFrame.SetActive(true);
+        imageDiapositiveFront.gameObject.SetActive(true);
+        imageDiapositiveBack.gameObject.SetActive(false);
         
         if (diapositive.imageDiapositiveFront == null)
         {
-            parentMarco.SetActive(false);
+            imageDiapositiveFront.gameObject.SetActive(false);
+            imageDiapositiveBack.gameObject.SetActive(false);
             
-            descriptionText.enabled = true;
-            descriptionText.text = diapositive.description;
+            descriptionFront.enabled = true;
+            descriptionFront.text = diapositive.descriptionFront;
+            descriptionBack.text = diapositive.descriptionBack;
             return;
         }
-        
-        imageDiapositiveBack.gameObject.SetActive(false);
 
         if (diapositive.imageDiapositiveBack != null)
         {
             imageDiapositiveBack.gameObject.SetActive(true);
             imageDiapositiveBack.sprite = diapositive.imageDiapositiveBack;
-        } 
+        }
         
-        descriptionText.enabled = false;
+        EventBus<SetReadingText>.Raise(new SetReadingText
+        {
+            textFront = diapositive.textFront,
+            textBack = diapositive.textBack
+        });
+        
+        descriptionFront.enabled = false;
         imageDiapositiveFront.sprite = diapositive.imageDiapositiveFront;
         backgroundDiapositive.sprite = diapositive.backgroundDiapositive;
 
@@ -73,6 +87,7 @@ public class DiapositiveController : BaseControllerStory
 
     private void HideScene()
     {
+        EventBus<RestartPositionFrame>.Raise(new RestartPositionFrame());
         canvas.GetComponent<GraphicRaycaster>().enabled = false;
         canvasGroup.alpha = 0;
         parentDiapositive.transform.localScale = Vector3.zero;

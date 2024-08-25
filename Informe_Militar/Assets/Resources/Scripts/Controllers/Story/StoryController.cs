@@ -104,10 +104,13 @@ public class StoryController : MonoBehaviour
             DiapositiveNode diapositiveNode = node as DiapositiveNode;
             EventBus<StartDiapositive>.Raise(new StartDiapositive
             {
-                imageDiapositiveFront = diapositiveNode.imageDialositiveFrontES,
-                imageDiapositiveBack = diapositiveNode.imageDialositiveBackES,
-                backgroundDiapositive = diapositiveNode.backgroundDiapositive,
-                description = diapositiveNode.description,
+                imageDiapositiveFront = diapositiveNode.dataDiapositive.frontES,
+                imageDiapositiveBack = diapositiveNode.dataDiapositive.backES,
+                backgroundDiapositive = diapositiveNode.dataDiapositive.backgroundDiapositive,
+                descriptionFront = diapositiveNode.dataDiapositive.descriptionFront,
+                descriptionBack = diapositiveNode.dataDiapositive.descriptionBack,
+                textFront = diapositiveNode.dataDiapositive.textFront,
+                textBack = diapositiveNode.dataDiapositive.textBack,
                 nextNode = diapositiveNode.next
             });
             EventBus<FadeInFadeOut>.Raise(new FadeInFadeOut
