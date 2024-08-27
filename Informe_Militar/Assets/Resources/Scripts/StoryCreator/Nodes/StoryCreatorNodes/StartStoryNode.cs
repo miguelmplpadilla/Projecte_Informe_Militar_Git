@@ -5,6 +5,8 @@ using Node = XNode.Node;
 public class StartStoryNode : Node
 {
 	[Output] public StoryBaseNode startStoryOutput;
+
+	public StoryBaseNode nodeTest;
 	
 	public override void OnCreateConnection(NodePort from, NodePort to) 
 	{

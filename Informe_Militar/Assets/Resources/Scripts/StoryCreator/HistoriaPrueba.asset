@@ -49,12 +49,43 @@ MonoBehaviour:
     frontES: {fileID: 0}
     frontEN: {fileID: 0}
     textFront: 
-    descriptionFront: 
+    descriptionFront: Foto de dos personas peleandose
     backES: {fileID: 0}
     backEN: {fileID: 0}
     textBack: 
     descriptionBack: 
     backgroundDiapositive: {fileID: 0}
+--- !u!114 &-5948887536792723210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 142d907e8dfad17498728166bd7ed495, type: 3}
+  m_Name: End Story Secondary
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1880, y: 200}
+  ports:
+    keys:
+    - input
+    values:
+    - _fieldName: input
+      _node: {fileID: -5948887536792723210}
+      _typeQualifiedName: StoryBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: next
+        node: {fileID: 6226721041740830366}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  input: {fileID: 0}
 --- !u!114 &-5013513254546480360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,6 +117,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   startStoryOutput: {fileID: -1951318558968077835}
+  nodeTest: {fileID: 0}
 --- !u!114 &-2222603075976208637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,6 +246,37 @@ MonoBehaviour:
       Molinete'
     descriptionBack: Lugar, fecha y nombres de los dos
     backgroundDiapositive: {fileID: 0}
+--- !u!114 &-316138595506303071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0ebc7fb9eaf4ae99a13ada2eef75ad9, type: 3}
+  m_Name: End Story Primary
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1880, y: -184}
+  ports:
+    keys:
+    - input
+    values:
+    - _fieldName: input
+      _node: {fileID: -316138595506303071}
+      _typeQualifiedName: StoryBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: next
+        node: {fileID: 7923648541342075321}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  input: {fileID: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,7 +291,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodes:
   - {fileID: -5013513254546480360}
-  - {fileID: 7648535189878875683}
   - {fileID: 8595860675362090825}
   - {fileID: -1951318558968077835}
   - {fileID: 7923648541342075321}
@@ -236,15 +298,18 @@ MonoBehaviour:
   - {fileID: -7379818089001482217}
   - {fileID: 2213550171478400701}
   - {fileID: 6226721041740830366}
+  - {fileID: -316138595506303071}
+  - {fileID: -5948887536792723210}
   nodesCreated:
   - {fileID: -5013513254546480360}
-  - {fileID: 7648535189878875683}
   - {fileID: 8595860675362090825}
   - {fileID: -1951318558968077835}
   - {fileID: 7923648541342075321}
   - {fileID: -2222603075976208637}
   - {fileID: 2213550171478400701}
   - {fileID: 6226721041740830366}
+  - {fileID: -316138595506303071}
+  - {fileID: -5948887536792723210}
 --- !u!114 &2213550171478400701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,7 +400,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: input
-        node: {fileID: 7648535189878875683}
+        node: {fileID: -5948887536792723210}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -354,44 +419,10 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   input: {fileID: 0}
-  next: {fileID: 7648535189878875683}
+  next: {fileID: -5948887536792723210}
   description: Los dos personajes se abrazan
   videoAnimationES: {fileID: 0}
   videoAnimationEN: {fileID: 0}
---- !u!114 &7648535189878875683
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 142d907e8dfad17498728166bd7ed495, type: 3}
-  m_Name: End Story
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 1960, y: 24}
-  ports:
-    keys:
-    - input
-    values:
-    - _fieldName: input
-      _node: {fileID: 7648535189878875683}
-      _typeQualifiedName: StoryBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: next
-        node: {fileID: 7923648541342075321}
-        reroutePoints: []
-      - fieldName: next
-        node: {fileID: 6226721041740830366}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  input: {fileID: 0}
 --- !u!114 &7923648541342075321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,7 +448,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: input
-        node: {fileID: 7648535189878875683}
+        node: {fileID: -316138595506303071}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -436,7 +467,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   input: {fileID: 8595860675362090825}
-  next: {fileID: 7923648541342075321}
+  next: {fileID: -316138595506303071}
   description: Los dos personajes se caen al suelo muertos
   videoAnimationES: {fileID: 0}
   videoAnimationEN: {fileID: 0}

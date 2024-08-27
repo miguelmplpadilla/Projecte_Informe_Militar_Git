@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Name: Dialogue
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -248, y: -88}
+  position: {x: -232, y: -408}
   ports:
     keys:
     - followingDialogue
@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Name: Dialogue
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 120, y: -104}
+  position: {x: 120, y: -488}
   ports:
     keys:
     - followingDialogue
@@ -235,7 +235,7 @@ MonoBehaviour:
     data: {fileID: 11400000, guid: a7e1f105a961d95409fd716bbf2ceedf, type: 2}
     emocion: 0
   texts:
-    textEs: QUe te jodan a ti
+    textEs: Que te jodan a ti
     textEn: 
 --- !u!114 &5604182446805783430
 MonoBehaviour:
@@ -250,7 +250,7 @@ MonoBehaviour:
   m_Name: Decisions
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -616, y: 56}
+  position: {x: -632, y: 56}
   ports:
     keys:
     - decisionConnection1
@@ -374,7 +374,7 @@ MonoBehaviour:
   m_Name: Dialogue
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -248, y: 184}
+  position: {x: -232, y: 168}
   ports:
     keys:
     - followingDialogue

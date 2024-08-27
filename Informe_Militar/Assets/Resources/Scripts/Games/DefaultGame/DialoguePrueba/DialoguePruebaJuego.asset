@@ -128,7 +128,7 @@ MonoBehaviour:
   dialogue: {fileID: 0}
   followingDialogue: {fileID: 4538198567984435645}
   speakerData:
-    data: {fileID: 0}
+    data: {fileID: 11400000, guid: 87e5cd7eca35a2140b2ae3004ea4dcba, type: 2}
     emocion: 0
   texts:
     textEs: Que te follen a ti

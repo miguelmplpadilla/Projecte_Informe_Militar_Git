@@ -13,12 +13,12 @@ public class FrameController : MonoBehaviour
 
     private void Start()
     {
-        EventBus<RestartPositionFrame>.Register(new EventBinding<RestartPositionFrame>(RestartPosition));
+        EventBus<HideAllScenes>.Register(new EventBinding<HideAllScenes>(RestartVariables));
     }
 
     private void OnDestroy()
     {
-        EventBus<RestartPositionFrame>.Deregister(new EventBinding<RestartPositionFrame>(RestartPosition));
+        EventBus<HideAllScenes>.Deregister(new EventBinding<HideAllScenes>(RestartVariables));
     }
 
     private void Update()
@@ -26,7 +26,7 @@ public class FrameController : MonoBehaviour
         mPrevPos = Input.mousePosition;
     }
 
-    private void RestartPosition()
+    private void RestartVariables()
     {
         transform.rotation = new Quaternion(0, 0, 0, 0);
         mPosDelta = Vector3.zero;

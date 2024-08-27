@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class DialogeController : MonoBehaviour
 {
-    private TextMeshProUGUI currentText;
+    public TextMeshProUGUI currentText;
 
     public Image imageBackground;
 
@@ -19,18 +19,18 @@ public class DialogeController : MonoBehaviour
     public RectTransform panelNPC;
     public RectTransform panelButtons;
 
-    private DialogueBaseNode currentDialogue;
+    public DialogueBaseNode currentDialogue;
 
     public bool canPlayDialogue = false;
     public bool isShowingText = false;
     public string currentShowingText = "";
 
-    private SpeakerData.TypeSpeaker currentSpeaker;
+    public SpeakerData currentSpeaker;
 
     private Coroutine coroutineMostrarTexto;
 
-    private StoryBaseNode primaryEnd;
-    private StoryBaseNode secondaryEnd;
+    public StoryBaseNode primaryEnd;
+    public StoryBaseNode secondaryEnd;
 
     public GraphicRaycaster graphicRaycaster;
     public CanvasGroup canvasGroup;
@@ -67,7 +67,7 @@ public class DialogeController : MonoBehaviour
                 canPlayDialogue = false;
 
                 if (currentDialogue is DialogueNode &&
-                    (currentDialogue as DialogueNode).speakerData.data.typeSpeaker.Equals(currentSpeaker))
+                    (currentDialogue as DialogueNode).speakerData.data.typeSpeaker.Equals(currentSpeaker.typeSpeaker))
                 {
                     StartDialogue();
                     return;
@@ -140,12 +140,13 @@ public class DialogeController : MonoBehaviour
 
     private void StartDialogue()
     {
+        currentSpeaker = null;
         playerText.text = "";
         npcText.text = "";
         
         DialogueNode dialogue = currentDialogue as DialogueNode;
         currentShowingText = dialogue.texts.textEs;
-        currentSpeaker = dialogue.speakerData.data.typeSpeaker;
+        currentSpeaker = dialogue.speakerData.data;
 
         currentText = dialogue.speakerData.data.typeSpeaker.Equals(SpeakerData.TypeSpeaker.PLAYER)
             ? playerText
@@ -191,6 +192,11 @@ public class DialogeController : MonoBehaviour
     {
         EventSystem.current.firstSelectedGameObject = null;
         EventSystem.current.SetSelectedGameObject(null);
+        
+        button1.onClick.RemoveAllListeners();
+        button2.onClick.RemoveAllListeners();
+        button3.onClick.RemoveAllListeners();
+        button4.onClick.RemoveAllListeners();
         
         currentDialogue = decisionPressed;
         ShowPanelButtons(-450, () =>
@@ -241,10 +247,35 @@ public class DialogeController : MonoBehaviour
 
     private void HideScene()
     {
+        RestartVariables();
+        
         ShowPanel(panelNPC, 1200);
         ShowPanel(panelPlayer, -1200);
         
         canvasGroup.alpha = 0;
         graphicRaycaster.enabled = false;
+    }
+
+    private void RestartVariables()
+    {
+        currentDialogue = null;
+        currentShowingText = "";
+        
+        canPlayDialogue = false;
+        isShowingText = false;
+
+        primaryEnd = null;
+        secondaryEnd = null;
+
+        currentText = null;
+        currentSpeaker = null;
+        
+        button1.onClick.RemoveAllListeners();
+        button2.onClick.RemoveAllListeners();
+        button3.onClick.RemoveAllListeners();
+        button4.onClick.RemoveAllListeners();
+        
+        EventSystem.current.firstSelectedGameObject = null;
+        EventSystem.current.SetSelectedGameObject(null);
     }
 }

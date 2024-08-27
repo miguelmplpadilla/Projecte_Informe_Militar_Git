@@ -28,11 +28,13 @@ public class ReadingTextController : MonoBehaviour
     private void Start()
     {
         EventBus<SetReadingText>.Register(new EventBinding<SetReadingText>(SetTexts));
+        EventBus<HideAllScenes>.Register(new EventBinding<HideAllScenes>(RestartVariables));
     }
 
     private void OnDestroy()
     {
         EventBus<SetReadingText>.Deregister(new EventBinding<SetReadingText>(SetTexts));
+        EventBus<HideAllScenes>.Deregister(new EventBinding<HideAllScenes>(RestartVariables));
     }
 
     private void SetTexts(SetReadingText setReadingText)
@@ -67,6 +69,12 @@ public class ReadingTextController : MonoBehaviour
         readingText.text = currentText;
 
         readingText.transform.parent.localScale = Vector3.one;
+    }
+
+    private void RestartVariables()
+    {
+        textFront = "";
+        textBack = "";
     }
 
     public void CloseText()

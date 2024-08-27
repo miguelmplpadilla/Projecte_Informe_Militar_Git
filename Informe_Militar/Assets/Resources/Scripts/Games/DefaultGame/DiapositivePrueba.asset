@@ -39,7 +39,13 @@ MonoBehaviour:
       _dynamic: 0
   input: {fileID: 0}
   next: {fileID: 0}
-  description: Prueba de diapositiva en juego
-  imageDialositiveES: {fileID: 21300000, guid: b0a5f305ce1b30b4eb2acf119af87260, type: 3}
-  imageDialositiveEN: {fileID: 0}
-  backgroundDiapositive: {fileID: 0}
+  dataDiapositive:
+    frontES: {fileID: 21300000, guid: b0a5f305ce1b30b4eb2acf119af87260, type: 3}
+    frontEN: {fileID: 0}
+    textFront: El Generalisimo
+    descriptionFront: 
+    backES: {fileID: 0}
+    backEN: {fileID: 0}
+    textBack: 
+    descriptionBack: 
+    backgroundDiapositive: {fileID: 0}

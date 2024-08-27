@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using Application = UnityEngine.Device.Application;
 
 public class StoryController : MonoBehaviour
 {
@@ -39,7 +40,8 @@ public class StoryController : MonoBehaviour
         {
             if (story.nodes[i] is StartStoryNode)
             {
-                firstNode = (story.nodes[i] as StartStoryNode).startStoryOutput;
+                StartStoryNode startStoryNode = story.nodes[i] as StartStoryNode;
+                firstNode = startStoryNode.nodeTest == null ? startStoryNode.startStoryOutput : startStoryNode.nodeTest;
                 break;
             }
         }
@@ -161,6 +163,20 @@ public class StoryController : MonoBehaviour
                 startDialogue = startDialogueNode,
                 imageBackground = dialogueStoryNode.background
             });
+        } else if (node is EndStoryPrimaryNode)
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+        } else if (node is EndStorySecondaryNode)
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
         }
     }
 

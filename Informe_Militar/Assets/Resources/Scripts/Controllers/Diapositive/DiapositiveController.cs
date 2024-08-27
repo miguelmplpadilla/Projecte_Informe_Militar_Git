@@ -44,13 +44,13 @@ public class DiapositiveController : BaseControllerStory
         parentDiapositive.transform.localScale = Vector3.one;
         
         parentFrame.SetActive(true);
-        imageDiapositiveFront.gameObject.SetActive(true);
-        imageDiapositiveBack.gameObject.SetActive(false);
+        imageDiapositiveFront.enabled = true;
+        imageDiapositiveBack.enabled = false;
         
         if (diapositive.imageDiapositiveFront == null)
         {
-            imageDiapositiveFront.gameObject.SetActive(false);
-            imageDiapositiveBack.gameObject.SetActive(false);
+            imageDiapositiveFront.enabled = false;
+            imageDiapositiveBack.enabled = false;
             
             descriptionFront.enabled = true;
             descriptionFront.text = diapositive.descriptionFront;
@@ -60,7 +60,7 @@ public class DiapositiveController : BaseControllerStory
 
         if (diapositive.imageDiapositiveBack != null)
         {
-            imageDiapositiveBack.gameObject.SetActive(true);
+            imageDiapositiveBack.enabled = true;
             imageDiapositiveBack.sprite = diapositive.imageDiapositiveBack;
         }
         
@@ -87,6 +87,9 @@ public class DiapositiveController : BaseControllerStory
 
     private void HideScene()
     {
+        imageDiapositiveFront.enabled = false;
+        imageDiapositiveBack.enabled = false;
+        
         EventBus<RestartPositionFrame>.Raise(new RestartPositionFrame());
         canvas.GetComponent<GraphicRaycaster>().enabled = false;
         canvasGroup.alpha = 0;

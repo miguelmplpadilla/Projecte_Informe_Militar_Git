@@ -11,7 +11,7 @@ public class StoryCreator : NodeGraph
 	private List<Type> nodesAllowed = new List<Type>
 	{
 		typeof(DialogueStoryNode), typeof(StartStoryNode), typeof(AnimationNode), typeof(GameNode),
-		typeof(EndStoryNode), typeof(DiapositiveNode)
+		typeof(EndStoryPrimaryNode), typeof(EndStorySecondaryNode), typeof(DiapositiveNode)
 	};
 
 	public override Node AddNode(Type type)
