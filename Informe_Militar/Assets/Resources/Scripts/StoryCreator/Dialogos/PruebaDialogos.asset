@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Name: Dialogue
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -232, y: -408}
+  position: {x: -232, y: -120}
   ports:
     keys:
     - followingDialogue
@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Name: Dialogue
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 120, y: -488}
+  position: {x: 120, y: -200}
   ports:
     keys:
     - followingDialogue
