@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class PlayerCombatController : MonoBehaviour
 {
-    private PlayerModel _model;
+    private PlayerModelDeprecated modelDeprecated;
 
     public float maxSpeed = 2;
 
@@ -34,7 +34,7 @@ public class PlayerCombatController : MonoBehaviour
     private void Awake()
     {
         playerCombatModel = GetComponent<PlayerCombatModel>();
-        _model = GetComponent<PlayerModel>();
+        modelDeprecated = GetComponent<PlayerModelDeprecated>();
     }
 
     private void Start()
@@ -46,13 +46,13 @@ public class PlayerCombatController : MonoBehaviour
     {
         if (playerCombatModel.attaking || playerCombatModel.dashing || !playerCombatModel.canMove)
         {
-            _model.animator.SetBool("run", false);
+            modelDeprecated.animator.SetBool("run", false);
             return;
         }
 
         transform.localScale = new Vector3(transform.position.x < enemy.transform.position.x ? 1 : -1, 1, 1);
 
-        _model.animator.SetBool("run", true);
+        modelDeprecated.animator.SetBool("run", true);
 
         if (Input.GetKeyDown(KeyCode.K)) Punch();
         if (Input.GetKeyDown(KeyCode.L)) Kick();
@@ -64,32 +64,32 @@ public class PlayerCombatController : MonoBehaviour
 
     private void movePlayer()
     {
-        movement = new Vector2(_model.direction.x, 0f);
+        movement = new Vector2(modelDeprecated.direction.x, 0f);
 
         currentSpeed = Input.GetAxisRaw("Horizontal") == 0 ? 0 : maxSpeed;
 
         horizontalVelocity = movement.normalized.x * Math.Abs(currentSpeed);
-        _model.rigidbody.velocity = new Vector2(horizontalVelocity, _model.rigidbody.velocity.y);
+        modelDeprecated.rigidbody.linearVelocity = new Vector2(horizontalVelocity, modelDeprecated.rigidbody.linearVelocity.y);
 
-        _model.animator.SetFloat("velocity", Input.GetAxisRaw("Horizontal"));
+        modelDeprecated.animator.SetFloat("velocity", Input.GetAxisRaw("Horizontal"));
 
-        bool reduceVelocity = transform.localScale.x > 0 ? _model.rigidbody.velocity.x < 0 : _model.rigidbody.velocity.x > 0;
+        bool reduceVelocity = transform.localScale.x > 0 ? modelDeprecated.rigidbody.linearVelocity.x < 0 : modelDeprecated.rigidbody.linearVelocity.x > 0;
 
-        if (playerCombatModel.attaking && reduceVelocity) _model.rigidbody.velocity = Vector2.zero;
+        if (playerCombatModel.attaking && reduceVelocity) modelDeprecated.rigidbody.linearVelocity = Vector2.zero;
     }
 
     private async void Dash()
     {
         playerCombatModel.dashing = true;
 
-        _model.rigidbody.velocity = Vector2.zero;
+        modelDeprecated.rigidbody.linearVelocity = Vector2.zero;
 
-        _model.animator.SetTrigger("dash");
+        modelDeprecated.animator.SetTrigger("dash");
 
         Vector2 direction = Input.GetAxisRaw("Horizontal") != 0 ?
             Input.GetAxisRaw("Horizontal") * new Vector2(1, 0) : new Vector2(transform.localScale.x > 0 ? -1 : 1, 0);
 
-        _model.rigidbody.AddForce(direction * dashSpeed, ForceMode2D.Impulse);
+        modelDeprecated.rigidbody.AddForce(direction * dashSpeed, ForceMode2D.Impulse);
 
         await Task.Delay((int)(dashTime*1000));
 
@@ -103,14 +103,14 @@ public class PlayerCombatController : MonoBehaviour
         hitBox.offset = punchBoxColliderInfo[numTriggerPunch - 1].offset;
         hitBox.size = punchBoxColliderInfo[numTriggerPunch - 1].size;
 
-        _model.animator.SetTrigger("punch" + numTriggerPunch);
+        modelDeprecated.animator.SetTrigger("punch" + numTriggerPunch);
 
         numTriggerPunch++;
         numTriggerKick = 1;
 
         if (numTriggerPunch == 4) numTriggerPunch = 1;
 
-        _model.rigidbody.velocity = Vector2.zero;
+        modelDeprecated.rigidbody.linearVelocity = Vector2.zero;
 
         playerCombatModel.attaking = true;
 
@@ -124,14 +124,14 @@ public class PlayerCombatController : MonoBehaviour
         hitBox.offset = kickBoxColliderInfo[numTriggerKick - 1].offset;
         hitBox.size = kickBoxColliderInfo[numTriggerKick - 1].size;
 
-        _model.animator.SetTrigger("kick" + numTriggerKick);
+        modelDeprecated.animator.SetTrigger("kick" + numTriggerKick);
 
         numTriggerKick++;
         numTriggerPunch = 1;
 
         if (numTriggerKick == 4) numTriggerKick = 1;
 
-        _model.rigidbody.velocity = Vector2.zero;
+        modelDeprecated.rigidbody.linearVelocity = Vector2.zero;
 
         playerCombatModel.attaking = true;
 

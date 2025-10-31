@@ -19,7 +19,7 @@ public class CamaraFotosController : MonoBehaviour
     public GameObject photoHolder;
 
     private CinemachineVirtualCamera cm;
-    private PlayerModel playerModel;
+    private PlayerModelDeprecated playerModelDeprecated;
     private PausaController pausaController;
 
     private Texture2D screenCapture;
@@ -32,7 +32,7 @@ public class CamaraFotosController : MonoBehaviour
     private void Start()
     {
         pausaController = GameObject.Find("PanelPausa").GetComponent<PausaController>();
-        playerModel = GameObject.Find("Player").GetComponent<PlayerModel>();
+        playerModelDeprecated = GameObject.Find("Player").GetComponent<PlayerModelDeprecated>();
         cm = GameObject.Find("CM").GetComponent<CinemachineVirtualCamera>();
         lastCameraSize = cm.m_Lens.OrthographicSize;
         screenCapture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
@@ -56,10 +56,10 @@ public class CamaraFotosController : MonoBehaviour
         transposer.m_FollowOffset = followingOffset;
         cm.m_Lens.OrthographicSize = cameraShowed ? 2.5f : lastCameraSize;
 
-        playerModel.canInter = !cameraShowed;
-        playerModel.canRun = !cameraShowed;
+        playerModelDeprecated.canInter = !cameraShowed;
+        playerModelDeprecated.canRun = !cameraShowed;
         
-        InterAllManager.hideAllInterButtons();
+        //InterAllManager.hideAllInterButtons();
 
         framePhoto.SetActive(cameraShowed);
     }

@@ -25,7 +25,7 @@ public class Paralax : MonoBehaviour
 
     void Update()
     {
-        offset = (rb2D.velocity.x * 0.1f) * velocidadMovimiento * Time.deltaTime;
+        offset = (rb2D.linearVelocity.x * 0.1f) * velocidadMovimiento * Time.deltaTime;
         material.mainTextureOffset += offset;
     }
 }

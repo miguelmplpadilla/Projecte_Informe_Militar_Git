@@ -9,7 +9,7 @@ public class DialogueCreator : NodeGraph
 	private List<Type> nodesAllowed = new List<Type>
 	{
 		typeof(DialogueNode), typeof(StartDialogueNode), typeof(DecisionsNode), typeof(PrimaryFinalDialogueNode),
-		typeof(SecondaryFinalDialogueNode)
+		typeof(SecondaryFinalDialogueNode), typeof(EventDialogueNode)
 	};
 
 	public override Node AddNode(Type type)

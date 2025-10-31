@@ -1,16 +1,19 @@
 using System;
 using System.Collections;
 using DG.Tweening;
+using Resources.Scripts.Controllers.Player;
+using Resources.Scripts.NPCs;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class DialogeController : MonoBehaviour
 {
-    public TextMeshProUGUI currentText;
-
-    public Image imageBackground;
+    public static DialogeController instance;
+    
+    private TextMeshProUGUI currentText;
 
     public TextMeshProUGUI playerText;
     public TextMeshProUGUI npcText;
@@ -19,18 +22,28 @@ public class DialogeController : MonoBehaviour
     public RectTransform panelNPC;
     public RectTransform panelButtons;
 
-    public DialogueBaseNode currentDialogue;
+    private DialogueBaseNode currentDialogue;
 
-    public bool canPlayDialogue = false;
-    public bool isShowingText = false;
-    public string currentShowingText = "";
+    private GameEventBase currentGameEvent;
 
-    public SpeakerData currentSpeaker;
+    private bool canPlayDialogue = false;
+    private bool isShowingText = false;
+    private string currentShowingText = "";
+
+    private SpeakerData.TypeSpeaker currentSpeaker;
+    
+    public SpeakerData playerSpeakerData;
+    public SpeakerData npcSpeakerData;
+
+    public Image imagePlayer;
+    public Image imageNPC;
 
     private Coroutine coroutineMostrarTexto;
+    
+    private UnityEvent primaryEnd;
+    private UnityEvent secondaryEnd;
 
-    public StoryBaseNode primaryEnd;
-    public StoryBaseNode secondaryEnd;
+    private int indexEvent = 1;
 
     public GraphicRaycaster graphicRaycaster;
     public CanvasGroup canvasGroup;
@@ -40,16 +53,19 @@ public class DialogeController : MonoBehaviour
     public Button button3;
     public Button button4;
 
-    private void Start()
+    private void Awake()
     {
-        EventBus<SetDialogue>.Register(new EventBinding<SetDialogue>(SetDialogueData));
-        EventBus<HideAllScenes>.Register(new EventBinding<HideAllScenes>(HideScene));
+        instance = this;
     }
 
+    private void Start()
+    {
+        EventBus<OnEndGameEvent>.Register(new EventBinding<OnEndGameEvent>(EndGameEvent, gameObject));
+    }
+    
     private void OnDestroy()
     {
-        EventBus<SetDialogue>.Deregister(new EventBinding<SetDialogue>(SetDialogueData));
-        EventBus<HideAllScenes>.Deregister(new EventBinding<HideAllScenes>(HideScene));
+        EventBus<OnEndGameEvent>.Deregister(new EventBinding<OnEndGameEvent>(EndGameEvent, gameObject));
     }
 
     private void Update()
@@ -67,7 +83,7 @@ public class DialogeController : MonoBehaviour
                 canPlayDialogue = false;
 
                 if (currentDialogue is DialogueNode &&
-                    (currentDialogue as DialogueNode).speakerData.data.typeSpeaker.Equals(currentSpeaker.typeSpeaker))
+                    (currentDialogue as DialogueNode).speakerData.currentSpeaker.Equals(currentSpeaker))
                 {
                     StartDialogue();
                     return;
@@ -81,50 +97,40 @@ public class DialogeController : MonoBehaviour
             }
         }
     }
-    
-    private void SetDialogueData(SetDialogue s)
-    {
-        imageBackground.sprite = s.imageBackground;
-        if (s.imageBackground == null) imageBackground.DOFade(0, 0);
-
-        canvasGroup.alpha = 1;
-        graphicRaycaster.enabled = true;
-
-        currentDialogue = s.startDialogue;
-        primaryEnd = s.primaryEnd;
-        secondaryEnd = s.secondaryEnd;
-        
-        EventBus<FadeInFadeOut>.Raise(new FadeInFadeOut
-        {
-            fade = false,
-            callback = () =>
-            {
-                SetDialogue();
-            }
-        });
-    }
 
     private void SetDialogue()
     {
         EventSystem.current.firstSelectedGameObject = null;
         EventSystem.current.SetSelectedGameObject(null);
+
+        Debug.Log("Current dialogue: "+currentDialogue);
         
         if (currentDialogue is PrimaryFinalDialogueNode)
         {
-            EventBus<SetNextScene>.Raise(new SetNextScene
-            {
-                node = primaryEnd
-            });
-            
-            return;
+            Debug.Log("PrimaryFinalDialogueNode");
         }
 
         if (currentDialogue is SecondaryFinalDialogueNode)
         {
-            EventBus<SetNextScene>.Raise(new SetNextScene
-            {
-                node = secondaryEnd
-            });
+            Debug.Log("SecondaryFinalDialogueNode");
+        }
+
+        if (currentDialogue is PrimaryFinalDialogueNode || currentDialogue is SecondaryFinalDialogueNode)
+        {
+            PlayerModel.instance.canMove = true;
+            HideScene();
+            return;
+        }
+        
+        if (currentDialogue is EventDialogueNode eventNode)
+        {
+            HideScene(false);
+            
+            EventBus<StartTriggerEvent>.Raise(new StartTriggerEvent
+            { index = indexEvent, obj = currentGameEvent.gameObject });
+            indexEvent++;
+            
+            currentDialogue = eventNode.followingDialogue;
             
             return;
         }
@@ -140,19 +146,24 @@ public class DialogeController : MonoBehaviour
 
     private void StartDialogue()
     {
-        currentSpeaker = null;
+        currentSpeaker = SpeakerData.TypeSpeaker.NONE;
         playerText.text = "";
         npcText.text = "";
         
         DialogueNode dialogue = currentDialogue as DialogueNode;
-        currentShowingText = dialogue.texts.textEs;
-        currentSpeaker = dialogue.speakerData.data;
+        currentShowingText = dialogue.text.Value;
+        currentSpeaker = dialogue.speakerData.currentSpeaker;
 
-        currentText = dialogue.speakerData.data.typeSpeaker.Equals(SpeakerData.TypeSpeaker.PLAYER)
+        currentText = dialogue.speakerData.currentSpeaker.Equals(SpeakerData.TypeSpeaker.PLAYER)
             ? playerText
             : npcText;
-            
-        ShowPanel(dialogue.speakerData.data.typeSpeaker.Equals(SpeakerData.TypeSpeaker.PLAYER)
+        
+        if (dialogue.speakerData.currentSpeaker.Equals(SpeakerData.TypeSpeaker.PLAYER))
+            imagePlayer.sprite = playerSpeakerData.expresions.GetSprite(dialogue.speakerData.emotion);
+        else 
+            imageNPC.sprite = npcSpeakerData.expresions.GetSprite(dialogue.speakerData.emotion);
+        
+        ShowPanel(dialogue.speakerData.currentSpeaker.Equals(SpeakerData.TypeSpeaker.PLAYER)
             ? panelPlayer
             : panelNPC, 0, () =>
         {
@@ -182,6 +193,8 @@ public class DialogeController : MonoBehaviour
             button.gameObject.SetActive(false);
             return;
         }
+
+        Debug.Log("SetDataButton");
         
         button.onClick.AddListener(() =>
             { PressButtonDecision(decisionsNode); });
@@ -190,6 +203,7 @@ public class DialogeController : MonoBehaviour
 
     private void PressButtonDecision(DialogueBaseNode decisionPressed)
     {
+        Debug.Log("PressButtonDecision");
         EventSystem.current.firstSelectedGameObject = null;
         EventSystem.current.SetSelectedGameObject(null);
         
@@ -201,6 +215,11 @@ public class DialogeController : MonoBehaviour
         currentDialogue = decisionPressed;
         ShowPanelButtons(-450, () =>
         { SetDialogue(); });
+    }
+
+    private void EndGameEvent()
+    {
+        StartCoroutine(ShowDialog());
     }
     
     IEnumerator MostrarTexto(bool showAllCharacters = false)
@@ -245,14 +264,14 @@ public class DialogeController : MonoBehaviour
         callback?.Invoke();
     }
 
-    private void HideScene()
+    private void HideScene(bool restartVariables = true)
     {
-        RestartVariables();
+        if (restartVariables) RestartVariables();
         
         ShowPanel(panelNPC, 1200);
         ShowPanel(panelPlayer, -1200);
-        
-        canvasGroup.alpha = 0;
+
+        canvasGroup.DOFade(0, 0.2f);
         graphicRaycaster.enabled = false;
     }
 
@@ -264,11 +283,13 @@ public class DialogeController : MonoBehaviour
         canPlayDialogue = false;
         isShowingText = false;
 
-        primaryEnd = null;
-        secondaryEnd = null;
+        primaryEnd.RemoveAllListeners();
+        secondaryEnd.RemoveAllListeners();
+
+        indexEvent = 1;
 
         currentText = null;
-        currentSpeaker = null;
+        currentSpeaker = SpeakerData.TypeSpeaker.NONE;
         
         button1.onClick.RemoveAllListeners();
         button2.onClick.RemoveAllListeners();
@@ -277,5 +298,29 @@ public class DialogeController : MonoBehaviour
         
         EventSystem.current.firstSelectedGameObject = null;
         EventSystem.current.SetSelectedGameObject(null);
+    }
+
+    public void SetData(DialogueCreator dialogue, SpeakerData npcData, GameEventBase gameEvent)
+    {
+        PlayerModel.instance.canMove = false;
+        
+        currentDialogue = (dialogue.nodes.Find(it => it is StartDialogueNode) as StartDialogueNode).dialogueStart;
+        npcSpeakerData = npcData;
+        currentGameEvent = gameEvent;
+        
+        primaryEnd = gameEvent.primaryEnd;
+        secondaryEnd = gameEvent.secondaryEnd;
+        
+        StartCoroutine(ShowDialog());
+    }
+
+    private IEnumerator ShowDialog()
+    {
+        canvasGroup.DOFade(1, 0.2f);
+        yield return new WaitForSeconds(0.2f);
+        
+        graphicRaycaster.enabled = true;
+        
+        SetDialogue();
     }
 }

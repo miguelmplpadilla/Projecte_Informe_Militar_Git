@@ -6,20 +6,39 @@ public class SpeakerData : ScriptableObject
 {
     public TypeSpeaker typeSpeaker;
     public string idSpeaker;
-    public Expresions expresions;
+    public Expressions expresions;
     
     [Serializable]
-    public class Expresions
+    public class Expressions
+{
+    public Sprite idle;
+    public Sprite angry;
+    public Sprite sad;
+    public Sprite happy;
+    public Sprite thoughtful;
+
+    public Sprite GetSprite(DialogueNode.Emotion emotion)
     {
-        public Sprite idle;
-        public Sprite enfadado;
-        public Sprite triste;
-        public Sprite contento;
-        public Sprite pensativo;
+        switch (emotion)
+        {
+            case DialogueNode.Emotion.IDLE:
+                return idle;
+            case DialogueNode.Emotion.ANGRY:
+                return angry;
+            case DialogueNode.Emotion.SAD:
+                return sad;
+            case DialogueNode.Emotion.HAPPY:
+                return happy;
+            case DialogueNode.Emotion.THOUGHTFUL:
+                return thoughtful;
+            default:
+                return null;
+        }
     }
+}
     
     public enum TypeSpeaker
     {
-        PLAYER, NPC
+        NONE, PLAYER, NPC
     }
 }

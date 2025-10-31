@@ -8,7 +8,7 @@ public class DefaultGameController : MonoBehaviour
     
     private void Start()
     {
-        EventBus<SendDecision>.Register(new EventBinding<SendDecision>(ReciveDecision));
+        EventBus<SendDecision>.Register(new EventBinding<SendDecision>(ReciveDecision, gameObject));
         
         if (GameController.instance.isMultiDecision)
         {
@@ -23,7 +23,7 @@ public class DefaultGameController : MonoBehaviour
 
     private void OnDestroy()
     {
-        EventBus<SendDecision>.Deregister(new EventBinding<SendDecision>(ReciveDecision));
+        EventBus<SendDecision>.Deregister(new EventBinding<SendDecision>(ReciveDecision, gameObject));
     }
 
     public void CloseGame(int decisionNumber = 0)

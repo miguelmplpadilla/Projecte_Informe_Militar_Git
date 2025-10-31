@@ -13,7 +13,7 @@ public class DiaryController : MonoBehaviour
     private UIInput uiInput;
 
     private PausaController pausaController;
-    private PlayerModel _model;
+    private PlayerModelDeprecated modelDeprecated;
 
     private bool showingDiary = false;
     private bool diaryShowed = false;
@@ -39,7 +39,7 @@ public class DiaryController : MonoBehaviour
     private void Start()
     {
         pausaController = GameObject.Find("PanelPausa").GetComponent<PausaController>();
-        _model = GameObject.Find("Player").GetComponent<PlayerModel>();
+        modelDeprecated = GameObject.Find("Player").GetComponent<PlayerModelDeprecated>();
 
         currentDiary.diary.paginas = new List<Page>();
     }
@@ -64,7 +64,7 @@ public class DiaryController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H)) AddPages("Entrada2-1");
         if (Input.GetKeyDown(KeyCode.J)) AddPages("Entrada2-2");
         
-        if (!uiInput.UISelf.OpenInventory.WasPressedThisFrame() || showingDiary || _model.pauseShowed) return;
+        if (!uiInput.UISelf.OpenInventory.WasPressedThisFrame() || showingDiary || modelDeprecated.pauseShowed) return;
         
         ShowHideDiary();
     }

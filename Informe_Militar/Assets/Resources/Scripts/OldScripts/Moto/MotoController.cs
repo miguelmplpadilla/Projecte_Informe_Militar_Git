@@ -34,6 +34,6 @@ public class MotoController : MonoBehaviour
 
         transform.GetChild(0).DORotate(rotation, 1);
 
-        rb.velocity = movement.normalized * speed;
+        rb.linearVelocity = movement.normalized * speed;
     }
 }

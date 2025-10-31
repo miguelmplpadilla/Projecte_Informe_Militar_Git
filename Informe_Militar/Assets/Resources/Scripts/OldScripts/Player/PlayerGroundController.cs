@@ -5,31 +5,31 @@ using UnityEngine;
 public class PlayerGroundController : MonoBehaviour
 {
     private Animator _animator;
-    private PlayerModel _model;
+    private PlayerModelDeprecated modelDeprecated;
 
     private void Awake()
     {
-        _model = GetComponentInParent<PlayerModel>();
+        modelDeprecated = GetComponentInParent<PlayerModelDeprecated>();
         _animator = transform.parent.GetComponentInChildren<Animator>();
     }
 
     private void Update()
     {
-        _animator.SetBool("IsGrounded", _model.isGrounded);
+        _animator.SetBool("IsGrounded", modelDeprecated.isGrounded);
 
-        if (!_model.isGrounded) _model.isSprinting = false;
+        if (!modelDeprecated.isGrounded) modelDeprecated.isSprinting = false;
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Ground")) _model.isGrounded = true;
+        if (other.CompareTag("Ground")) modelDeprecated.isGrounded = true;
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Ground"))
         {
-            _model.isGrounded = false;
+            modelDeprecated.isGrounded = false;
         }
     }
 }

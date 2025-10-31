@@ -10,12 +10,12 @@ public class FadeController : MonoBehaviour
 
     private void Start()
     {
-        EventBus<FadeInFadeOut>.Register(new EventBinding<FadeInFadeOut>(FadeInFadeOut));
+        EventBus<FadeInFadeOut>.Register(new EventBinding<FadeInFadeOut>(FadeInFadeOut, gameObject));
     }
 
     private void OnDestroy()
     {
-        EventBus<FadeInFadeOut>.Deregister(new EventBinding<FadeInFadeOut>(FadeInFadeOut));
+        EventBus<FadeInFadeOut>.Deregister(new EventBinding<FadeInFadeOut>(FadeInFadeOut, gameObject));
     }
 
     private void FadeInFadeOut(FadeInFadeOut f)

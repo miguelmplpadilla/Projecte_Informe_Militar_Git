@@ -95,10 +95,10 @@ public class IdiomaController : MonoBehaviour
         foreach (var changeTextObj in allChangeTexts)
             changeTextObj.changeText();
         
-        TalkingNPCController[] allTalkingNpcs = FindObjectsOfType<TalkingNPCController>();
+        //TalkingNPCController[] allTalkingNpcs = FindObjectsOfType<TalkingNPCController>();
         
-        foreach (var npc in allTalkingNpcs)
-            npc.SetTexts();
+        //foreach (var npc in allTalkingNpcs)
+        //    npc.SetTexts();
 
         GameObject.Find("Diary").GetComponent<DiaryController>().ChangeIdiomDiary();
     }

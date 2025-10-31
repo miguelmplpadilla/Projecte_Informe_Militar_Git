@@ -10,24 +10,25 @@ public class DiapositiveController : BaseControllerStory
     
     public Image imageDiapositiveFront;
     public Image imageDiapositiveBack;
-    public SpriteRenderer backgroundDiapositive;
 
     public TextMeshProUGUI descriptionFront;
     public TextMeshProUGUI descriptionBack;
+
+    public Image background;
 
     public Canvas canvas;
     public CanvasGroup canvasGroup;
     
     void Start()
     {
-        EventBus<StartDiapositive>.Register(new EventBinding<StartDiapositive>(StartDiapositive));
-        EventBus<HideAllScenes>.Register(new EventBinding<HideAllScenes>(HideScene));
+        EventBus<StartDiapositive>.Register(new EventBinding<StartDiapositive>(StartDiapositive, gameObject));
+        //EventBus<HideAllScenes>.Register(new EventBinding<HideAllScenes>(HideScene, gameObject));
     }
 
     private void OnDestroy()
     {
-        EventBus<StartDiapositive>.Deregister(new EventBinding<StartDiapositive>(StartDiapositive));
-        EventBus<HideAllScenes>.Deregister(new EventBinding<HideAllScenes>(HideScene));
+        EventBus<StartDiapositive>.Deregister(new EventBinding<StartDiapositive>(StartDiapositive, gameObject));
+        //EventBus<HideAllScenes>.Deregister(new EventBinding<HideAllScenes>(HideScene, gameObject));
     }
 
     private void StartDiapositive(StartDiapositive diapositive)
@@ -39,7 +40,7 @@ public class DiapositiveController : BaseControllerStory
         descriptionFront.text = "";
         descriptionBack.text = "";
 
-        canvas.GetComponent<GraphicRaycaster>().enabled = true;
+        canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1;
         parentDiapositive.transform.localScale = Vector3.one;
         
@@ -72,17 +73,18 @@ public class DiapositiveController : BaseControllerStory
         
         descriptionFront.enabled = false;
         imageDiapositiveFront.sprite = diapositive.imageDiapositiveFront;
-        backgroundDiapositive.sprite = diapositive.backgroundDiapositive;
 
-        backgroundDiapositive.DOFade(diapositive.backgroundDiapositive == null ? 0.7f : 1, 0);
+        background.DOFade(diapositive.backgroundDiapositive == null ? 0.7f : 1, 0);
     }
 
     public void CloseDiapositive()
     {
-        EventBus<SetNextScene>.Raise(new SetNextScene
-        {
-            node = nextNode
-        });
+        EventBus<RestartDiapositiveEvent>.Raise(new RestartDiapositiveEvent());
+        
+        canvasGroup.blocksRaycasts = false;
+        canvasGroup.alpha = 0;
+        parentDiapositive.transform.localScale = Vector3.zero;
+        Time.timeScale = 1;
     }
 
     private void HideScene()
@@ -96,3 +98,5 @@ public class DiapositiveController : BaseControllerStory
         parentDiapositive.transform.localScale = Vector3.zero;
     }
 }
+
+public class RestartDiapositiveEvent : IEvent {}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Primary Final Dialogue
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 536, y: -104}
+  position: {x: 920, y: -232}
   ports:
     keys:
     - dialogue
@@ -24,7 +24,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: followingDialogue
-        node: {fileID: 5498673672379003300}
+        node: {fileID: -166703043170156063}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: Dialogue
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 120, y: 184}
+  position: {x: 168, y: 200}
   ports:
     keys:
     - followingDialogue
@@ -68,20 +68,20 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: followingDialogue
-        node: {fileID: 6810116405690782946}
+        node: {fileID: -1532117633664862386}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
   dialogue: {fileID: 0}
-  followingDialogue: {fileID: -4277665769587477632}
+  followingDialogue: {fileID: -5100292931386401607}
   speakerData:
-    data: {fileID: 11400000, guid: a7e1f105a961d95409fd716bbf2ceedf, type: 2}
-    emocion: 0
-  texts:
-    textEs: De locos
-    textEn: 
+    currentSpeaker: 1
+    emotion: 2
+  text:
+    valueSpanish: Tienes razon, voy a despejarme un poco, ahora vengo
+    valueEnglish: 
 --- !u!114 &-4277665769587477632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: Secondary Final Dialogue
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 552, y: 184}
+  position: {x: 536, y: 200}
   ports:
     keys:
     - dialogue
@@ -113,6 +113,108 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   dialogue: {fileID: 0}
+--- !u!114 &-1532117633664862386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211b1a9ed8369c1498bce8f6543c2d56, type: 3}
+  m_Name: Dialogue
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -216, y: 232}
+  ports:
+    keys:
+    - followingDialogue
+    - dialogue
+    values:
+    - _fieldName: followingDialogue
+      _node: {fileID: -1532117633664862386}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: dialogue
+        node: {fileID: -5100292931386401607}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: dialogue
+      _node: {fileID: -1532117633664862386}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: followingDialogue
+        node: {fileID: 6810116405690782946}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  dialogue: {fileID: 0}
+  followingDialogue: {fileID: -5100292931386401607}
+  speakerData:
+    currentSpeaker: 2
+    emotion: 2
+  text:
+    valueSpanish: Al sargento no le hara mucha gracia
+    valueEnglish: 
+--- !u!114 &-166703043170156063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211b1a9ed8369c1498bce8f6543c2d56, type: 3}
+  m_Name: Dialogue
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 568, y: -264}
+  ports:
+    keys:
+    - followingDialogue
+    - dialogue
+    values:
+    - _fieldName: followingDialogue
+      _node: {fileID: -166703043170156063}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: dialogue
+        node: {fileID: -6319320170464924012}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: dialogue
+      _node: {fileID: -166703043170156063}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: followingDialogue
+        node: {fileID: 5498673672379003300}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  dialogue: {fileID: 0}
+  followingDialogue: {fileID: -6319320170464924012}
+  speakerData:
+    currentSpeaker: 1
+    emotion: 4
+  text:
+    valueSpanish: Ahora vento y los preparamos
+    valueEnglish: 
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,6 +237,9 @@ MonoBehaviour:
   - {fileID: 6810116405690782946}
   - {fileID: -5100292931386401607}
   - {fileID: -4277665769587477632}
+  - {fileID: 4174536014455928801}
+  - {fileID: -166703043170156063}
+  - {fileID: -1532117633664862386}
 --- !u!114 &3983273165041379640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,7 +253,7 @@ MonoBehaviour:
   m_Name: Dialogue
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -232, y: -120}
+  position: {x: -584, y: -200}
   ports:
     keys:
     - followingDialogue
@@ -160,7 +265,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: dialogue
-        node: {fileID: 5498673672379003300}
+        node: {fileID: 4174536014455928801}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -179,13 +284,64 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   dialogue: {fileID: 0}
+  followingDialogue: {fileID: 4174536014455928801}
+  speakerData:
+    currentSpeaker: 2
+    emotion: 0
+  text:
+    valueSpanish: Tenemos que preparar unos parapetos
+    valueEnglish: 
+--- !u!114 &4174536014455928801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211b1a9ed8369c1498bce8f6543c2d56, type: 3}
+  m_Name: Dialogue
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -216, y: -232}
+  ports:
+    keys:
+    - followingDialogue
+    - dialogue
+    values:
+    - _fieldName: followingDialogue
+      _node: {fileID: 4174536014455928801}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: dialogue
+        node: {fileID: 5498673672379003300}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: dialogue
+      _node: {fileID: 4174536014455928801}
+      _typeQualifiedName: DialogueBaseNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: followingDialogue
+        node: {fileID: 3983273165041379640}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  dialogue: {fileID: 0}
   followingDialogue: {fileID: 5498673672379003300}
   speakerData:
-    data: {fileID: 11400000, guid: 87e5cd7eca35a2140b2ae3004ea4dcba, type: 2}
-    emocion: 0
-  texts:
-    textEs: Pues que te follen
-    textEn: 
+    currentSpeaker: 2
+    emotion: 4
+  text:
+    valueSpanish: No querras que nos den las balas no?
+    valueEnglish: 
 --- !u!114 &5498673672379003300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,7 +355,7 @@ MonoBehaviour:
   m_Name: Dialogue
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 120, y: -200}
+  position: {x: 168, y: -264}
   ports:
     keys:
     - followingDialogue
@@ -211,7 +367,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: dialogue
-        node: {fileID: -6319320170464924012}
+        node: {fileID: -166703043170156063}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -223,20 +379,20 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: followingDialogue
-        node: {fileID: 3983273165041379640}
+        node: {fileID: 4174536014455928801}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
   dialogue: {fileID: 0}
-  followingDialogue: {fileID: -6319320170464924012}
+  followingDialogue: {fileID: -166703043170156063}
   speakerData:
-    data: {fileID: 11400000, guid: a7e1f105a961d95409fd716bbf2ceedf, type: 2}
-    emocion: 0
-  texts:
-    textEs: Que te jodan a ti
-    textEn: 
+    currentSpeaker: 1
+    emotion: 3
+  text:
+    valueSpanish: No, para nada
+    valueEnglish: 
 --- !u!114 &5604182446805783430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,7 +406,7 @@ MonoBehaviour:
   m_Name: Decisions
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -632, y: 56}
+  position: {x: -984, y: 88}
   ports:
     keys:
     - decisionConnection1
@@ -316,11 +472,11 @@ MonoBehaviour:
   dialogue: {fileID: 0}
   decisionConnection1: {fileID: 3983273165041379640}
   decision1:
-    decisionEs: Fatal
+    decisionEs: Que tenemos que hacer hoy?
     decisionEn: 
   decisionConnection2: {fileID: 6810116405690782946}
   decision2:
-    decisionEs: De puta madre
+    decisionEs: No mucho la verdad
     decisionEn: 
   decisionConnection3: {fileID: 0}
   decision3:
@@ -343,7 +499,7 @@ MonoBehaviour:
   m_Name: Start Dialogue
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1320, y: 72}
+  position: {x: -1736, y: 56}
   ports:
     keys:
     - dialogueStart
@@ -374,7 +530,7 @@ MonoBehaviour:
   m_Name: Dialogue
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -232, y: 168}
+  position: {x: -568, y: 232}
   ports:
     keys:
     - followingDialogue
@@ -386,7 +542,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: dialogue
-        node: {fileID: -5100292931386401607}
+        node: {fileID: -1532117633664862386}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -405,13 +561,13 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   dialogue: {fileID: 0}
-  followingDialogue: {fileID: -5100292931386401607}
+  followingDialogue: {fileID: -1532117633664862386}
   speakerData:
-    data: {fileID: 11400000, guid: 87e5cd7eca35a2140b2ae3004ea4dcba, type: 2}
-    emocion: 0
-  texts:
-    textEs: Perfecto
-    textEn: 
+    currentSpeaker: 2
+    emotion: 0
+  text:
+    valueSpanish: Pues tendremos que ponernos
+    valueEnglish: 
 --- !u!114 &6898231873103015917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -425,7 +581,7 @@ MonoBehaviour:
   m_Name: Dialogue
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -968, y: 72}
+  position: {x: -1384, y: 56}
   ports:
     keys:
     - followingDialogue
@@ -458,8 +614,8 @@ MonoBehaviour:
   dialogue: {fileID: 0}
   followingDialogue: {fileID: 5604182446805783430}
   speakerData:
-    data: {fileID: 11400000, guid: 87e5cd7eca35a2140b2ae3004ea4dcba, type: 2}
-    emocion: 3
-  texts:
-    textEs: Hola que tal estas?
-    textEn: 
+    currentSpeaker: 2
+    emotion: 3
+  text:
+    valueSpanish: Hola, Juan, preparado para trabajar?
+    valueEnglish: 

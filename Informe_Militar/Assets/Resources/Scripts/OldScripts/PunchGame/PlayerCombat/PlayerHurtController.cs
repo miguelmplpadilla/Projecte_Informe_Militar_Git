@@ -11,7 +11,7 @@ public class PlayerHurtController : MonoBehaviour
     [NonSerialized] public float life = 15;
 
     private PlayerCombatModel playerCombatModel;
-    private PlayerModel model;
+    private PlayerModelDeprecated modelDeprecated;
     public SpriteRenderer spriteRenderer;
     
     public Material normalMaterial;
@@ -23,7 +23,7 @@ public class PlayerHurtController : MonoBehaviour
     {
         life = maxLife;
         playerCombatModel = GetComponentInParent<PlayerCombatModel>();
-        model = GetComponentInParent<PlayerModel>();
+        modelDeprecated = GetComponentInParent<PlayerModelDeprecated>();
     }
 
     public async void Hurt()
@@ -44,7 +44,7 @@ public class PlayerHurtController : MonoBehaviour
 
         if (life <= 0)
         {
-            model.animator.SetTrigger("die");
+            modelDeprecated.animator.SetTrigger("die");
             return;
         }
         

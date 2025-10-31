@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private PlayerModel _model;
+    private PlayerModelDeprecated modelDeprecated;
     
     public Vector2 movement;
     
@@ -25,70 +25,70 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         maxSpeed = maxSpeedWalk;
-        _model = GetComponent<PlayerModel>();
+        modelDeprecated = GetComponent<PlayerModelDeprecated>();
         _capsuleCollider = GetComponent<CapsuleCollider2D>();
     }
 
     void Update()
     {
-        if (_model.isPaused) return;
+        if (modelDeprecated.isPaused) return;
         
-        if (_model.mov)
+        if (modelDeprecated.mov)
         {
-            if (_model.sliding) return;
+            if (modelDeprecated.sliding) return;
             
-            maxSpeed = _model.isSprinting && _model.canRun ? maxSpeedWalk*2 : maxSpeedWalk;
+            maxSpeed = modelDeprecated.isSprinting && modelDeprecated.canRun ? maxSpeedWalk*2 : maxSpeedWalk;
 
-            movement = new Vector2(_model.direction.x, 0f);
+            movement = new Vector2(modelDeprecated.direction.x, 0f);
 
-            float velocity = _model.direction.x != 0 ? _model.isSprinting ? 1 : 0.5f : 0;
+            float velocity = modelDeprecated.direction.x != 0 ? modelDeprecated.isSprinting ? 1 : 0.5f : 0;
 
-            if (_model.agachado)
+            if (modelDeprecated.agachado)
             {
                 maxSpeed = maxSpeedAgachado;
-                velocity = _model.direction.x != 0 ? 1 : 0;
+                velocity = modelDeprecated.direction.x != 0 ? 1 : 0;
             }
 
-            _model.animator.SetFloat("velocity", velocity);
+            modelDeprecated.animator.SetFloat("velocity", velocity);
 
             flip();
             movePlayer();
 
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, Mathf.Infinity, LayerMask.GetMask("Ground"));
 
-            _capsuleCollider.sharedMaterial = _model.direction.x != 0 ? null : fullFriction;
+            _capsuleCollider.sharedMaterial = modelDeprecated.direction.x != 0 ? null : fullFriction;
 
-            if (_model.isGrounded && hit.collider != null && _model.direction.x == 0 && !_model.positionedInRamp)
+            if (modelDeprecated.isGrounded && hit.collider != null && modelDeprecated.direction.x == 0 && !modelDeprecated.positionedInRamp)
             {
-                _model.rigidbody.velocity = Vector2.zero;
+                modelDeprecated.rigidbody.linearVelocity = Vector2.zero;
                 transform.position = new Vector3(transform.position.x, hit.point.y);
-                _model.positionedInRamp = true;
+                modelDeprecated.positionedInRamp = true;
             }
 
-            if (_model.playerControls.Gameplay.Slide.WasPressedThisFrame())
+            if (modelDeprecated.playerControls.Gameplay.Slide.WasPressedThisFrame())
             {
-                _model.agachado = !_model.agachado;
-                if (_model.isSprinting && _model.agachado) tirarSuelo();
+                modelDeprecated.agachado = !modelDeprecated.agachado;
+                if (modelDeprecated.isSprinting && modelDeprecated.agachado) tirarSuelo();
             }
 
-            _model.animator.SetBool("crouch", _model.agachado);
+            modelDeprecated.animator.SetBool("crouch", modelDeprecated.agachado);
 
             return;
         }
 
-        _model.animator.SetFloat("velocity", 0);
-        _model.rigidbody.velocity = Vector3.zero;
+        modelDeprecated.animator.SetFloat("velocity", 0);
+        modelDeprecated.rigidbody.linearVelocity = Vector3.zero;
     }
 
     private void tirarSuelo()
     {
-        _model.animator.SetTrigger("slide");
+        modelDeprecated.animator.SetTrigger("slide");
         
-        _model.sliding = true;
+        modelDeprecated.sliding = true;
 
         Vector2 force = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
 
-        _model.rigidbody.AddForce(force, ForceMode2D.Force);
+        modelDeprecated.rigidbody.AddForce(force, ForceMode2D.Force);
     }
     
     private void movePlayer()
@@ -96,14 +96,14 @@ public class PlayerMovement : MonoBehaviour
         currentSpeed = Input.GetAxisRaw("Horizontal") == 0 ? movement.x * maxSpeed : maxSpeed;
 
         horizontalVelocity = movement.normalized.x * Math.Abs(currentSpeed);
-        _model.rigidbody.velocity = new Vector2(horizontalVelocity, _model.rigidbody.velocity.y);
+        modelDeprecated.rigidbody.linearVelocity = new Vector2(horizontalVelocity, modelDeprecated.rigidbody.linearVelocity.y);
 
-        _model.animator.SetBool("run", Input.GetButton("Horizontal"));
+        modelDeprecated.animator.SetBool("run", Input.GetButton("Horizontal"));
     }
 
     private void flip()
     {
-        if (_model.direction.x != 0) 
-            transform.localScale = new Vector3(_model.direction.x > 0 ? 1 : -1, 1, 1);
+        if (modelDeprecated.direction.x != 0) 
+            transform.localScale = new Vector3(modelDeprecated.direction.x > 0 ? 1 : -1, 1, 1);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Localization;
 using XNode;
 
 [CreateNodeMenu("DialogueCreator/Dialogue")]
@@ -11,7 +12,8 @@ public class DialogueNode : DialogueBaseNode
 	[Space(20)]
 	
 	public Speaker speakerData;
-	public Texts texts;
+	
+	public LocalizableString text;
 	
 	public override void OnCreateConnection(NodePort from, NodePort to) 
 	{
@@ -55,19 +57,12 @@ public class DialogueNode : DialogueBaseNode
 	[Serializable]
 	public class Speaker
 	{
-		public SpeakerData data;
-		public Emotion emocion;
-	}
-	
-	[Serializable]
-	public class Texts
-	{
-		[TextArea(10,300)] public string textEs;
-		[TextArea(10,300)] public string textEn;
+		public SpeakerData.TypeSpeaker currentSpeaker;
+		public Emotion emotion;
 	}
 	
 	public enum Emotion
 	{
-		IDLE, ENFADADO, TRISTE, CONTENTO, PENSATIVO
+		IDLE, ANGRY, SAD, HAPPY, THOUGHTFUL
 	}
 }

@@ -7,8 +7,10 @@ using UnityEngine;
 public class ReadingTextController : MonoBehaviour
 {
     public static ReadingTextController instance;
+
+    public Camera camera;
     
-    public GameObject objToRead;
+    public GameObject fame;
 
     public string textFront;
     public string textBack;
@@ -27,14 +29,14 @@ public class ReadingTextController : MonoBehaviour
 
     private void Start()
     {
-        EventBus<SetReadingText>.Register(new EventBinding<SetReadingText>(SetTexts));
-        EventBus<HideAllScenes>.Register(new EventBinding<HideAllScenes>(RestartVariables));
+        EventBus<SetReadingText>.Register(new EventBinding<SetReadingText>(SetTexts, gameObject));
+        EventBus<HideAllScenes>.Register(new EventBinding<HideAllScenes>(RestartVariables, gameObject));
     }
 
     private void OnDestroy()
     {
-        EventBus<SetReadingText>.Deregister(new EventBinding<SetReadingText>(SetTexts));
-        EventBus<HideAllScenes>.Deregister(new EventBinding<HideAllScenes>(RestartVariables));
+        EventBus<SetReadingText>.Deregister(new EventBinding<SetReadingText>(SetTexts, gameObject));
+        EventBus<HideAllScenes>.Deregister(new EventBinding<HideAllScenes>(RestartVariables, gameObject));
     }
 
     private void SetTexts(SetReadingText setReadingText)
@@ -45,25 +47,15 @@ public class ReadingTextController : MonoBehaviour
     
     private void Update()
     {
-        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width/2, Screen.height/2));
-        
-        List<RaycastHit> hitsDrag = Physics.RaycastAll(ray).ToList();
-        hitsDrag.RemoveAll(p => p.collider.name == "PanelFrame");
-        hitsDrag.Sort((x, y) => x.distance.CompareTo(y.distance));
-
-        objToRead = hitsDrag.Count > 0 ? hitsDrag[0].collider.gameObject : null;
-        
-        if (objToRead == null) return;
-
-        currentText = objToRead.name.Equals("Front") ? textFront : textBack;
+        currentText = fame.transform.localRotation.y > -0.7f && fame.transform.localRotation.y < 0.7f
+            ? textFront
+            : textBack;
         
         buttonRead.SetActive(!currentText.Equals("") && !isReading);
     }
 
     public void ShowText()
     {
-        if (objToRead == null) return;
-
         isReading = true;
 
         readingText.text = currentText;

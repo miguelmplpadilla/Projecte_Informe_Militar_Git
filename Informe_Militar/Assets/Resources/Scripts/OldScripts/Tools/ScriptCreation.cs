@@ -47,7 +47,7 @@ public class PruebaCreacionScripts : MonoBehaviour
             "{\n" +
             "   public class " + scriptName + "View : GameView\n" +
             "   {\n" +
-            "       [ModelField, SerializeField] private "+ scriptName + "Model _model;\n" +
+            "       [ModelField, SerializeField] private "+ scriptName + "Model modelDeprecated;\n" +
             "       [ControllerField] private " + scriptName + "Controller _controller;\n" +
             "   }\n" +
             "}");

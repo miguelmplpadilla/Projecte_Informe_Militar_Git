@@ -28,22 +28,22 @@ public class GameController : BaseControllerStory
 
     void Start()
     {
-        EventBus<PlayGame>.Register(new EventBinding<PlayGame>(PlayGame));
-        EventBus<CloseGame>.Register(new EventBinding<CloseGame>(CloseGame));
+        EventBus<PlayGame>.Register(new EventBinding<PlayGame>(PlayGame, gameObject));
+        EventBus<CloseGame>.Register(new EventBinding<CloseGame>(CloseGame, gameObject));
         
-        EventBus<HideAllScenes>.Register(new EventBinding<HideAllScenes>(HideScene));
-        EventBus<ActiveDesactiveCurrentGame>.Register(new EventBinding<ActiveDesactiveCurrentGame>(ActiveCurrentGame));
-        EventBus<ReanudeGame>.Register(new EventBinding<ReanudeGame>(ReanudeGame));
+        EventBus<HideAllScenes>.Register(new EventBinding<HideAllScenes>(HideScene, gameObject));
+        EventBus<ActiveDesactiveCurrentGame>.Register(new EventBinding<ActiveDesactiveCurrentGame>(ActiveCurrentGame, gameObject));
+        EventBus<ReanudeGame>.Register(new EventBinding<ReanudeGame>(ReanudeGame, gameObject));
     }
 
     private void OnDestroy()
     {
-        EventBus<PlayGame>.Deregister(new EventBinding<PlayGame>(PlayGame));
-        EventBus<CloseGame>.Deregister(new EventBinding<CloseGame>(CloseGame));
+        EventBus<PlayGame>.Deregister(new EventBinding<PlayGame>(PlayGame, gameObject));
+        EventBus<CloseGame>.Deregister(new EventBinding<CloseGame>(CloseGame, gameObject));
         
-        EventBus<HideAllScenes>.Deregister(new EventBinding<HideAllScenes>(HideScene));
-        EventBus<ActiveDesactiveCurrentGame>.Deregister(new EventBinding<ActiveDesactiveCurrentGame>(ActiveCurrentGame));
-        EventBus<ReanudeGame>.Deregister(new EventBinding<ReanudeGame>(ReanudeGame));
+        EventBus<HideAllScenes>.Deregister(new EventBinding<HideAllScenes>(HideScene, gameObject));
+        EventBus<ActiveDesactiveCurrentGame>.Deregister(new EventBinding<ActiveDesactiveCurrentGame>(ActiveCurrentGame, gameObject));
+        EventBus<ReanudeGame>.Deregister(new EventBinding<ReanudeGame>(ReanudeGame, gameObject));
     }
 
     private async void PlayGame(PlayGame game)

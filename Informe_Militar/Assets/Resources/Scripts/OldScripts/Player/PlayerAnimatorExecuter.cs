@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class PlayerAnimatorExecuter : MonoBehaviour
 {
-    private PlayerModel _model;
+    private PlayerModelDeprecated modelDeprecated;
 
     private void Start()
     {
-        _model = transform.GetComponent<PlayerModel>();
+        modelDeprecated = transform.GetComponent<PlayerModelDeprecated>();
     }
 
     public void setSlidingFalse()
     {
-        _model.sliding = false;
+        modelDeprecated.sliding = false;
     }
 }

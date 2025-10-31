@@ -11,7 +11,7 @@ public class PlayerClimbController : MonoBehaviour
 
     public float distanceCheckRay = 1;
 
-    private PlayerModel playerModel;
+    private PlayerModelDeprecated playerModelDeprecated;
     private Animator animatorPlayer;
     private Rigidbody2D rb;
 
@@ -21,7 +21,7 @@ public class PlayerClimbController : MonoBehaviour
     {
         playerControls = new PlayerControls();
 
-        playerModel = GetComponent<PlayerModel>();
+        playerModelDeprecated = GetComponent<PlayerModelDeprecated>();
         animatorPlayer = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
 
@@ -40,7 +40,7 @@ public class PlayerClimbController : MonoBehaviour
 
     private async void Update()
     {
-        if (!playerModel.mov || playerModel.isPaused) return;
+        if (!playerModelDeprecated.mov || playerModelDeprecated.isPaused) return;
 
         Vector3 positionRay2 = rayPosition2.position + new Vector3(0, 0.05f, 0);
 
@@ -65,8 +65,8 @@ public class PlayerClimbController : MonoBehaviour
         {
             rb.bodyType = RigidbodyType2D.Static;
 
-            playerModel.canInter = false;
-            playerModel.mov = false;
+            playerModelDeprecated.canInter = false;
+            playerModelDeprecated.mov = false;
 
             animatorPlayer.SetTrigger("ClimbLedge");
 
@@ -92,7 +92,7 @@ public class PlayerClimbController : MonoBehaviour
 
         transform.position = hitGround.point;
 
-        playerModel.canInter = true;
-        playerModel.mov = true;
+        playerModelDeprecated.canInter = true;
+        playerModelDeprecated.mov = true;
     }
 }

@@ -2,12 +2,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class InterControllerPlayer : MonoBehaviour
 {
     public GameObject objToInter;
 
-    public PlayerModel model;
+    [FormerlySerializedAs("model")] public PlayerModelDeprecated modelDeprecated;
 
     private CircleCollider2D circleCollider2D;
 
@@ -22,15 +23,15 @@ public class InterControllerPlayer : MonoBehaviour
     {
         objToInter = comprobarInterCollider();
 
-        if (!objToInter || !model.mov || !model.canInter || model.isPaused) return;
+        if (!objToInter || !modelDeprecated.mov || !modelDeprecated.canInter || modelDeprecated.isPaused) return;
         
-        objToInter.SendMessage("interEnter", model);
+        objToInter.SendMessage("interEnter", modelDeprecated);
 
-        if (!model.playerControls.Gameplay.Inter.WasPressedThisFrame()) return;
+        if (!modelDeprecated.playerControls.Gameplay.Inter.WasPressedThisFrame()) return;
 
-        model.mov = false;
-        model.canInter = false;
-        objToInter.SendMessage("inter", model);
+        modelDeprecated.mov = false;
+        modelDeprecated.canInter = false;
+        objToInter.SendMessage("inter", modelDeprecated);
     }
 
     private bool checkRayCast(GameObject objCheck)
@@ -84,7 +85,7 @@ public class InterControllerPlayer : MonoBehaviour
             {
                 if (obj.gameObject.Equals(objInter) || !obj.CompareTag("Inter")) continue;
 
-                obj.gameObject.SendMessage("interExit", model);
+                obj.gameObject.SendMessage("interExit", modelDeprecated);
             }
         }
 
@@ -96,6 +97,6 @@ public class InterControllerPlayer : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Inter"))
-            other.SendMessage("interExit", model);
+            other.SendMessage("interExit", modelDeprecated);
     }
 }

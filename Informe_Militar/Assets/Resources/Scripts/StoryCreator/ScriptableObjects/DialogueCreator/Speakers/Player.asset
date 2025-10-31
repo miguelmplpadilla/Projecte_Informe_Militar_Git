@@ -15,4 +15,8 @@ MonoBehaviour:
   typeSpeaker: 0
   idSpeaker: player
   expresions:
-    idle: {fileID: 0}
+    idle: {fileID: 21300000, guid: b40e96ef3f6b8484ca15bd55c449558e, type: 3}
+    angry: {fileID: 21300000, guid: f2a4656423cf7774b975fb0102774a5d, type: 3}
+    sad: {fileID: 21300000, guid: 0fda0a266a6247e4b9dfec7611987dc0, type: 3}
+    happy: {fileID: 21300000, guid: a851fbbbfc272ba439e222e0879bc427, type: 3}
+    thoughtful: {fileID: 21300000, guid: 79af22d8f3d95c749951c2f1ff6fdc73, type: 3}

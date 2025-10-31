@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
-        if(rb.velocity.y <= 0.0f)
+        if(rb.linearVelocity.y <= 0.0f)
         {
             isJumping = false;
         }
@@ -178,7 +178,7 @@ public class PlayerController : MonoBehaviour
             canJump = false;
             isJumping = true;
             newVelocity.Set(0.0f, 0.0f);
-            rb.velocity = newVelocity;
+            rb.linearVelocity = newVelocity;
             newForce.Set(0.0f, jumpForce);
             rb.AddForce(newForce, ForceMode2D.Impulse);
         }
@@ -190,17 +190,17 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("This one");
             newVelocity.Set(movementSpeed * xInput, 0.0f);
-            rb.velocity = newVelocity;
+            rb.linearVelocity = newVelocity;
         }
         else if (isGrounded && isOnSlope && canWalkOnSlope && !isJumping) //If on slope
         {
             newVelocity.Set(movementSpeed * slopeNormalPerp.x * -xInput, movementSpeed * slopeNormalPerp.y * -xInput);
-            rb.velocity = newVelocity;
+            rb.linearVelocity = newVelocity;
         }
         else if (!isGrounded) //If in air
         {
-            newVelocity.Set(movementSpeed * xInput, rb.velocity.y);
-            rb.velocity = newVelocity;
+            newVelocity.Set(movementSpeed * xInput, rb.linearVelocity.y);
+            rb.linearVelocity = newVelocity;
         }
 
     }

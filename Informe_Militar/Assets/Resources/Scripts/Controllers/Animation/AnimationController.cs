@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,16 +16,16 @@ public class AnimationController : BaseControllerStory
     
     void Start()
     {
-        EventBus<SetAnimation>.Register(new EventBinding<SetAnimation>(SetAnimation));
-        EventBus<HideAllScenes>.Register(new EventBinding<HideAllScenes>(HideScene));
-        EventBus<PlayAnimation>.Register(new EventBinding<PlayAnimation>(PlayAnimation));
+        EventBus<SetAnimation>.Register(new EventBinding<SetAnimation>(SetAnimation, gameObject));
+        EventBus<HideAllScenes>.Register(new EventBinding<HideAllScenes>(HideScene, gameObject));
+        EventBus<PlayAnimation>.Register(new EventBinding<PlayAnimation>(PlayAnimation, gameObject));
     }
 
     private void OnDestroy()
     {
-        EventBus<SetAnimation>.Deregister(new EventBinding<SetAnimation>(SetAnimation));
-        EventBus<HideAllScenes>.Deregister(new EventBinding<HideAllScenes>(HideScene));
-        EventBus<PlayAnimation>.Deregister(new EventBinding<PlayAnimation>(PlayAnimation));
+        EventBus<SetAnimation>.Deregister(new EventBinding<SetAnimation>(SetAnimation, gameObject));
+        EventBus<HideAllScenes>.Deregister(new EventBinding<HideAllScenes>(HideScene, gameObject));
+        EventBus<PlayAnimation>.Deregister(new EventBinding<PlayAnimation>(PlayAnimation, gameObject));
     }
 
     private async void SetAnimation(SetAnimation animation)

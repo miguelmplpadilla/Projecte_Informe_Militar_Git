@@ -16,14 +16,14 @@ public class StoryController : MonoBehaviour
 
     private void Awake()
     {
-        EventBus<SetNextScene>.Register(new EventBinding<SetNextScene>(SetNextScene));
-        EventBus<PlayNodeInGame>.Register(new EventBinding<PlayNodeInGame>(PlayNodeInGame));
+        EventBus<SetNextScene>.Register(new EventBinding<SetNextScene>(SetNextScene, gameObject));
+        EventBus<PlayNodeInGame>.Register(new EventBinding<PlayNodeInGame>(PlayNodeInGame, gameObject));
     }
     
     private void OnDestroy()
     {
-        EventBus<SetNextScene>.Deregister(new EventBinding<SetNextScene>(SetNextScene));
-        EventBus<PlayNodeInGame>.Deregister(new EventBinding<PlayNodeInGame>(PlayNodeInGame));
+        EventBus<SetNextScene>.Deregister(new EventBinding<SetNextScene>(SetNextScene, gameObject));
+        EventBus<PlayNodeInGame>.Deregister(new EventBinding<PlayNodeInGame>(PlayNodeInGame, gameObject));
     }
 
     private async void Start()
@@ -160,8 +160,7 @@ public class StoryController : MonoBehaviour
             {
                 primaryEnd = dialogueStoryNode.primaryNext,
                 secondaryEnd = dialogueStoryNode.secondaryNext,
-                startDialogue = startDialogueNode,
-                imageBackground = dialogueStoryNode.background
+                startDialogue = startDialogueNode
             });
         } else if (node is EndStoryPrimaryNode)
         {

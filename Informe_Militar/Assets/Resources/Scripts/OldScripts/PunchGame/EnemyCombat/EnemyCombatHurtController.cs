@@ -40,7 +40,7 @@ public class EnemyCombatHurtController : MonoBehaviour
 
         model.life--;
 
-        //model.animator.SetTrigger("idle");
+        //modelDeprecated.animator.SetTrigger("idle");
         model.atack = false;
         model.atacking = false;
         model.currentTimeAtack = 0;
@@ -95,14 +95,14 @@ public class EnemyCombatHurtController : MonoBehaviour
 
         await Task.Delay(100);
 
-        model.rb.velocity = Vector2.zero;
+        model.rb.linearVelocity = Vector2.zero;
     }
 
     private async void Dash()
     {
         model.dashing = true;
 
-        model.rb.velocity = Vector2.zero;
+        model.rb.linearVelocity = Vector2.zero;
 
         model.animator.SetTrigger("dash");
 
@@ -112,7 +112,7 @@ public class EnemyCombatHurtController : MonoBehaviour
 
         await Task.Delay(250);
 
-        model.rb.velocity = Vector2.zero;
+        model.rb.linearVelocity = Vector2.zero;
         model.dashing = false;
     }
 
@@ -123,7 +123,7 @@ public class EnemyCombatHurtController : MonoBehaviour
         model.animator.SetTrigger("knock");
         combo = 0;
 
-        model.rb.velocity = Vector2.zero;
+        model.rb.linearVelocity = Vector2.zero;
 
         model.rb.AddForce(
             new Vector2(transform.position.x < model.player.transform.position.x ? -1 : 1, 0) * knockBackForce, 
@@ -131,7 +131,7 @@ public class EnemyCombatHurtController : MonoBehaviour
 
         await Task.Delay(200);
 
-        model.rb.velocity = Vector2.zero;
+        model.rb.linearVelocity = Vector2.zero;
 
         await Task.Delay(1800);
 

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30974e57f5d78b74280ffa461c500739, type: 3}
+  m_Name: NPCPaulino
+  m_EditorClassIdentifier: 
+  typeSpeaker: 2
+  idSpeaker: paulino
+  expresions:
+    idle: {fileID: 21300000, guid: 1f5005fce1856ab478f425f0ac730778, type: 3}
+    angry: {fileID: 21300000, guid: 2dd41e39ab99133489c32575913fd8ef, type: 3}
+    sad: {fileID: 21300000, guid: dee3103932a5b9e499aa6355787ec813, type: 3}
+    happy: {fileID: 21300000, guid: 97a3959a6b1cc3643bf7e92d11dc19f8, type: 3}
+    thoughtful: {fileID: 21300000, guid: 46638a22683236047ac0fcfcc788d92a, type: 3}

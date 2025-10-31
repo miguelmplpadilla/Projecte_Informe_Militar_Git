@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 public class PausaController : MonoBehaviour
 {
-    private PlayerModel _model;
+    private PlayerModelDeprecated modelDeprecated;
 
     private bool showingPanel = false;
 
@@ -12,7 +12,6 @@ public class PausaController : MonoBehaviour
 
     public NavigationButtons pauseNavigationButtons;
     private NavigationController navigationController;
-    private InventarioController inventarioController;
 
     private void Awake()
     {
@@ -21,9 +20,8 @@ public class PausaController : MonoBehaviour
 
     private void Start()
     {
-        inventarioController = GameObject.Find("PanelInventario").GetComponent<InventarioController>();
         navigationController = GameObject.Find("NavigationManager").GetComponent<NavigationController>();
-        _model = GameObject.Find("Player").GetComponent<PlayerModel>();
+        modelDeprecated = GameObject.Find("Player").GetComponent<PlayerModelDeprecated>();
     }
 
     private void OnEnable()
@@ -43,13 +41,13 @@ public class PausaController : MonoBehaviour
 
     public void pauseUnPause()
     {
-        if (!_model.isPaused && !_model.mov || !_model.canPause || inventarioController.inventarioShowed) return;
+        if (!modelDeprecated.isPaused && !modelDeprecated.mov || !modelDeprecated.canPause) return;
 
         pause();
         
-        _model.pauseShowed = _model.isPaused;
+        modelDeprecated.pauseShowed = modelDeprecated.isPaused;
 
-        if (_model.isPaused)
+        if (modelDeprecated.isPaused)
         {
             showPanel("PanelPausa");
             return;
@@ -61,15 +59,15 @@ public class PausaController : MonoBehaviour
 
     public void pause()
     {
-        _model.isPaused = !_model.isPaused;
-        Time.timeScale = _model.isPaused ? 0 : 1;
+        modelDeprecated.isPaused = !modelDeprecated.isPaused;
+        Time.timeScale = modelDeprecated.isPaused ? 0 : 1;
         
-        navigationController.SetNavigationButtons(_model.isPaused ? pauseNavigationButtons : null);
+        navigationController.SetNavigationButtons(modelDeprecated.isPaused ? pauseNavigationButtons : null);
     }
 
     public void OpenInventory()
     {
-        inventarioController.OpenCloseInventory();
+        
     }
 
     public void closeGame()

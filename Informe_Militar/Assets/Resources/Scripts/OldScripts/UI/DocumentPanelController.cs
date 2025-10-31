@@ -48,8 +48,8 @@ public class DocumentPanelController : MonoBehaviour
         
         pausaController.pause();
         
-        PlayerModel model = GameObject.Find("Player").GetComponent<PlayerModel>();
-        model.mov = true;
-        model.canInter = true;
+        PlayerModelDeprecated modelDeprecated = GameObject.Find("Player").GetComponent<PlayerModelDeprecated>();
+        modelDeprecated.mov = true;
+        modelDeprecated.canInter = true;
     }
 }

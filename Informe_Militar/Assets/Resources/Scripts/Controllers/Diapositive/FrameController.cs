@@ -1,24 +1,25 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class FrameController : MonoBehaviour
+public class FrameController : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
     private Vector3 mPrevPos = Vector3.zero;
     private Vector3 mPosDelta = Vector3.zero;
 
     public float rotationSpeed = 2;
+
+    public GameObject frame;
     
     private bool canRotate;
 
     private void Start()
     {
-        EventBus<HideAllScenes>.Register(new EventBinding<HideAllScenes>(RestartVariables));
+        EventBus<RestartDiapositiveEvent>.Register(new EventBinding<RestartDiapositiveEvent>(RestartVariables, gameObject));
     }
 
     private void OnDestroy()
     {
-        EventBus<HideAllScenes>.Deregister(new EventBinding<HideAllScenes>(RestartVariables));
+        EventBus<RestartDiapositiveEvent>.Deregister(new EventBinding<RestartDiapositiveEvent>(RestartVariables, gameObject));
     }
 
     private void Update()
@@ -32,42 +33,34 @@ public class FrameController : MonoBehaviour
         mPosDelta = Vector3.zero;
     }
 
-    private void OnMouseDown()
+    private void RotateObject()
+    {
+        mPosDelta = Input.mousePosition - mPrevPos;
+        frame.transform.Rotate(
+            Vector3.up,
+            -Vector3.Dot(mPosDelta, Camera.main.transform.right) * rotationSpeed,
+            Space.World
+        );
+
+    }
+    
+    public void OnPointerDown(PointerEventData eventData)
     {
         if (ReadingTextController.instance.isReading) return;
         
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        
-        List<RaycastHit> hitsDrag = Physics.RaycastAll(ray).ToList();
-        foreach (var hit in hitsDrag)
-        {
-            if (hit.collider.name.Equals("PanelFrame"))
-            {
-                canRotate = true;
-                break;
-            } 
-        }
+        canRotate = true;
     }
-
-    private void OnMouseDrag()
+    
+    public void OnDrag(PointerEventData eventData)
     {
         if (canRotate && !ReadingTextController.instance.isReading)
             RotateObject();
     }
 
-    private void OnMouseUp()
+    public void OnPointerUp(PointerEventData eventData)
     {
         if (ReadingTextController.instance.isReading) return;
         
         canRotate = false;
-    }
-
-    private void RotateObject()
-    {
-        mPosDelta = Input.mousePosition - mPrevPos;
-        transform.Rotate(transform.up,
-            -Vector3.Dot(mPosDelta, Camera.main.transform.right) * rotationSpeed, Space.World);
-        transform.Rotate(Camera.main.transform.right,
-            Vector3.Dot(mPosDelta, Camera.main.transform.up) * rotationSpeed, Space.World);
     }
 }
