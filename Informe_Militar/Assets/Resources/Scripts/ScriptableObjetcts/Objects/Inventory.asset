@@ -33,3 +33,5 @@ MonoBehaviour:
       valueEnglish: You can trade it or eat it, whichever you prefer.
     cantItem: 2
     prefabItem: {fileID: 445921672281582419, guid: 40d930630a245c344b8239b5a27d7414, type: 3}
+  poster: []
+  newspapers: []

@@ -1,4 +1,6 @@
 using DG.Tweening;
+using Resources.Scripts.Inventory;
+using Resources.Scripts.Objects;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,24 +20,26 @@ public class DiapositiveController : BaseControllerStory
 
     public Canvas canvas;
     public CanvasGroup canvasGroup;
+
+    public DocumentsData documentsData;
     
     void Start()
     {
-        EventBus<StartDiapositive>.Register(new EventBinding<StartDiapositive>(StartDiapositive, gameObject));
+        EventBus<StartDiapositiveEvent>.Register(new EventBinding<StartDiapositiveEvent>(StartDiapositive, gameObject));
         //EventBus<HideAllScenes>.Register(new EventBinding<HideAllScenes>(HideScene, gameObject));
     }
 
     private void OnDestroy()
     {
-        EventBus<StartDiapositive>.Deregister(new EventBinding<StartDiapositive>(StartDiapositive, gameObject));
+        EventBus<StartDiapositiveEvent>.Deregister(new EventBinding<StartDiapositiveEvent>(StartDiapositive, gameObject));
         //EventBus<HideAllScenes>.Deregister(new EventBinding<HideAllScenes>(HideScene, gameObject));
     }
 
-    private void StartDiapositive(StartDiapositive diapositive)
+    private void StartDiapositive(StartDiapositiveEvent diapositive)
     {
-        EventBus<RestartPositionFrame>.Raise(new RestartPositionFrame());
+        DocumentData documentData = GetDocumentData(diapositive.keyDiapositive);
         
-        nextNode = diapositive.nextNode;
+        EventBus<RestartPositionFrame>.Raise(new RestartPositionFrame());
 
         descriptionFront.text = "";
         descriptionBack.text = "";
@@ -48,33 +52,33 @@ public class DiapositiveController : BaseControllerStory
         imageDiapositiveFront.enabled = true;
         imageDiapositiveBack.enabled = false;
         
-        if (diapositive.imageDiapositiveFront == null)
+        if (documentData.ValueFront == null)
         {
             imageDiapositiveFront.enabled = false;
             imageDiapositiveBack.enabled = false;
             
             descriptionFront.enabled = true;
-            descriptionFront.text = diapositive.descriptionFront;
-            descriptionBack.text = diapositive.descriptionBack;
+            descriptionFront.text = documentData.descriptionFront.Value;
+            descriptionBack.text = documentData.descriptionBack.Value;
             return;
         }
 
-        if (diapositive.imageDiapositiveBack != null)
+        if (documentData.ValueBack != null)
         {
             imageDiapositiveBack.enabled = true;
-            imageDiapositiveBack.sprite = diapositive.imageDiapositiveBack;
+            imageDiapositiveBack.sprite = documentData.ValueBack;
         }
         
         EventBus<SetReadingText>.Raise(new SetReadingText
         {
-            textFront = diapositive.textFront,
-            textBack = diapositive.textBack
+            textFront = documentData.textFront.Value,
+            textBack = documentData.textBack.Value
         });
         
         descriptionFront.enabled = false;
-        imageDiapositiveFront.sprite = diapositive.imageDiapositiveFront;
+        imageDiapositiveFront.sprite = documentData.ValueFront;
 
-        background.DOFade(diapositive.backgroundDiapositive == null ? 0.7f : 1, 0);
+        background.DOFade(0.6f, 0);
     }
 
     public void CloseDiapositive()
@@ -96,6 +100,11 @@ public class DiapositiveController : BaseControllerStory
         canvas.GetComponent<GraphicRaycaster>().enabled = false;
         canvasGroup.alpha = 0;
         parentDiapositive.transform.localScale = Vector3.zero;
+    }
+
+    private DocumentData GetDocumentData(string keyDocument)
+    {
+        return documentsData.documents.Find(it => it.keyDocument == keyDocument);
     }
 }
 

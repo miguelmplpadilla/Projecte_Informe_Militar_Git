@@ -1,32 +1,33 @@
-﻿using System;
-using Resources.Scripts.Inventory;
-using TMPro;
+﻿using Resources.Scripts.Inventory;
+using Resources.Scripts.Tools;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class ItemInventoryManager : MonoBehaviour, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
+public class ItemInventoryManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public ItemData data;
 
-    public TextMeshProUGUI text;
+    public LocalizableController text;
 
     public GameObject selector;
+    public Button selectItem;
 
     private void Start()
     {
         selector.transform.localScale = Vector3.zero;
         
         EventBus<HideSelectorEvent>.Register(new EventBinding<HideSelectorEvent>(HideSelector, gameObject));
+        
+        selectItem.onClick.AddListener(() =>
+        {
+            ViewObjectController.instance.ShowObject(data);
+        });
     }
 
     private void OnDestroy()
     {
         EventBus<HideSelectorEvent>.Deregister(new EventBinding<HideSelectorEvent>(HideSelector, gameObject));
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        Debug.Log("Item Clicked");
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -43,7 +44,7 @@ public class ItemInventoryManager : MonoBehaviour, IPointerUpHandler, IPointerEn
     {
         data = new ItemData(itemData);
 
-        text.text = itemData.nameItem.Value;
+        text.SetText(itemData.nameItem);
     }
     
     private void HideSelector(HideSelectorEvent e)

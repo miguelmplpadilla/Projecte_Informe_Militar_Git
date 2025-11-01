@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Resources.Scripts.Objects;
 using UnityEngine;
 
 namespace Resources.Scripts.Inventory
@@ -8,24 +8,7 @@ namespace Resources.Scripts.Inventory
     public class InventoryData : ScriptableObject
     {
         public List<ItemData> items = new List<ItemData>();
-    }
-
-    [Serializable]
-    public class ItemData
-    {
-        public string keyItem;
-        public LocalizableString nameItem;
-        public LocalizableString descriptionItem;
-        public int cantItem;
-        public GameObject prefabItem;
-        
-        public ItemData(ItemData itemData)
-        {
-            keyItem = itemData.keyItem;
-            nameItem = itemData.nameItem;
-            descriptionItem = itemData.descriptionItem;
-            cantItem = itemData.cantItem;
-            prefabItem = itemData.prefabItem;
-        }
+        public List<DocumentData> poster = new List<DocumentData>();
+        public List<DocumentData> newspapers = new List<DocumentData>();
     }
 }

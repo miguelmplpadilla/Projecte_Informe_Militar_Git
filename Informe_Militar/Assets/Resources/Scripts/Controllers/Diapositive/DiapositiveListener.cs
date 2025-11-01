@@ -16,6 +16,11 @@ public class StartDiapositive : IEvent
     public StoryBaseNode nextNode;
 }
 
+public class StartDiapositiveEvent : IEvent
+{
+    public string keyDiapositive;
+}
+
 public class RestartPositionFrame : IEvent { }
 
 public class SetReadingText : IEvent

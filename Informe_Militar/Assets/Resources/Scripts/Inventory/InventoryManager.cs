@@ -1,5 +1,8 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using Resources.Scripts.Inventory;
+using Resources.Scripts.Tools;
 using TMPro;
 using UnityEngine;
 
@@ -19,7 +22,9 @@ public class InventoryManager : MonoBehaviour
     private GameObject current3DObj;
     private GameObject lastItemAbove;
 
-    public TextMeshProUGUI textDescription;
+    public LocalizableController textDescription;
+
+    public List<ItemInventoryManager> itemsInventory = new List<ItemInventoryManager>();
     
     private void Awake()
     {
@@ -28,7 +33,7 @@ public class InventoryManager : MonoBehaviour
 
     private void Start()
     {
-        CreateItemsStart();
+        StartCoroutine(CreateItemsStart());
     }
 
     private void Update()
@@ -36,17 +41,23 @@ public class InventoryManager : MonoBehaviour
         //backpack.SetActive(current3DObj == null);
     }
 
-    private void CreateItemsStart()
+    private IEnumerator CreateItemsStart()
     {
         foreach (var itemData in inventoryData.items)
-            CreateItem(itemData);
+            itemsInventory.Add(CreateItem(itemData));
+
+        yield return null;
+        
+        SetObj3D(itemsInventory[0]);
     }
 
-    private void CreateItem(ItemData itemData)
+    private ItemInventoryManager CreateItem(ItemData itemData)
     {
         GameObject itemObj = Instantiate(itemPrefab, continer.transform);
         ItemInventoryManager itemManager = itemObj.GetComponent<ItemInventoryManager>();
         itemManager.SetData(itemData);
+
+        return itemManager;
     }
 
     public void SetObj3D(ItemInventoryManager itemManager)
@@ -71,11 +82,30 @@ public class InventoryManager : MonoBehaviour
         }
         
         lastItemAbove = itemManager.gameObject;
-
-        textDescription.text = itemManager.data.descriptionItem.Value;
+        
+        textDescription.SetText(itemManager.data.descriptionItem);
         
         itemManager.selector.transform.localScale = Vector3.one;
         GameObject obj3D = Instantiate(itemManager.data.prefabItem, continer3DObj.transform);
         current3DObj = obj3D;
+    }
+
+    public void AddObjectToInventory(ItemData itemData)
+    {
+        foreach (var itemInventory in itemsInventory)
+        {
+            if (itemData.keyItem.Equals(itemInventory.data.keyItem))
+            {
+                itemInventory.data.cantItem += itemData.cantItem;
+                return;
+            }
+        }
+        
+        itemsInventory.Add(CreateItem(itemData));
+    }
+
+    public void UnlockPoster(DiapositiveNode.DataDiapositive dataPoster)
+    {
+        
     }
 }

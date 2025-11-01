@@ -289,6 +289,7 @@ GameObject:
   - component: {fileID: 8141808927098142899}
   - component: {fileID: 5770421521012248826}
   - component: {fileID: 8680051961563374944}
+  - component: {fileID: 3268680362166973236}
   m_Layer: 5
   m_Name: TextItem
   m_TagString: Untagged
@@ -414,6 +415,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3268680362166973236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6233212575037428173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 846509d436cf4df7a8e0b20ac806303f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Resources.Scripts.Tools.LocalizableController
 --- !u!1 &6752318017226421690
 GameObject:
   m_ObjectHideFlags: 0
@@ -604,8 +617,9 @@ MonoBehaviour:
       valueEnglish: 
     cantItem: 0
     prefabItem: {fileID: 0}
-  text: {fileID: 8680051961563374944}
+  text: {fileID: 3268680362166973236}
   selector: {fileID: 3831488441425933008}
+  selectItem: {fileID: 8014053013668866204}
 --- !u!1 &8842855138646962128
 GameObject:
   m_ObjectHideFlags: 0
