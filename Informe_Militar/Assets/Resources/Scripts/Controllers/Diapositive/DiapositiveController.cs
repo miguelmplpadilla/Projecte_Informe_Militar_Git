@@ -20,8 +20,6 @@ public class DiapositiveController : BaseControllerStory
 
     public Canvas canvas;
     public CanvasGroup canvasGroup;
-
-    public DocumentsData documentsData;
     
     void Start()
     {
@@ -37,7 +35,8 @@ public class DiapositiveController : BaseControllerStory
 
     private void StartDiapositive(StartDiapositiveEvent diapositive)
     {
-        DocumentData documentData = GetDocumentData(diapositive.keyDiapositive);
+        DocumentData documentData = InventoryManager.instance.GetDocumentData(diapositive.keyDiapositive);
+        documentData.isUnlocked = true;
         
         EventBus<RestartPositionFrame>.Raise(new RestartPositionFrame());
 
@@ -87,7 +86,7 @@ public class DiapositiveController : BaseControllerStory
         
         canvasGroup.blocksRaycasts = false;
         canvasGroup.alpha = 0;
-        parentDiapositive.transform.localScale = Vector3.zero;
+        parentDiapositive.transform.DORotate(Vector3.zero, 0).SetUpdate(true);
         Time.timeScale = 1;
     }
 
@@ -99,12 +98,7 @@ public class DiapositiveController : BaseControllerStory
         EventBus<RestartPositionFrame>.Raise(new RestartPositionFrame());
         canvas.GetComponent<GraphicRaycaster>().enabled = false;
         canvasGroup.alpha = 0;
-        parentDiapositive.transform.localScale = Vector3.zero;
-    }
-
-    private DocumentData GetDocumentData(string keyDocument)
-    {
-        return documentsData.documents.Find(it => it.keyDocument == keyDocument);
+        parentDiapositive.transform.DORotate(Vector3.zero, 0).SetUpdate(true);
     }
 }
 

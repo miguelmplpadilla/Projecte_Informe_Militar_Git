@@ -1,4 +1,5 @@
 using System.Linq;
+using Cinemachine.Utility;
 using DG.Tweening;
 using Resources.Scripts.Controllers.Player;
 using Unity.Collections;
@@ -42,8 +43,13 @@ public class PlayerInterController : MonoBehaviour
             EventBus<EnterInteractEvent>.Raise(new EnterInteractEvent { obj = currentInter.gameObject });
             if (Input.GetKeyDown(KeyCode.F))
             {
-                PlayerMovement3D.instance.animator.transform.DORotateQuaternion(
-                    Quaternion.LookRotation((currentInter.transform.position - transform.position).normalized), 0.2f);
+                Quaternion targetRotation =
+                    Quaternion.LookRotation((currentInter.lookAtTarget.transform.position - transform.position)
+                        .normalized);
+                targetRotation.x = 0;
+                targetRotation.z = 0;
+                
+                PlayerMovement3D.instance.animator.transform.DORotateQuaternion(targetRotation, 0.2f);
                 
                 if (currentInter.typeInteract == InteractBaseController.TypeInteract.PickUpObject)
                     PickUpItem();
@@ -58,7 +64,7 @@ public class PlayerInterController : MonoBehaviour
     private void PickUpItem()
     {
         PlayerModel.instance.canMove = false;
-        string finalTrigger = (currentInter as ObjPickUp).typePickUp == ObjPickUp.TypePickUp.GROUND
+        string finalTrigger = currentInter.typePositionInter == ObjPickUp.TypePositionInter.GROUND
             ? "pickItem"
             : "pickItemUp";
         PlayerMovement3D.instance.animator.SetTrigger(finalTrigger);

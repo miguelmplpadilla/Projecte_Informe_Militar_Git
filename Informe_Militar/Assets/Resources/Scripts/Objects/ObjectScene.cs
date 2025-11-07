@@ -1,14 +1,14 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class ObjPickUp : InteractBaseController
+public class ObjectScene : ObjPickUp
 {
-    public string key;
-    
+    public int cantItem = 1;
+
     protected override IEnumerator Inter()
     {
         yield return new WaitForSeconds(1);
+        InventoryManager.instance.AddObjectToInventory(key, cantItem);
         Destroy(gameObject);
     }
 }

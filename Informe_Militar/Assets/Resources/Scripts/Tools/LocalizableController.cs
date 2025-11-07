@@ -7,7 +7,7 @@ namespace Resources.Scripts.Tools
     [RequireComponent(typeof(TextMeshProUGUI))]
     public class LocalizableController : MonoBehaviour
     {
-        private TextMeshProUGUI text;
+        [NonSerialized] public TextMeshProUGUI text;
         private LocalizableString localizableString;
 
         private void Awake()

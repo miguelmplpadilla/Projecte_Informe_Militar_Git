@@ -19,7 +19,8 @@ public class WallTransparent : MonoBehaviour
 
     private void CheckWalls()
     {
-        RaycastHit[] allHits = Physics.RaycastAll(transform.position, centerPlayer.transform.position - transform.position);
+        RaycastHit[] allHits = Physics.RaycastAll(transform.position, centerPlayer.transform.position - transform.position, Mathf.Infinity);
+        Debug.DrawLine(transform.position, centerPlayer.transform.position, Color.red);
         
         foreach (var hit in allHits)
         {

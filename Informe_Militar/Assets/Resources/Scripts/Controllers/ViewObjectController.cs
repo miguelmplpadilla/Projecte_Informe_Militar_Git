@@ -1,5 +1,4 @@
 using DG.Tweening;
-using Resources.Scripts.Inventory;
 using UnityEngine;
 
 public class ViewObjectController : MonoBehaviour
@@ -10,21 +9,25 @@ public class ViewObjectController : MonoBehaviour
 
     public GameObject frameObject;
 
+    public Camera cameraFaceObject;
+
     private void Awake()
     {
         instance = this;
     }
 
-    public void ShowObject(ItemData itemData)
+    public void ShowObject()
     {
         canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
+        cameraFaceObject.enabled = false;
     }
 
     public void HideObject()
     {
         canvasGroup.alpha = 0;
         canvasGroup.blocksRaycasts = false;
+        cameraFaceObject.enabled = true;
         RestartRotationItem();
     }
 

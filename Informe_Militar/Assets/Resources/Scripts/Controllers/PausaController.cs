@@ -1,12 +1,14 @@
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class PausaController : MonoBehaviour
 {
-    private PlayerModelDeprecated modelDeprecated;
-
+    public static PausaController instance;
+    
     private bool showingPanel = false;
+
+    public bool isPaused = false;
+    public bool isPauseShowed = false;
 
     private UIInput uiInput;
 
@@ -15,13 +17,13 @@ public class PausaController : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
         uiInput = new UIInput();
     }
 
     private void Start()
     {
-        navigationController = GameObject.Find("NavigationManager").GetComponent<NavigationController>();
-        modelDeprecated = GameObject.Find("Player").GetComponent<PlayerModelDeprecated>();
+        //navigationController = GameObject.Find("NavigationManager").GetComponent<NavigationController>();
     }
 
     private void OnEnable()
@@ -36,18 +38,18 @@ public class PausaController : MonoBehaviour
 
     private void Update()
     {
-        if (!showingPanel && uiInput.UISelf.Pause.WasPressedThisFrame()) pauseUnPause();
+        if (!showingPanel && uiInput.UISelf.Pause.WasPressedThisFrame()) PauseUnPause();
     }
 
-    public void pauseUnPause()
+    public void PauseUnPause()
     {
-        if (!modelDeprecated.isPaused && !modelDeprecated.mov || !modelDeprecated.canPause) return;
+        if (isPaused && !isPauseShowed) return;
 
-        pause();
+        Pause();
         
-        modelDeprecated.pauseShowed = modelDeprecated.isPaused;
+        isPauseShowed = isPaused;
 
-        if (modelDeprecated.isPaused)
+        if (isPaused)
         {
             showPanel("PanelPausa");
             return;
@@ -57,17 +59,12 @@ public class PausaController : MonoBehaviour
         closePanel("PanelOpciones");
     }
 
-    public void pause()
+    public void Pause()
     {
-        modelDeprecated.isPaused = !modelDeprecated.isPaused;
-        Time.timeScale = modelDeprecated.isPaused ? 0 : 1;
+        isPaused = !isPaused;
+        Time.timeScale = isPaused ? 0 : 1;
         
-        navigationController.SetNavigationButtons(modelDeprecated.isPaused ? pauseNavigationButtons : null);
-    }
-
-    public void OpenInventory()
-    {
-        
+        //navigationController.SetNavigationButtons(isPaused ? pauseNavigationButtons : null);
     }
 
     public void closeGame()

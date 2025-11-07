@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c72326afa446f4842a9617eb93a87a0e, type: 3}
+  m_Name: AllItemsData
+  m_EditorClassIdentifier: Assembly-CSharp::AllItemsData
+  allItems:
+  - keyItem: tabaco
+    nameItem:
+      valueSpanish: Tabaco
+      valueEnglish: Tabaco
+    descriptionItem:
+      valueSpanish: Se puede utilizar para fumarlo y reducir el estres o como moneda
+        de cambio.
+      valueEnglish: It can be used to smoke and reduce stress or as currency.
+    cantItem: 0
+    prefabItem: {fileID: 7368659269358010984, guid: 41f5845e04714f14282b104ad9e6840d, type: 3}
+  - keyItem: bread
+    nameItem:
+      valueSpanish: Pan
+      valueEnglish: Bread
+    descriptionItem:
+      valueSpanish: Puedes comerlo para reducir el estres.
+      valueEnglish: You can eat it to reduce stress.
+    cantItem: 0
+    prefabItem: {fileID: 445921672281582419, guid: 40d930630a245c344b8239b5a27d7414, type: 3}
+  - keyItem: picklock
+    nameItem:
+      valueSpanish: "Ganz\xFAa"
+      valueEnglish: Picklock
+    descriptionItem:
+      valueSpanish: Usalo para forzar cerraduras.
+      valueEnglish: Use it to pick locks.
+    cantItem: 0
+    prefabItem: {fileID: 7368659269358010984, guid: 7b9316895e203204bab7713f2956199a, type: 3}

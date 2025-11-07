@@ -8,8 +8,6 @@ namespace Resources.Scripts.Objects
     [Serializable]
     public class DocumentData : ItemData
     {
-        public string keyDocument;
-        
         [SerializeField] private Sprite frontES;
         [SerializeField] private Sprite frontEN;
         public LocalizableString textFront;
@@ -26,17 +24,28 @@ namespace Resources.Scripts.Objects
         {
             get
             {
+                if (!isUnlocked) return null;
+                
                 var locale = LocalizationSettings.SelectedLocale;
+
+                Sprite spriteFinal = null;
 
                 switch (locale.Identifier.Code)
                 {
                     case "es-ES":
-                        return frontES;
+                        spriteFinal = frontES;
+                        break;
                     case "en-US":
-                        return frontEN;
+                        spriteFinal = frontEN;
+                        break;
                     default:
-                        return frontEN;
+                        spriteFinal = frontEN;
+                        break;
                 }
+
+                if (spriteFinal == null) spriteFinal = frontEN;
+                
+                return spriteFinal;
             }
         }
         
@@ -46,21 +55,29 @@ namespace Resources.Scripts.Objects
             {
                 var locale = LocalizationSettings.SelectedLocale;
 
+                Sprite spriteFinal = null;
+
                 switch (locale.Identifier.Code)
                 {
                     case "es-ES":
-                        return backES;
+                        spriteFinal = backES;
+                        break;
                     case "en-US":
-                        return backEN;
+                        spriteFinal = backEN;
+                        break;
                     default:
-                        return backEN;
+                        spriteFinal = backEN;
+                        break;
                 }
+
+                if (spriteFinal == null) spriteFinal = backEN;
+                
+                return spriteFinal;
             }
         }
 
         public DocumentData(ItemData itemData, DocumentData documentData) : base(itemData)
         {
-            keyDocument = documentData.keyDocument;
             frontES = documentData.frontES;
             frontEN = documentData.frontEN;
             textFront = documentData.textFront;

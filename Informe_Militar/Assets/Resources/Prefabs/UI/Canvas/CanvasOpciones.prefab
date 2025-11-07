@@ -1046,7 +1046,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6962693171112178073}
         m_TargetAssemblyTypeName: PausaController, Assembly-CSharp
-        m_MethodName: pauseUnPause
+        m_MethodName: PauseUnPause
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

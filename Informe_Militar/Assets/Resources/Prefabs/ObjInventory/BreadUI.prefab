@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7507140995538507475}
   m_Layer: 12
-  m_Name: Bread
+  m_Name: BreadUI
   m_TagString: Untagged
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -59,7 +59,7 @@ Transform:
   m_GameObject: {fileID: 8805857917791468152}
   serializedVersion: 2
   m_LocalRotation: {x: -0.17820852, y: 0.2762605, z: -0.05220942, w: 0.94297194}
-  m_LocalPosition: {x: 0, y: -0.87, z: 0.10510223}
+  m_LocalPosition: {x: 0, y: -0.87, z: 0.2}
   m_LocalScale: {x: 776.61, y: 776.61, z: 776.61}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -93,6 +93,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -114,6 +116,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0

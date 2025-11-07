@@ -8,6 +8,16 @@ public abstract class InteractBaseController : MonoBehaviour
     public GameObject indicator;
     public Vector3 originalScaleIndicator;
     
+    public TypePositionInter typePositionInter;
+
+    public GameObject positionToMove;
+    public GameObject lookAtTarget;
+    
+    public enum TypePositionInter
+    {
+        UP, GROUND
+    }
+    
     public enum TypeInteract
     {
         Dialogue,

@@ -88,7 +88,7 @@ public class CamaraFotosController : MonoBehaviour
 
         if (!takingPhoto)
         {
-            pausaController.pause();
+            pausaController.Pause();
             
             GameObject imageDocument = GameObject.Find("ImageFoto");
 

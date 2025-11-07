@@ -71,7 +71,7 @@ public class DiaryController : MonoBehaviour
 
     public async void ShowHideDiary()
     {
-        pausaController.pause();
+        pausaController.Pause();
         
         if (!diaryShowed)
             SetPages();

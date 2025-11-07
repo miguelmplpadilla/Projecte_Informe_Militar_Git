@@ -46,7 +46,7 @@ public class DocumentPanelController : MonoBehaviour
         
         if (GameObject.Find("PanelInventario").transform.localScale.x > 0) return;
         
-        pausaController.pause();
+        pausaController.Pause();
         
         PlayerModelDeprecated modelDeprecated = GameObject.Find("Player").GetComponent<PlayerModelDeprecated>();
         modelDeprecated.mov = true;

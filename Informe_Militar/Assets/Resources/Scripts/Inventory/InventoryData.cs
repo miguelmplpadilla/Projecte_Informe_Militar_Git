@@ -1,14 +1,20 @@
-﻿using System.Collections.Generic;
-using Resources.Scripts.Objects;
-using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Resources.Scripts.Inventory
 {
-    [CreateAssetMenu(fileName = "Inventory", menuName = "ScriptableObjects/Inventory")]
-    public class InventoryData : ScriptableObject
+    [Serializable]
+    public class InventoryData
     {
-        public List<ItemData> items = new List<ItemData>();
-        public List<DocumentData> poster = new List<DocumentData>();
-        public List<DocumentData> newspapers = new List<DocumentData>();
+        public List<DataItem> items = new List<DataItem>();
+        public List<string> poster = new List<string>();
+        public List<string> newspapers = new List<string>();
+    }
+
+    [Serializable]
+    public class DataItem
+    {
+        public int cant = 0;
+        public string key;
     }
 }

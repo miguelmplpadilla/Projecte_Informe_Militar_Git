@@ -8,5 +8,6 @@ namespace Resources.Scripts.Inventory
     public class DocumentsData : ScriptableObject
     {
         public List<DocumentData> documents = new List<DocumentData>();
+        public List<DocumentData> posters = new List<DocumentData>();
     }
 }

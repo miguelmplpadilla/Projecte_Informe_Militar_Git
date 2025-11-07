@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9071024948fd4ff0a9e67dbc7ec74e01, type: 3}
   m_Name: DocumentsData
   m_EditorClassIdentifier: Assembly-CSharp::Resources.Scripts.Inventory.DocumentsData
-  documents:
+  documents: []
+  posters:
   - keyItem: photoWithPaulino
     nameItem:
       valueSpanish: Foto con Paulino
@@ -22,8 +23,7 @@ MonoBehaviour:
       valueEnglish: 
     cantItem: 1
     prefabItem: {fileID: 0}
-    keyDocument: 
-    frontES: {fileID: 21300000, guid: 1f110edf47c5e8548a869d8ebb92cbeb, type: 3}
+    frontES: {fileID: 0}
     frontEN: {fileID: 21300000, guid: 1f110edf47c5e8548a869d8ebb92cbeb, type: 3}
     textFront:
       valueSpanish: 
@@ -34,12 +34,26 @@ MonoBehaviour:
     backES: {fileID: 0}
     backEN: {fileID: 21300000, guid: 0cb804bfb8fc4934686ff442909bcf03, type: 3}
     textBack:
-      valueSpanish: '1937
+      valueSpanish: 'Salamanca
 
-        Salamanca'
-      valueEnglish: '1937
+        1939
 
-        Salamanca'
+        -
+
+        Juan Manzanares
+
+        Paulino
+        Molinete'
+      valueEnglish: 'Salamanca
+
+        1939
+
+        -
+
+        Juan Manzanares
+
+        Paulino
+        Molinete'
     descriptionBack:
       valueSpanish: 
       valueEnglish: 

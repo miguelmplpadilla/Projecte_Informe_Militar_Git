@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 677021530920172088}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: -2.78, z: 0.27}
-  m_LocalScale: {x: 334.9, y: 334.9, z: 334.9}
+  m_LocalPosition: {x: 0, y: -2.35, z: 0.22}
+  m_LocalScale: {x: 289.18674, y: 289.18674, z: 289.18674}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 488481452417140356}
@@ -61,6 +61,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -82,6 +84,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -96,7 +99,7 @@ GameObject:
   m_Component:
   - component: {fileID: 488481452417140356}
   m_Layer: 12
-  m_Name: Tabaco
+  m_Name: TabacoUI
   m_TagString: Untagged
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
