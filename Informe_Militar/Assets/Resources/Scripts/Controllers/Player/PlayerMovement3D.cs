@@ -14,7 +14,7 @@ public class PlayerMovement3D : MonoBehaviour
     private CharacterController controller;
     private Vector3 velocity;
     private bool isGrounded;
-    private bool isCrouched = false;
+    [NonSerialized] public bool isCrouched = false;
 
     public Transform groundCheck;
     public float groundDistance = 0.4f;

@@ -1,5 +1,4 @@
 using System.Linq;
-using Cinemachine.Utility;
 using DG.Tweening;
 using Resources.Scripts.Controllers.Player;
 using Unity.Collections;
@@ -7,7 +6,7 @@ using UnityEngine;
 
 public class PlayerInterController : MonoBehaviour
 {
-    public SphereCollider sphereCollider;
+    public BoxCollider boxCollider;
 
     public InteractBaseController currentInter;
 
@@ -15,7 +14,7 @@ public class PlayerInterController : MonoBehaviour
 
     private void Update()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, sphereCollider.radius);
+        Collider[] colliders = Physics.OverlapBox(transform.position, boxCollider.size / 2, transform.rotation);
 
         if (colliders.ToList().FindAll(it => it.GetComponent<InteractBaseController>() != null).Count == 0 && currentInter != null)
         {
@@ -28,6 +27,8 @@ public class PlayerInterController : MonoBehaviour
         {
             if (collider.TryGetComponent(out InteractBaseController interactBaseController))
             {
+                if (!interactBaseController.canInteract) continue;
+                
                 EventBus<ExticInteractEvent>.Raise(new ExticInteractEvent { obj = collider.gameObject });
                 
                 float currentDistance = Vector3.Distance(transform.position, collider.transform.position);
@@ -48,6 +49,8 @@ public class PlayerInterController : MonoBehaviour
                         .normalized);
                 targetRotation.x = 0;
                 targetRotation.z = 0;
+
+                PlayerModel.instance.canMove = false;
                 
                 PlayerMovement3D.instance.animator.transform.DORotateQuaternion(targetRotation, 0.2f);
                 

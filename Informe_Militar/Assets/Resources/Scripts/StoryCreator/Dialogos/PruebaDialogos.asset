@@ -75,7 +75,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   dialogue: {fileID: 0}
-  followingDialogue: {fileID: -5100292931386401607}
+  followingDialogue: {fileID: -4277665769587477632}
   speakerData:
     currentSpeaker: 1
     emotion: 2
@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: Secondary Final Dialogue
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 536, y: 200}
+  position: {x: 552, y: 216}
   ports:
     keys:
     - dialogue
@@ -213,7 +213,7 @@ MonoBehaviour:
     currentSpeaker: 1
     emotion: 4
   text:
-    valueSpanish: Ahora vento y los preparamos
+    valueSpanish: Ahora vengo y los preparamos
     valueEnglish: 
 --- !u!114 &11400000
 MonoBehaviour:

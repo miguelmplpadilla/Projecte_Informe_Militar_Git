@@ -5,33 +5,40 @@ using UnityEngine;
 public class DoorController : InteractBaseController
 {
     public bool isLocked = false;
-    public bool isOpened = false;
+    
+    [Range(1, 4)] public int cantPicks = 1;
+    
+    public LocalizableString doorLockedMessage;
 
     protected override IEnumerator Inter()
     {
-        if (isOpened) yield break;
         if (isLocked)
         {
             if (InventoryManager.instance.HasItem("picklock"))
             {
-                //TODO: Iniciar minijuego de ganzua
-                Debug.Log("Minijuego ganzua");
+                PicklockController.instance.StartMiniGame(this);
+                PlayerMovement3D.instance.animator.SetTrigger("picklock");
             }
             else
             {
-                //TODO: Hacer aviso general para mostar mensajes
+                GameNotificationController.instance.ShowNotification(doorLockedMessage);
+                PlayerMovement3D.instance.animator.SetTrigger("openDoor");
                 Debug.Log("El jugador no tiene ninguna ganzua");
             }
             
             yield break;
         }
         
+        PlayerMovement3D.instance.animator.SetTrigger("openDoor");
+
+        yield return new WaitForSeconds(1);
+        
         AnimationOpenDoor();
     }
 
     public void AnimationOpenDoor()
     {
-        isOpened = true;
+        canInteract = false;
         transform.DORotate(new Vector3(0, -90, 0), 0.8f);
     }
 }

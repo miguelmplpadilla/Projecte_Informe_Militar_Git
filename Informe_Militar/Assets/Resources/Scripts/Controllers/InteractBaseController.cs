@@ -12,6 +12,8 @@ public abstract class InteractBaseController : MonoBehaviour
 
     public GameObject positionToMove;
     public GameObject lookAtTarget;
+
+    public bool canInteract = true;
     
     public enum TypePositionInter
     {
@@ -20,13 +22,14 @@ public abstract class InteractBaseController : MonoBehaviour
     
     public enum TypeInteract
     {
+        None,
         Dialogue,
         PickUpObject,
         Inspect,
         GameEvent
     }
     
-    private void Start()
+    protected virtual void Start()
     {
         originalScaleIndicator = indicator.transform.localScale;
         indicator.transform.localScale = Vector3.zero;
